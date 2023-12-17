@@ -1,41 +1,39 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "combat-plus",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Combat+ Core",
+	"description": "Core library mod for the Combat+ series.",
 	"authors": [
-		"Me!"
+		"Provismet"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "MIT",
+	"icon": "assets/combat-plus/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
-		],
-		"client": [
-			"com.example.ExampleModClient"
+			"com.provismet.CombatPlusCore.CPCMain"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
 	],
 	"depends": {
-		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.20.4",
+		"fabricloader": ">=0.14.0",
+		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
-	}
+		"extra-damage-enchantments": "*",
+		"dual-swords": "*"
+	},
+	"custom": {
+        "modmenu": {
+            "badges": ["library"]
+        }
+    }
 }
