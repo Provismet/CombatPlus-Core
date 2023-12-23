@@ -14,21 +14,38 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 
 public class CPCEnchantmentHelper {
-    public static float getAttackDamage (LivingEntity user, LivingEntity target) {
+    public static float getAttackDamage (EquipmentSlot defaultSlot, LivingEntity user, LivingEntity target) {
         MutableFloat totalDamage = new MutableFloat();
 
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack itemStack = user.getEquippedStack(slot);
+        totalDamage.add(EnchantmentHelper.getAttackDamage(user.getEquippedStack(defaultSlot), target.getGroup()));
 
-            CPCEnchantmentHelper.forEach((enchantment, level) -> {
-                if (enchantment instanceof CPCEnchantment cpcEnchant && cpcEnchant.shouldApplyDamage(level, slot, user, target)) totalDamage.add(cpcEnchant.getAttackDamage(level, user, target));
-                else totalDamage.add(enchantment.getAttackDamage(level, target.getGroup()));
-            }, itemStack);
-        }
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) totalDamage.add(cpcEnchant.getAttackDamage(level, user, target));
+        }, user);
+
         return totalDamage.floatValue();
     }
 
-    public static void forEach (Consumer consumer, ItemStack itemStack) {
+    public static void postChargedHit (LivingEntity user, LivingEntity target) {
+
+    }
+
+    public static void postCriticalHit (LivingEntity user, LivingEntity target) {
+
+    }
+
+    public static void postKill (LivingEntity user) {
+
+    }
+
+    public static void forEachEnchantment (Consumer consumer, LivingEntity user) {
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack itemStack = user.getEquippedStack(slot);
+            CPCEnchantmentHelper.forEachEnchantment(consumer, itemStack);
+        }
+    }
+
+    public static void forEachEnchantment (Consumer consumer, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
 
         NbtList nbtList = itemStack.getEnchantments();
