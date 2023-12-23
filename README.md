@@ -1,9 +1,3 @@
-# Fabric Example Mod
+# Combat+ Core
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This is the core API and library mod for the Combat+ mod series, allowing inter-mod compatibility without requiring each mod to even know of the others' existence.
