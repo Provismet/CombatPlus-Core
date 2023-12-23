@@ -1,6 +1,8 @@
 package com.provismet.CombatPlusCore.enchantments;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
+import com.provismet.CombatPlusCore.interfaces.DualWeapon;
+import com.provismet.CombatPlusCore.utility.CombatTags;
 
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
@@ -13,8 +15,8 @@ import net.minecraft.item.ItemStack;
 
 public abstract class OffHandEnchantment extends Enchantment implements CPCEnchantment {
 
-    protected OffHandEnchantment (Rarity weight, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
-        super(weight, target, new EquipmentSlot[] {EquipmentSlot.OFFHAND});
+    protected OffHandEnchantment (Rarity weight, EquipmentSlot[] slotTypes) {
+        super(weight, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.OFFHAND});
     }
     
     @Override
@@ -28,6 +30,6 @@ public abstract class OffHandEnchantment extends Enchantment implements CPCEncha
 
     @Override
     public boolean isAcceptableItem (ItemStack itemStack) {
-        return ExtraEnchantmentTarget.DualWeapons.accepts(itemStack.getItem());
+        return itemStack.getItem() instanceof DualWeapon || itemStack.isIn(CombatTags.DUAL_WEAPON);
     }
 }
