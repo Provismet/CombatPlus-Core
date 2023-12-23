@@ -7,7 +7,7 @@ public interface CPCEnchantment {
         return 0f;
     }
 
-    public default void postChargeHit (int level, LivingEntity user, LivingEntity target) {
+    public default void postChargedHit (int level, LivingEntity user, LivingEntity target) {
 
     }
 

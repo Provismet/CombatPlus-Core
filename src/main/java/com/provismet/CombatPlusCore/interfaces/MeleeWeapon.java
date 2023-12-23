@@ -5,7 +5,7 @@ import net.minecraft.entity.LivingEntity;
 public interface MeleeWeapon {
     public float getWeaponDamage ();
 
-    public default void postChargeHit (LivingEntity user, LivingEntity target) {
+    public default void postChargedHit (LivingEntity user, LivingEntity target) {
 
     }
 
