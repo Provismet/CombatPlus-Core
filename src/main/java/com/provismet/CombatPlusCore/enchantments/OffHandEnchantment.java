@@ -13,6 +13,9 @@ import net.minecraft.enchantment.SweepingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Enchantments that are applied to offhanded dual weapons.
+ */
 public abstract class OffHandEnchantment extends Enchantment implements CPCEnchantment {
 
     protected OffHandEnchantment (Rarity weight, EquipmentSlot[] slotTypes) {
@@ -25,7 +28,10 @@ public abstract class OffHandEnchantment extends Enchantment implements CPCEncha
             !(other instanceof DamageEnchantment) &&
             !(other instanceof FireAspectEnchantment) &&
             !(other instanceof SweepingEnchantment) &&
-            !(other instanceof LuckEnchantment);
+            !(other instanceof LuckEnchantment) &&
+            !(other instanceof AdditionalDamageEnchantment) &&
+            !(other instanceof AspectEnchantment) &&
+            !(other instanceof OffHandEnchantment);
     }
 
     @Override
