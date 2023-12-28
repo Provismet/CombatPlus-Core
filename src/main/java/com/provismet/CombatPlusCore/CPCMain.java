@@ -3,7 +3,12 @@ package com.provismet.CombatPlusCore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
+import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
+
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class CPCMain implements ModInitializer {
@@ -16,7 +21,11 @@ public class CPCMain implements ModInitializer {
 
     @Override
     public void onInitialize () {
-        
+        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
+            if (entity instanceof LivingEntity user) {
+                ((IMixinItemStack)(Object)user.getMainHandStack()).CPC_postKill(user, target);
+                CPCEnchantmentHelper.postKill(user, target);
+            }
+        });
     }
-    
 }

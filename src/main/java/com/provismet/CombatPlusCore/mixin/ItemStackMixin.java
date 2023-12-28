@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
-import com.provismet.CombatPlusCore.mixin.interfaces.IMixinItemStack;
+import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -26,7 +26,7 @@ public abstract class ItemStackMixin implements IMixinItemStack {
     }
 
     @Override
-    public void CPC_postKill (LivingEntity user) {
-        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postKill(user);
+    public void CPC_postKill (LivingEntity user, LivingEntity target) {
+        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postKill(user, target);
     }
 }
