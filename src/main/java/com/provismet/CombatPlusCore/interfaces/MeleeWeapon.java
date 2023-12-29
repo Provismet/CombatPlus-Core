@@ -3,6 +3,7 @@ package com.provismet.CombatPlusCore.interfaces;
 import com.provismet.CombatPlusCore.enchantments.WeaponUtilityEnchantment;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 
 /**
  * Interface for items intended as melee weapons. All weapons must implement a damage value.
@@ -25,7 +26,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void postChargedHit (LivingEntity user, LivingEntity target) {
+    public default void postChargedHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
 
     }
 
@@ -37,7 +38,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void postCriticalHit (LivingEntity user, LivingEntity target) {
+    public default void postCriticalHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
 
     }
 
@@ -47,7 +48,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void postKill (LivingEntity user, LivingEntity target) {
+    public default void postKill (ItemStack itemStack, LivingEntity user, LivingEntity target) {
         
     }
 }

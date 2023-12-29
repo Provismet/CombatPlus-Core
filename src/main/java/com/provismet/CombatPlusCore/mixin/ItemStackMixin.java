@@ -17,16 +17,16 @@ public abstract class ItemStackMixin implements IMixinItemStack {
 
     @Override
     public void CPC_postChargedHit (LivingEntity user, LivingEntity target) {
-        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postChargedHit(user, target);
+        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postChargedHit((ItemStack)(Object)this, user, target);
     }
 
     @Override
     public void CPC_postCriticalHit (LivingEntity user, LivingEntity target) {
-        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postCriticalHit(user, target);
+        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postCriticalHit((ItemStack)(Object)this, user, target);
     }
 
     @Override
     public void CPC_postKill (LivingEntity user, LivingEntity target) {
-        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postKill(user, target);
+        if (this.getItem() instanceof MeleeWeapon weapon) weapon.postKill((ItemStack)(Object)this, user, target);
     }
 }
