@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
-	"id": "combat-plus",
-	"version": "${version}-mc${minecraft_version}",
+	"id": "combat-plus-core",
+	"version": "${version}",
 	"name": "Combat+ Core",
 	"description": "Core library mod for the Combat+ series.",
 	"authors": [
@@ -32,6 +32,9 @@
 		"extra-damage-enchantments": "*",
 		"dual-swords": "*"
 	},
+	"provides": [
+		"combat-plus"
+	],
 	"custom": {
         "modmenu": {
             "badges": ["library"]
