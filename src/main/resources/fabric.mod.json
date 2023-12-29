@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "combat-plus",
-	"version": "${version}",
+	"version": "${version}-mc${minecraft_version}",
 	"name": "Combat+ Core",
 	"description": "Core library mod for the Combat+ series.",
 	"authors": [
