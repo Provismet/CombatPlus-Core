@@ -1,6 +1,10 @@
 {
     "replace": false,
     "values": [
-        "#combat-plus:dual_weapon"
+        "#combat-plus:dual_weapon",
+        {
+            "required": false,
+            "id": "#minecraft:axes"
+        }
     ]
 }

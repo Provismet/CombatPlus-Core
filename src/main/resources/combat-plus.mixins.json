@@ -5,7 +5,9 @@
 	"mixins": [
 		"ItemStackMixin",
 		"PlayerEntityMixin",
-		"MobEntityMixin"
+		"MobEntityMixin",
+		"AxeItemMixin",
+		"SwordItemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
