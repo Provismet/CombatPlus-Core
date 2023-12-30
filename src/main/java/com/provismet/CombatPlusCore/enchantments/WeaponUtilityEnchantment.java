@@ -1,14 +1,11 @@
 package com.provismet.CombatPlusCore.enchantments;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
-import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
-import com.provismet.CombatPlusCore.utility.CombatTags;
+import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.SweepingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
 
 /**
  * Enchantments that add utility effects to a weapon. It is intended, but not required, that these
@@ -20,8 +17,8 @@ import net.minecraft.item.ItemStack;
  * to an opponent.
  */
 public abstract class WeaponUtilityEnchantment extends Enchantment implements CPCEnchantment {
-    protected WeaponUtilityEnchantment (Rarity weight) {
-        super(weight, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+    protected WeaponUtilityEnchantment (Rarity weight, EquipmentSlot... slotTypes) {
+        super(weight, CPCEnchantmentTargets.MELEE_WEAPON, slotTypes);
     }
 
     @Override
@@ -30,10 +27,5 @@ public abstract class WeaponUtilityEnchantment extends Enchantment implements CP
             !(other instanceof WeaponUtilityEnchantment) &&
             !(other instanceof SweepingEnchantment) &&
             !(other instanceof OffHandEnchantment);
-    }
-
-    @Override
-    public boolean isAcceptableItem (ItemStack stack) {
-        return super.isAcceptableItem(stack) || stack.getItem() instanceof MeleeWeapon || stack.isIn(CombatTags.MELEE_WEAPON);
     }
 }

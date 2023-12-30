@@ -17,11 +17,15 @@
 	"entrypoints": {
 		"main": [
 			"com.provismet.CombatPlusCore.CPCMain"
+		],
+		"mm:early_risers": [
+			"com.provismet.CombatPlusCore.asm.EarlyRiser"
 		]
 	},
 	"mixins": [
 		"combat-plus.mixins.json"
 	],
+	"accessWidener": "combat-plus.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.14.0",
 		"minecraft": "~1.20",

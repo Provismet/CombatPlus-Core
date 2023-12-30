@@ -13,7 +13,7 @@ import net.minecraft.entity.EquipmentSlot;
  * <p> Such enchantments should be considered equivalent to {@link FireAspectEnchantment}.
  */
 public abstract class AspectEnchantment extends Enchantment implements CPCEnchantment {
-    protected AspectEnchantment (Rarity weight, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
+    protected AspectEnchantment (Rarity weight, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(weight, target, slotTypes);
     }
     

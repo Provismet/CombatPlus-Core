@@ -10,8 +10,8 @@ import net.minecraft.entity.EquipmentSlot;
  * Damaging enchantments intended as alternatives to the typical {@link DamageEnchantment} type.
  */
 public abstract class AdditionalDamageEnchantment extends Enchantment implements CPCEnchantment {
-    protected AdditionalDamageEnchantment (Rarity weight) {
-        super(weight, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+    protected AdditionalDamageEnchantment (Rarity weight, EnchantmentTarget target) {
+        super(weight, target, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override
