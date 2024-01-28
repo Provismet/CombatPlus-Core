@@ -8,7 +8,8 @@
 		"MobEntityMixin",
 		"AxeItemMixin",
 		"SwordItemMixin",
-		"DamageEnchantmentMixin"
+		"DamageEnchantmentMixin",
+		"LivingEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
