@@ -10,6 +10,7 @@ import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
@@ -24,7 +25,7 @@ public abstract class MobEntityMixin extends LivingEntity {
     public void onHit (Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (target instanceof LivingEntity living) {
             ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postChargedHit(this, living);
-            CPCEnchantmentHelper.postChargedHit(this, living);
+            CPCEnchantmentHelper.postChargedHit(this, living, EquipmentSlot.MAINHAND);
         }
     }
 }

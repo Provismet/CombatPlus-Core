@@ -13,6 +13,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,7 +29,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public void onCriticalHit (Entity entity, CallbackInfo info) {
         if (entity instanceof LivingEntity target) {
             ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postCriticalHit(this, target);
-            CPCEnchantmentHelper.postCriticalHit(this, target);
+            CPCEnchantmentHelper.postCriticalHit(this, target, EquipmentSlot.MAINHAND);
         }
     }
 
@@ -36,7 +37,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public void postChargedHit (Entity entity, CallbackInfo info) {
         if (entity instanceof LivingEntity target && ((PlayerEntity)(Object)this).getAttackCooldownProgress(0.5f) > 0.9f) {
             ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postChargedHit(this, target);
-            CPCEnchantmentHelper.postChargedHit(this, target);
+            CPCEnchantmentHelper.postChargedHit(this, target, EquipmentSlot.MAINHAND);
         }
     }
 

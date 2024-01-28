@@ -9,6 +9,7 @@ import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
@@ -27,7 +28,7 @@ public class CPCMain implements ModInitializer {
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
             if (entity instanceof LivingEntity user) {
                 ((IMixinItemStack)(Object)user.getMainHandStack()).CPC_postKill(user, target);
-                CPCEnchantmentHelper.postKill(user, target);
+                CPCEnchantmentHelper.postKill(user, target, EquipmentSlot.MAINHAND);
             }
         });
     }

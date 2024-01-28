@@ -21,7 +21,7 @@ public interface CPCEnchantment {
      * <p> See {@link CPCEnchantmentHelper#getAttackDamage(EquipmentSlot, LivingEntity, LivingEntity)} for how this is applied.
      * 
      * @param level The level of the enchantment.
-     * @param slot The equipment slot that the item stack occupies.
+     * @param slot The equipment slot that the item stack occupies. All equipped items are checked.
      * @param user The wielder of the enchanted weapon.
      * @param target The entity that was struck.
      * @return The increased damage.
@@ -31,38 +31,35 @@ public interface CPCEnchantment {
     }
 
     /**
-     * Enchantment callback for when the user performs a charged attack on an entity.
+     * Enchantment callback for when the user performs a charged attack on an entity with this weapon.
      * 
      * @param level The level of the enchantment.
-     * @param slot The equipment slot that the item stack occupies.
      * @param user The wielder of the enchanted weapon.
      * @param target The entity that was struck.
      */
-    public default void postChargedHit (int level, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
+    public default void postChargedHit (int level, LivingEntity user, LivingEntity target) {
 
     }
 
     /**
-     * Enchantment callback for when the user performs a critical attack on an entity.
+     * Enchantment callback for when the user performs a critical attack on an entity with this weapon.
      * 
      * @param level The level of the enchantment.
-     * @param slot The equipment slot that the item stack occupies.
      * @param user The wielder of the enchanted weapon.
      * @param target The entity that was struck.
      */
-    public default void postCriticalHit (int level, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
+    public default void postCriticalHit (int level, LivingEntity user, LivingEntity target) {
         
     }
 
     /**
-     * Enchantment callback for when the user kills another entity.
+     * Enchantment callback for when the user kills another entity with this item in their mainhand.
      * 
      * @param level The level of the enchantment.
-     * @param slot The equipment slot that the item stack occupies.
      * @param user The wielder of the enchanted weapon.
      * @param target The entity that was killed.
      */
-    public default void postKill (int level, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
+    public default void postKill (int level, LivingEntity user, LivingEntity target) {
         
     }
 }

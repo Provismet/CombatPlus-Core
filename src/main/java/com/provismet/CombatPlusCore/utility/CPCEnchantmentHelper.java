@@ -33,9 +33,11 @@ public class CPCEnchantmentHelper {
         // CPCEnchantments should ALWAYS return zero for their vanilla damage to avoiding doubling the effectiveness.
         totalDamage.add(EnchantmentHelper.getAttackDamage(user.getEquippedStack(defaultSlot), target.getGroup()));
 
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level, slot) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) totalDamage.add(cpcEnchant.getAttackDamage(level, slot, user, target));
-        }, user);
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+                if (enchantment instanceof CPCEnchantment cpcEnchant) totalDamage.add(cpcEnchant.getAttackDamage(level, slot, user, target));
+            }, user, slot);
+        }
 
         return totalDamage.floatValue();
     }
@@ -59,10 +61,10 @@ public class CPCEnchantmentHelper {
      * @param user The wielder of the item.
      * @param target The entity that was struck.
      */
-    public static void postChargedHit (LivingEntity user, LivingEntity target) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level, slot) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postChargedHit(level, slot, user, target);
-        }, user);
+    public static void postChargedHit (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postChargedHit(level, user, target);
+        }, user, slot);
     }
 
     /**
@@ -71,10 +73,10 @@ public class CPCEnchantmentHelper {
      * @param user The wielder of the item.
      * @param target The entity that was struck.
      */
-    public static void postCriticalHit (LivingEntity user, LivingEntity target) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level, slot) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postCriticalHit(level, slot, user, target);
-        }, user);
+    public static void postCriticalHit (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postCriticalHit(level, user, target);
+        }, user, slot);
     }
 
     /**
@@ -83,10 +85,10 @@ public class CPCEnchantmentHelper {
      * @param user The wielder of the item.
      * @param target The entity that was killed.
      */
-    public static void postKill (LivingEntity user, LivingEntity target) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level, slot) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postKill(level, slot, user, target);
-        }, user);
+    public static void postKill (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postKill(level, user, target);
+        }, user, slot);
     }
 
     /**
@@ -95,11 +97,9 @@ public class CPCEnchantmentHelper {
      * @param consumer A consumer / lambda function to be called.
      * @param user The user of the enchanted items.
      */
-    public static void forEachEnchantment (Consumer consumer, LivingEntity user) {
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack itemStack = user.getEquippedStack(slot);
-            CPCEnchantmentHelper.forEachEnchantment(consumer, itemStack, slot);
-        }
+    public static void forEachEnchantment (Consumer consumer, LivingEntity user, EquipmentSlot slot) {
+        ItemStack itemStack = user.getEquippedStack(slot);
+        CPCEnchantmentHelper.forEachEnchantment(consumer, itemStack);
     }
 
     /**
@@ -109,18 +109,18 @@ public class CPCEnchantmentHelper {
      * @param itemStack The item stack.
      * @param slot The item slot that item stack is in.
      */
-    public static void forEachEnchantment (Consumer consumer, ItemStack itemStack, EquipmentSlot slot) {
+    public static void forEachEnchantment (Consumer consumer, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
 
         NbtList nbtList = itemStack.getEnchantments();
         for (int i = 0; i < nbtList.size(); ++i) {
             NbtCompound nbtCompound = nbtList.getCompound(i);
-            Registries.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(nbtCompound)).ifPresent(enchantment -> consumer.accept(enchantment, EnchantmentHelper.getLevelFromNbt(nbtCompound), slot));
+            Registries.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(nbtCompound)).ifPresent(enchantment -> consumer.accept(enchantment, EnchantmentHelper.getLevelFromNbt(nbtCompound)));
         }
     }
 
     @FunctionalInterface
     private static interface Consumer {
-        public void accept (Enchantment enchantment, int level, EquipmentSlot slot);
+        public void accept (Enchantment enchantment, int level);
     }
 }
