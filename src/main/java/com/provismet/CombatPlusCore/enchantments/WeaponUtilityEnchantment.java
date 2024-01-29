@@ -4,6 +4,7 @@ import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.SweepingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 
@@ -17,8 +18,12 @@ import net.minecraft.entity.EquipmentSlot;
  * to an opponent.
  */
 public abstract class WeaponUtilityEnchantment extends Enchantment implements CPCEnchantment {
+    protected WeaponUtilityEnchantment (Rarity weight, EnchantmentTarget target, EquipmentSlot... slotTypes) {
+        super(weight, target, slotTypes);
+    }
+
     protected WeaponUtilityEnchantment (Rarity weight, EquipmentSlot... slotTypes) {
-        super(weight, CPCEnchantmentTargets.MELEE_WEAPON, slotTypes);
+        this(weight, CPCEnchantmentTargets.MELEE_WEAPON, slotTypes);
     }
 
     @Override
