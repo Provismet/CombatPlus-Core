@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 public class MeleeEnchantmentTarget extends MeleeEnchantmentTargetMixin {
     @Override
     public boolean isAcceptableItem (Item item) {
-        return item instanceof MeleeWeapon || EnchantmentTarget.WEAPON.isAcceptableItem(item) || (item != null && item.getDefaultStack().isIn(CombatTags.MELEE_WEAPON));
+        return item instanceof MeleeWeapon || (item != null && item.getDefaultStack().isIn(CombatTags.MELEE_WEAPON));
     }
     
 }
