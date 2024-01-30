@@ -9,19 +9,33 @@ This is the core API and library mod for the Combat+ mod series, allowing inter-
 
 This mod makes no changes to the vanilla game, it only provides hooks, interfaces, and implementations for other mods to add their content.
 
+## API
+- Adds two interfaces for weapons:
+  - `MeleeWeapon`
+  - `DualWeapon`
+- Adds three interfaces for items:
+  - `combat-plus:melee_weapon`
+  - `combat-plus:dual_weapon`
+  - `combat-plus:breaks_shields`
+- Adds an entrypoint initialiser for easier mod compatibility.
+- Adds two enchantment targets.
+  - Do not use these in dev environments due to FabricASM weirdness.
+- Adds utility methods for checking if an item is a Melee or Dual.
+- Adds new types of enchantment for better inter-mod compatibility checking:
+  - Additional Damage
+  - Aspect
+  - Weapon Utility
+  - Offhand
+
 ## Implementation Summary
 - The vanilla call to `EnchantmentHelper.getAttackDamage` has been redirected to the `CPCEnchantmentHelper.getAttackDamage` for Players and mobs. This is necessary due to how limited the vanilla enchantment system is.
   - This should not cause incompatibilities with most mods because the redirected method acts as a wrapper for the vanilla equivalent. The vanilla version is still called.
-- Adds two interfaces for melee weapons. `MeleeWeapon` and `DualWeapon`. The latter extends the former.
-- Adds two item tags: `combat-plus:melee_weapon` and `combat-plus:dual_weapon`. If you want to add compatibility without depending on this mod, then use these tags.
-  - `combat-plus:melee_weapon` subsumes `combat-plus:dual_weapon`, there is no need to add the same item to both tags.
-  - Items in these tags should be treated as honorary `MeleeWeapon` and `DualWeapon` items.
-  - Items that implement the interfaces do not need to be in these tags, but should be added regardless for consistency.
-- Adds two EnchantmentTargets, both found in the `CPCEnchantmentTargets` class.
-  - The `CPCEnchantmentTargets.MELEE_WEAPON` target subsumes the vanilla `EnchantmentTarget.WEAPON` target. Anything that qualifies for the former will qualify for the latter (which is only swords in vanilla).
-  - The `MELEE_WEAPON` and `DUAL_WEAPON` enchantment targets also check their respective tags.
+- For both the interfaces and the item tags, Dual Weapons are a subset of Melee Weapons.
+- Using the interfaces is best for mod support as they allow callbacks and keep data consistent. Using the tags allows for an item to be an "honorary" melee/dual weapon, these will still be applicable for enchantments.
 - Swords implement `DualWeapon`.
 - Axes implement `MeleeWeapon`.
+- `DamageEnchantment` accepts melee weapons in anvils. (This mirrors the vanilla functionality of Sharpness working on Axes on anvils.)
+- Items in the `combat-plus:breaks_shields` tag will _obviously_ break shields.
 
 ## Dependency
 This mod is available as a dependency on [Jitpack](https://jitpack.io/#Provismet/combatplus-core).
@@ -35,7 +49,7 @@ repositories {
 
 ```gradle
 dependencies {
-  modImplementation 'com.github.Provismet:combatplus-core:${project.combatplus_version}'
+  modImplementation "com.github.Provismet:combatplus-core:${project.combatplus_version}"
 }
 ```
 
