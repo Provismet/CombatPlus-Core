@@ -35,7 +35,8 @@ repositories {
 
 ```gradle
 dependencies {
-  modImplementation 'com.github.Provismet:combatplus-core:0.1.0-mc1.20.1'
+  modImplementation 'com.github.Provismet:combatplus-core:${project.combatplus_version}'
 }
 ```
-The version number may optionally be replaced by `${project.combatplus_version}` so long as this variable is defined in your gradle.properties file.
+
+Add `combatplus_version` to your gradle.properties file for easier version management. Check the jitpack for the most recent build.

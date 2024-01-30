@@ -11,8 +11,8 @@ import net.minecraft.entity.LivingEntity;
  * 
  * <p> See {@link CPCEnchantmentHelper} for how these are used.
  * 
- * <p> All callbacks occurs directly after the item callback of the same type.
- * <p> Order of callbacks: charged hit -> kill -> critical hit
+ * <p> Order of callbacks: kill -> charged hit -> critical hit
+ * <p> All callbacks occur after damage is applied and directly after the weapon callback of the same type.
  */
 public interface CPCEnchantment {
     /**

@@ -10,7 +10,8 @@ import net.minecraft.item.ItemStack;
  * Callbacks are optional, but follow a specific order of execution.
  * <p> Item callbacks of a certain type also occur directly before enchantment callbacks of the same type.
  * 
- * <p> Order of callbacks: charged hit -> kill -> critical hit
+ * <p> Order of callbacks: kill -> charged hit -> critical hit
+ * <p> All callbacks occur after damage is applied.
  * 
  * <p> Items of this type are applicable for {@link WeaponUtilityEnchantment} enchantments.
  * 

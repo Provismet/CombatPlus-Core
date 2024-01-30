@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 
@@ -24,20 +25,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin (EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
-    
-    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/player/PlayerEntity;addCritParticles(Lnet/minecraft/entity/Entity;)V", shift=At.Shift.AFTER))
-    public void onCriticalHit (Entity entity, CallbackInfo info) {
-        if (entity instanceof LivingEntity target) {
-            ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postCriticalHit(this, target);
-            CPCEnchantmentHelper.postCriticalHit(this, target, EquipmentSlot.MAINHAND);
-        }
-    }
 
-    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/player/PlayerEntity;getAttackCooldownProgress(F)F"))
-    public void postChargedHit (Entity entity, CallbackInfo info) {
-        if (entity instanceof LivingEntity target && ((PlayerEntity)(Object)this).getAttackCooldownProgress(0.5f) > 0.9f) {
-            ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postChargedHit(this, target);
-            CPCEnchantmentHelper.postChargedHit(this, target, EquipmentSlot.MAINHAND);
+    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", shift=At.Shift.AFTER))
+    private void applyHitEffects (Entity entity, CallbackInfo info, @Local(ordinal=0) boolean charged, @Local(ordinal=2) boolean critical) {
+        if (entity instanceof LivingEntity target) {
+            if (charged) {
+                ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postChargedHit(this, target);
+                CPCEnchantmentHelper.postChargedHit(this, target, EquipmentSlot.MAINHAND);
+            }
+            if (critical) {
+                ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postCriticalHit(this, target);
+                CPCEnchantmentHelper.postCriticalHit(this, target, EquipmentSlot.MAINHAND);
+            }
         }
     }
 
