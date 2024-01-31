@@ -3,14 +3,18 @@ package com.provismet.CombatPlusCore.mixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
+import com.provismet.CombatPlusCore.utility.CombatGameRules;
 
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -46,5 +50,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             return CPCEnchantmentHelper.getAttackDamage(this, living);
         }
         return EnchantmentHelper.getAttackDamage(itemStack, entityGroup);
+    }    
+
+    @ModifyVariable(method="attack", at=@At("STORE"), ordinal=3, slice=@Slice(from=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;getItem()Lnet/minecraft/item/Item;")))
+    private boolean stopSweeping (boolean original) {
+        if (this.getWorld().getGameRules().getBoolean(CombatGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && EnchantmentHelper.getLevel(Enchantments.SWEEPING, this.getMainHandStack()) == 0) return false;
+        return original;
     }
 }
