@@ -26,6 +26,11 @@ public abstract class WeaponUtilityEnchantment extends Enchantment implements CP
         this(weight, CPCEnchantmentTargets.MELEE_WEAPON, slotTypes);
     }
 
+    /**
+     * <p> Offhand Enchantments do not block Weapon Utility Enchantments. This is one-sided intentionally.
+     * <p> To make a Weapon Utility Enchantment that works with Offhand Enchantments, simply override
+     * this method to return true for Offhand Enchantments.
+     */
     @Override
     protected boolean canAccept (Enchantment other) {
         return super.canAccept(other) &&

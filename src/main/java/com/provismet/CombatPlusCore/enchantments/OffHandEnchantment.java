@@ -31,7 +31,6 @@ public abstract class OffHandEnchantment extends Enchantment implements CPCEncha
             !(other instanceof SweepingEnchantment) &&
             !(other instanceof LuckEnchantment) &&
             !(other instanceof AdditionalDamageEnchantment) &&
-            !(other instanceof AspectEnchantment) &&
-            !(other instanceof OffHandEnchantment);
+            !(other instanceof AspectEnchantment);
     }
 }
