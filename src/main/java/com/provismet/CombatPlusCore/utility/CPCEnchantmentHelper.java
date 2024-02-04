@@ -60,6 +60,7 @@ public class CPCEnchantmentHelper {
      * 
      * @param user The wielder of the item.
      * @param target The entity that was struck.
+     * @param slot The equipment slot to trigger callbacks for.
      */
     public static void postChargedHit (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
@@ -68,10 +69,24 @@ public class CPCEnchantmentHelper {
     }
 
     /**
+     * Calls enchantment callbacks for charged hits.
+     * 
+     * @param user The wielder of the item.
+     * @param target The entity that was struck.
+     * @param itemStack The item stack to trigger callbacks for.
+     */
+    public static void postChargedHit (LivingEntity user, LivingEntity target, ItemStack itemStack) {
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postChargedHit(level, user, target);
+        }, itemStack);
+    }
+
+    /**
      * Calls enchantment callbacks for critical hits.
      * 
      * @param user The wielder of the item.
      * @param target The entity that was struck.
+     * @param slot The equipment slot to trigger callbacks for.
      */
     public static void postCriticalHit (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
@@ -80,15 +95,42 @@ public class CPCEnchantmentHelper {
     }
 
     /**
+     * Calls enchantment callbacks for critical hits.
+     * 
+     * @param user The wielder of the item.
+     * @param target The entity that was struck.
+     * @param itemStack The item stack to trigger callbacks for.
+     */
+    public static void postCriticalHit (LivingEntity user, LivingEntity target, ItemStack itemStack) {
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postCriticalHit(level, user, target);
+        }, itemStack);
+    }
+
+    /**
      * Calls enchantment callbacks for kills.
      * 
      * @param user The wielder of the item.
      * @param target The entity that was killed.
+     * @param slot The equipment slot to trigger callbacks for.
      */
     public static void postKill (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
             if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postKill(level, user, target);
         }, user, slot);
+    }
+
+    /**
+     * Calls enchantment callbacks for kills.
+     * 
+     * @param user The wielder of the item.
+     * @param target The entity that was killed.
+     * @param itemStack The item stack to trigger callbacks for.
+     */
+    public static void postKill (LivingEntity user, LivingEntity target, ItemStack itemStack) {
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postKill(level, user, target);
+        }, itemStack);
     }
 
     /**
