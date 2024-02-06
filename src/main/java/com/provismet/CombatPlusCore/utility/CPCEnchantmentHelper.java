@@ -138,6 +138,7 @@ public class CPCEnchantmentHelper {
      * 
      * @param consumer A consumer / lambda function to be called.
      * @param user The user of the enchanted items.
+     * @param slot The equipment slot that holds the user's item.
      */
     public static void forEachEnchantment (Consumer consumer, LivingEntity user, EquipmentSlot slot) {
         ItemStack itemStack = user.getEquippedStack(slot);
@@ -149,7 +150,6 @@ public class CPCEnchantmentHelper {
      * 
      * @param consumer A consumer / lambda function.
      * @param itemStack The item stack.
-     * @param slot The item slot that item stack is in.
      */
     public static void forEachEnchantment (Consumer consumer, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
