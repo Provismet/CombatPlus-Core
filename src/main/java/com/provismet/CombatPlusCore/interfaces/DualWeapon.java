@@ -10,7 +10,7 @@ import com.provismet.lilylib.util.MoreMath;
  */
 public interface DualWeapon extends MeleeWeapon {
     public default float getOffhandDamage () {
-        float defaultValue = (float)MoreMath.roundDownToMultiple(this.getWeaponDamage() / 3.5f, 0.5);
+        float defaultValue = MoreMath.roundDownToMultipleFloat(this.getWeaponDamage() / 3.5f, 0.5f);
         if (defaultValue > 0.5f) return defaultValue;
         return 0.5f;
     }
