@@ -2,16 +2,25 @@ package com.provismet.CombatPlusCore.utility;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
 
+import com.provismet.CombatPlusCore.enchantments.AdditionalDamageEnchantment;
+import com.provismet.CombatPlusCore.enchantments.AspectEnchantment;
+import com.provismet.CombatPlusCore.enchantments.OffHandEnchantment;
+import com.provismet.CombatPlusCore.enchantments.WeaponUtilityEnchantment;
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
 
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEnchantmentTags;
+import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.FireAspectEnchantment;
+import net.minecraft.enchantment.SweepingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
 
 /**
  * Enchantment helper to apply hooks from {@link CPCEnchantment}.
@@ -164,5 +173,72 @@ public class CPCEnchantmentHelper {
     @FunctionalInterface
     private static interface Consumer {
         public void accept (Enchantment enchantment, int level);
+    }
+
+    /**
+     * Safely checks if an enchantment is within an enchantment tag.
+     * 
+     * @param enchantment The enchantment.
+     * @param enchantmentTag The enchantment tag.
+     * @return Whether or not the enchantment is present in the tag. Unregistered enchantments will return false.
+     */
+    public static boolean isInTag (Enchantment enchantment, TagKey<Enchantment> enchantmentTag) {
+        try {
+            return Registries.ENCHANTMENT.getEntry(enchantment).isIn(enchantmentTag);
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if a given enchantment is of type {@link DamageEnchantment} or is within the related tag.
+     * 
+     * @param enchantment The enchantment.
+     * @return Whether or not this enchantment should be considered as Damage.
+     */
+    public static boolean isDamage (Enchantment enchantment) {
+        return enchantment instanceof DamageEnchantment || CPCEnchantmentHelper.isInTag(enchantment, ConventionalEnchantmentTags.WEAPON_DAMAGE_ENHANCEMENT);
+    }
+
+    /**
+     * Checks if a given enchantment is of type {@link AdditionalDamageEnchantment} or is within the related tag.
+     * 
+     * @param enchantment The enchantment.
+     * @return Whether or not this enchantment should be considered as Additional Damage.
+     */
+    public static boolean isAdditionalDamage (Enchantment enchantment) {
+        return enchantment instanceof AdditionalDamageEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.ADDITIONAL_DAMAGE);
+    }
+
+    /**
+     * Checks if a given enchantment is of type {@link AspectEnchantment} or is within the related tag.
+     * <p> Additionally checks if the enchantment is Fire Aspect.
+     * 
+     * @param enchantment The enchantment.
+     * @return Whether or not this enchantment should be considered as Aspect.
+     */
+    public static boolean isAspect (Enchantment enchantment) {
+        return enchantment instanceof AspectEnchantment || enchantment instanceof FireAspectEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.ASPECT);
+    }
+
+    /**
+     * Checks if a given enchantment is of type {@link OffHandEnchantment} or is within the related tag.
+     * 
+     * @param enchantment The enchantment.
+     * @return Whether or not this enchantment should be considered as Offhand.
+     */
+    public static boolean isOffhand (Enchantment enchantment) {
+        return enchantment instanceof OffHandEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.OFFHAND);
+    }
+
+    /**
+     * Checks if a given enchantment is of type {@link WeaponUtilityEnchantment}, {@link SweepingEnchantment}, or is within the related tag.
+     * 
+     * @param enchantment The enchantment.
+     * @return Whether or not this enchantment should be considered as Weapon Utility.
+     */
+    public static boolean isWeaponUtility (Enchantment enchantment) {
+        return enchantment instanceof WeaponUtilityEnchantment || enchantment instanceof SweepingEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.WEAPON_UTILITY);
     }
 }

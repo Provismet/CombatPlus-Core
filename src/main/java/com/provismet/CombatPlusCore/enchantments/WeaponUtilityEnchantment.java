@@ -1,11 +1,11 @@
 package com.provismet.CombatPlusCore.enchantments;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
+import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.SweepingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 
 /**
@@ -27,15 +27,14 @@ public abstract class WeaponUtilityEnchantment extends Enchantment implements CP
     }
 
     /**
-     * <p> Offhand Enchantments do not block Weapon Utility Enchantments. This is one-sided intentionally.
+     * Offhand Enchantments do not block Weapon Utility Enchantments. This is one-sided intentionally.
      * <p> To make a Weapon Utility Enchantment that works with Offhand Enchantments, simply override
      * this method to return true for Offhand Enchantments.
      */
     @Override
     protected boolean canAccept (Enchantment other) {
         return super.canAccept(other) &&
-            !(other instanceof WeaponUtilityEnchantment) &&
-            !(other instanceof SweepingEnchantment) &&
-            !(other instanceof OffHandEnchantment);
+            !CPCEnchantmentHelper.isWeaponUtility(other) &&
+            !CPCEnchantmentHelper.isOffhand(other);
     }
 }

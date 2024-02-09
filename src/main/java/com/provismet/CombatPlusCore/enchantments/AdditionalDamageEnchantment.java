@@ -1,6 +1,7 @@
 package com.provismet.CombatPlusCore.enchantments;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
+import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import com.provismet.CombatPlusCore.utility.WeaponTypes;
 
 import net.minecraft.enchantment.DamageEnchantment;
@@ -30,8 +31,8 @@ public abstract class AdditionalDamageEnchantment extends Enchantment implements
     @Override
     protected boolean canAccept (Enchantment other) {
         return super.canAccept(other) &&
-            !(other instanceof AdditionalDamageEnchantment) &&
-            !(other instanceof DamageEnchantment) &&
-            !(other instanceof OffHandEnchantment);
+            !CPCEnchantmentHelper.isAdditionalDamage(other) &&
+            !CPCEnchantmentHelper.isDamage(other) &&
+            !CPCEnchantmentHelper.isOffhand(other);
     }
 }

@@ -1,9 +1,9 @@
 package com.provismet.CombatPlusCore.enchantments;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
+import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 
-import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.FireAspectEnchantment;
@@ -26,11 +26,10 @@ public abstract class OffHandEnchantment extends Enchantment implements CPCEncha
     @Override
     public boolean canAccept (Enchantment other) {
         return super.canAccept(other) &&
-            !(other instanceof DamageEnchantment) &&
             !(other instanceof FireAspectEnchantment) &&
             !(other instanceof SweepingEnchantment) &&
             !(other instanceof LuckEnchantment) &&
-            !(other instanceof AdditionalDamageEnchantment) &&
-            !(other instanceof AspectEnchantment);
+            !CPCEnchantmentHelper.isDamage(other) &&
+            !CPCEnchantmentHelper.isAdditionalDamage(other);
     }
 }
