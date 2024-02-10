@@ -9,7 +9,8 @@
 		"AxeItemMixin",
 		"SwordItemMixin",
 		"DamageEnchantmentMixin",
-		"LivingEntityMixin"
+		"LivingEntityMixin",
+		"TridentItemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
