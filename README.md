@@ -3,6 +3,8 @@
 # Combat+ Core
 [![](https://img.shields.io/jitpack/version/com.github.Provismet/combatplus-core?style=flat-square&logo=jitpack&color=F6F6F6)](https://jitpack.io/#Provismet/combatplus-core)
 
+<img src="https://github.com/Provismet/CombatPlus-Core/assets/17149901/d7ee8c04-1769-4873-b5a4-8fa23ed26a30" width=250px>
+
 </div>
 
 This is the core API and library mod for the Combat+ mod series, allowing inter-mod compatibility without requiring each mod to know of the others' existence.
