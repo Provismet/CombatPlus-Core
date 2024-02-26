@@ -2,6 +2,8 @@
 
 # Combat+ Core
 [![](https://img.shields.io/jitpack/version/com.github.Provismet/combatplus-core?style=flat-square&logo=jitpack&color=F6F6F6)](https://jitpack.io/#Provismet/combatplus-core)
+[![](https://img.shields.io/modrinth/dt/NbKFMiE7?style=flat-square&logo=modrinth&color=F6F6F6)](https://modrinth.com/mod/combatplus-core)
+[![](https://img.shields.io/curseforge/dt/973671?style=flat-square&logo=curseforge&color=F6F6F6)](https://www.curseforge.com/minecraft/mc-mods/combat-plus-core)
 
 <img src="https://github.com/Provismet/CombatPlus-Core/assets/17149901/d7ee8c04-1769-4873-b5a4-8fa23ed26a30" width=250px>
 
