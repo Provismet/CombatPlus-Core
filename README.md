@@ -2,6 +2,8 @@
 
 # Combat+ Core
 [![](https://img.shields.io/jitpack/version/com.github.Provismet/combatplus-core?style=flat-square&logo=jitpack&color=F6F6F6)](https://jitpack.io/#Provismet/combatplus-core)
+[![](https://img.shields.io/modrinth/dt/NbKFMiE7?style=flat-square&logo=modrinth&color=F6F6F6)](https://modrinth.com/mod/combatplus-core)
+[![](https://img.shields.io/curseforge/dt/973671?style=flat-square&logo=curseforge&color=F6F6F6)](https://www.curseforge.com/minecraft/mc-mods/combat-plus-core)
 
 <img src="https://github.com/Provismet/CombatPlus-Core/assets/17149901/d7ee8c04-1769-4873-b5a4-8fa23ed26a30" width=250px>
 
@@ -15,13 +17,12 @@ This mod makes no changes to the vanilla game, it only provides hooks, interface
 - Adds two interfaces for weapons:
   - `MeleeWeapon`
   - `DualWeapon`
-- Adds three interfaces for items:
+- Adds four item tags for items:
   - `combat-plus:melee_weapon`
   - `combat-plus:dual_weapon`
   - `combat-plus:breaks_shields`
+  - `combat-plus:enchantable/aspect`
 - Adds an entrypoint initialiser for easier mod compatibility.
-- Adds two enchantment targets.
-  - Do not use these in dev environments due to FabricASM weirdness.
 - Adds utility methods for checking if an item is a Melee or Dual.
 - Adds new types of enchantment for better inter-mod compatibility checking:
   - Additional Damage
@@ -36,7 +37,6 @@ This mod makes no changes to the vanilla game, it only provides hooks, interface
 - Using the interfaces is best for mod support as they allow callbacks and keep data consistent. Using the tags allows for an item to be an "honorary" melee/dual weapon, these will still be applicable for enchantments.
 - Swords implement `DualWeapon`.
 - Axes implement `MeleeWeapon`.
-- `DamageEnchantment` accepts melee weapons in anvils. (This mirrors the vanilla functionality of Sharpness working on Axes on anvils.)
 - Items in the `combat-plus:breaks_shields` tag will _obviously_ break shields.
 
 ## Dependency

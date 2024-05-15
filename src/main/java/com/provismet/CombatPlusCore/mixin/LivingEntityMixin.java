@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.provismet.CombatPlusCore.utility.CombatTags;
+import com.provismet.CombatPlusCore.utility.CPCItemTags;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -25,6 +25,6 @@ public abstract class LivingEntityMixin extends Entity {
     
     @Inject(method="disablesShield", at=@At("HEAD"), cancellable=true)
     public void applyDisableTag (CallbackInfoReturnable<Boolean> cir) {
-        if (this.getMainHandStack().isIn(CombatTags.SHIELD_BREAKER)) cir.setReturnValue(true);
+        if (this.getMainHandStack().isIn(CPCItemTags.SHIELD_BREAKER)) cir.setReturnValue(true);
     }
 }

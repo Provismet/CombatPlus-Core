@@ -1,0 +1,13 @@
+{
+  "gamerule.category.combat-plus": "Combat+",
+  "gamerule.keepLoyaltyTridents": "Keep Loyalty Tridents",
+  "gamerule.sweepingRequiresEnchantment": "Sweeping Requires Enchantment",
+  "tag.enchantment.combat-plus.additional_damage": "Additional Damage Enchantments",
+  "tag.enchantment.combat-plus.aspect": "Aspect Enchantments",
+  "tag.enchantment.combat-plus.offhand": "Offhand Enchantments",
+  "tag.enchantment.combat-plus.weapon_utility": "Weapon Utility Enchantments",
+  "tag.item.combat-plus.breaks_shields": "Breaks Shields",
+  "tag.item.combat-plus.dual_weapon": "Dual Weapons",
+  "tag.item.combat-plus.enchantable.aspect": "Aspect Enchantable",
+  "tag.item.combat-plus.melee_weapon": "Melee Weapons"
+}

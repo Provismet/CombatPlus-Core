@@ -1,23 +1,28 @@
 package com.provismet.CombatPlusCore.interfaces;
 
-import com.provismet.CombatPlusCore.enchantments.WeaponUtilityEnchantment;
-
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 /**
  * Interface for items intended as melee weapons. All weapons must implement a damage value.
  * Callbacks are optional, but follow a specific order of execution.
- * <p> Item callbacks of a certain type also occur directly before enchantment callbacks of the same type.
+ * <p> Item callbacks of a certain type also occur directly before enchantment callbacks of the same type. </p>
  * 
- * <p> Order of callbacks: kill -> charged hit -> critical hit
- * <p> All callbacks occur after damage is applied.
- * 
- * <p> Items of this type are applicable for {@link WeaponUtilityEnchantment} enchantments.
- * 
+ * <p> Order of callbacks: kill -> charged hit -> critical hit </p>
+ * <p> All callbacks occur after damage is applied. </p>
  */
 public interface MeleeWeapon {
-    public float getWeaponDamage ();
+    /**
+     * Gets the bonus damage granted by a weapon. This is only used within Combat+ and
+     * does not affect any vanilla gameplay mechanics.
+     *
+     * <p> It should be assumed that this method returns the value the weapon adds
+     * to the generic attack attribute. </p>
+     *
+     * @param itemStack The itemstack containing this weapon.
+     * @return The damage bonus from this weapon.
+     */
+    public float getWeaponDamage (ItemStack itemStack);
 
     /**
      * A callback for when an entity performs a fully charged attack with this weapon.

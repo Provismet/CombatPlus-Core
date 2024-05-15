@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:dual_weapon",
+      "required": false
+    },
+    {
+      "id": "#minecraft:axes",
+      "required": false
+    }
+  ]
+}

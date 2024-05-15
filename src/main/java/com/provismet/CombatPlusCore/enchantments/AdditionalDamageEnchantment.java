@@ -2,36 +2,34 @@ package com.provismet.CombatPlusCore.enchantments;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import com.provismet.CombatPlusCore.utility.WeaponTypes;
 
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.LivingEntity;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Damaging enchantments intended as alternatives to the typical {@link DamageEnchantment} type.
  */
 public abstract class AdditionalDamageEnchantment extends Enchantment implements CPCEnchantment {
-    protected AdditionalDamageEnchantment (Rarity weight, EnchantmentTarget target) {
-        super(weight, target, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+    protected AdditionalDamageEnchantment(Properties properties) {
+        super(properties);
     }
 
-    protected AdditionalDamageEnchantment (Rarity weight) {
-        this(weight, EnchantmentTarget.WEAPON);
-    }
-
+    /**
+     * <p> Deprecated in Combat+. </p>
+     * <p> Use {@link CPCEnchantment#getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
+     */
     @Override
-    public boolean isAcceptableItem (ItemStack stack) {
-        if (this.target == EnchantmentTarget.WEAPON && WeaponTypes.isMeleeWeapon(stack)) return true;
-        return super.isAcceptableItem(stack);
+    public final float getAttackDamage (int level, @Nullable EntityType<?> entityType) {
+        return 0f;
     }
 
     @Override
     protected boolean canAccept (Enchantment other) {
         return super.canAccept(other) &&
-            !CPCEnchantmentHelper.isAdditionalDamage(other) &&
             !CPCEnchantmentHelper.isDamage(other) &&
             !CPCEnchantmentHelper.isOffhand(other);
     }

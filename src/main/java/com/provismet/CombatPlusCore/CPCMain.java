@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
 import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 import com.provismet.CombatPlusCore.utility.CombatGameRules;
 
 import net.fabricmc.api.ModInitializer;
@@ -26,7 +25,6 @@ public class CPCMain implements ModInitializer {
 
     @Override
     public void onInitialize () {
-        CPCEnchantmentTargets.init();
         CombatGameRules.register();
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {

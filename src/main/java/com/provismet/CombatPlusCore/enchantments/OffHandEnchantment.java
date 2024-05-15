@@ -1,42 +1,45 @@
 package com.provismet.CombatPlusCore.enchantments;
 
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentTargets;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.FireAspectEnchantment;
 import net.minecraft.enchantment.LuckEnchantment;
-import net.minecraft.enchantment.SweepingEnchantment;
-import net.minecraft.entity.EquipmentSlot;
 
 /**
  * Enchantments that are applied to offhanded dual weapons.
  */
 public abstract class OffHandEnchantment extends Enchantment implements CPCEnchantment {
-    protected OffHandEnchantment (Rarity weight, EnchantmentTarget target) {
-        super(weight, target, new EquipmentSlot[] {EquipmentSlot.OFFHAND});
+    protected OffHandEnchantment(Properties properties) {
+        super(properties);
     }
 
-    protected OffHandEnchantment (Rarity weight) {
-        this(weight, CPCEnchantmentTargets.DUAL_WEAPON);
+    /**
+     * <p> Deprecated in Combat+. </p>
+     * <p> Use {@link CPCEnchantment#getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
+     */
+    @Override
+    public final float getAttackDamage (int level, @Nullable EntityType<?> entityType) {
+        return 0f;
     }
-    
+
     @Override
     public boolean canAccept (Enchantment other) {
         return super.canAccept(other) &&
-            !(other instanceof FireAspectEnchantment) &&
-            !(other instanceof SweepingEnchantment) &&
+            !(other == Enchantments.FIRE_ASPECT) &&
+            !(other == Enchantments.SWEEPING_EDGE) &&
             !(other instanceof LuckEnchantment) &&
             !CPCEnchantmentHelper.isDamage(other) &&
-            !CPCEnchantmentHelper.isAdditionalDamage(other) &&
             !(other instanceof OffHandEnchantment otherOffhand &&
                 otherOffhand.getGroup() != null &&
                 this.getGroup() != null &&
-                otherOffhand.getGroup() != this.getGroup()
+                !otherOffhand.getGroup().equals(this.getGroup())
             );
     }
 

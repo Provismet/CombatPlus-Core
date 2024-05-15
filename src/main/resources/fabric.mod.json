@@ -18,18 +18,17 @@
 		"main": [
 			"com.provismet.CombatPlusCore.CPCMain"
 		],
-		"mm:early_risers": [
-			"com.provismet.CombatPlusCore.asm.EarlyRiser"
+		"fabric-datagen": [
+			"com.provismet.datagen.CombatPlusCore.CPCDatagen"
 		]
 	},
 	"mixins": [
 		"combat-plus.mixins.json"
 	],
-	"accessWidener": "combat-plus.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.20.3",
-		"java": ">=17",
+		"minecraft": "~1.20.5",
+		"java": ">=21",
 		"fabric-api": "*"
 	},
 	"suggests": {

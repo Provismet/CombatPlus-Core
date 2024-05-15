@@ -16,7 +16,7 @@ import net.minecraft.entity.LivingEntity;
  */
 public interface CPCEnchantment {
     /**
-     * Should be used instead of the vanilla {@link Enchantment#getAttackDamage(int, net.minecraft.entity.EntityGroup)}.
+     * Should be used instead of the vanilla {@link Enchantment#getAttackDamage(int, net.minecraft.entity.EntityType)}.
      * 
      * <p> See {@link CPCEnchantmentHelper#getAttackDamage(EquipmentSlot, LivingEntity, LivingEntity)} for how this is applied.
      * 

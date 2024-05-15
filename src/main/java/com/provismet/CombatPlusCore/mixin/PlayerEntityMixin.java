@@ -16,7 +16,6 @@ import com.provismet.CombatPlusCore.utility.CombatGameRules;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -44,8 +43,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    @Redirect(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F"))
-    public float redirectVanillaEnchantments (ItemStack itemStack, EntityGroup entityGroup, Entity target) {
+    @Redirect(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityType;)F"))
+    public float redirectVanillaEnchantments (ItemStack itemStack, EntityType<?> entityGroup, Entity target) {
         if (target instanceof LivingEntity living) {
             return CPCEnchantmentHelper.getAttackDamage(this, living);
         }
@@ -54,7 +53,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @ModifyVariable(method="attack", at=@At("STORE"), ordinal=3, slice=@Slice(from=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;getItem()Lnet/minecraft/item/Item;")))
     private boolean stopSweeping (boolean original) {
-        if (this.getWorld().getGameRules().getBoolean(CombatGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && EnchantmentHelper.getLevel(Enchantments.SWEEPING, this.getMainHandStack()) == 0) return false;
+        if (this.getWorld().getGameRules().getBoolean(CombatGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && EnchantmentHelper.getLevel(Enchantments.SWEEPING_EDGE, this.getMainHandStack()) == 0) return false;
         return original;
     }
 }

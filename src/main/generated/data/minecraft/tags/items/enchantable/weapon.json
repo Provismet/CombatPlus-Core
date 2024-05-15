@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:melee_weapon",
+      "required": false
+    }
+  ]
+}

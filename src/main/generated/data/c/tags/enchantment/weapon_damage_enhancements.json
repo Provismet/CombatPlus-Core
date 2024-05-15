@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:additional_damage",
+      "required": false
+    }
+  ]
+}

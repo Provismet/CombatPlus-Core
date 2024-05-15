@@ -11,7 +11,6 @@ import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -33,8 +32,8 @@ public abstract class MobEntityMixin extends LivingEntity {
         }
     }
 
-    @Redirect(method="tryAttack", at=@At(value="INVOKE", target="Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F"))
-    public float redirectVanillaEnchantments (ItemStack itemStack, EntityGroup entityGroup, Entity target) {
+    @Redirect(method="tryAttack", at=@At(value="INVOKE", target="Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityType;)F"))
+    public float redirectVanillaEnchantments (ItemStack itemStack, EntityType<?> entityGroup, Entity target) {
         if (target instanceof LivingEntity living) {
             return CPCEnchantmentHelper.getAttackDamage(this, living);
         }

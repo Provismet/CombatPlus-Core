@@ -1,5 +1,9 @@
 package com.provismet.CombatPlusCore.utility;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 import com.provismet.CombatPlusCore.enchantments.AdditionalDamageEnchantment;
@@ -8,17 +12,13 @@ import com.provismet.CombatPlusCore.enchantments.OffHandEnchantment;
 import com.provismet.CombatPlusCore.enchantments.WeaponUtilityEnchantment;
 import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
 
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEnchantmentTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEnchantmentTags;
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.FireAspectEnchantment;
-import net.minecraft.enchantment.SweepingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
 
@@ -40,7 +40,7 @@ public class CPCEnchantmentHelper {
         MutableFloat totalDamage = new MutableFloat();
 
         // CPCEnchantments should ALWAYS return zero for their vanilla damage to avoiding doubling the effectiveness.
-        totalDamage.add(EnchantmentHelper.getAttackDamage(user.getEquippedStack(defaultSlot), target.getGroup()));
+        totalDamage.add(EnchantmentHelper.getAttackDamage(user.getEquippedStack(defaultSlot), target.getType()));
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
@@ -157,16 +157,15 @@ public class CPCEnchantmentHelper {
     /**
      * Iterates over all enchantments on a given item stack, calling the consumer for each.
      * 
-     * @param consumer A consumer / lambda function.
+     * @param consumer A consumer / lambda function of (Enchantment, int) -> void.
      * @param itemStack The item stack.
      */
     public static void forEachEnchantment (Consumer consumer, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
 
-        NbtList nbtList = itemStack.getEnchantments();
-        for (int i = 0; i < nbtList.size(); ++i) {
-            NbtCompound nbtCompound = nbtList.getCompound(i);
-            Registries.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(nbtCompound)).ifPresent(enchantment -> consumer.accept(enchantment, EnchantmentHelper.getLevelFromNbt(nbtCompound)));
+        ItemEnchantmentsComponent enchantments = itemStack.getEnchantments();
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantments.getEnchantmentsMap()) {
+            consumer.accept(entry.getKey().value(), entry.getIntValue());
         }
     }
 
@@ -192,23 +191,15 @@ public class CPCEnchantmentHelper {
     }
 
     /**
-     * Checks if a given enchantment is of type {@link DamageEnchantment} or is within the related tag.
+     * Checks if a given enchantment is of type {@link DamageEnchantment}, {@link AdditionalDamageEnchantment}, or is within the related tag.
      * 
      * @param enchantment The enchantment.
      * @return Whether or not this enchantment should be considered as Damage.
      */
     public static boolean isDamage (Enchantment enchantment) {
-        return enchantment instanceof DamageEnchantment || CPCEnchantmentHelper.isInTag(enchantment, ConventionalEnchantmentTags.WEAPON_DAMAGE_ENHANCEMENT);
-    }
-
-    /**
-     * Checks if a given enchantment is of type {@link AdditionalDamageEnchantment} or is within the related tag.
-     * 
-     * @param enchantment The enchantment.
-     * @return Whether or not this enchantment should be considered as Additional Damage.
-     */
-    public static boolean isAdditionalDamage (Enchantment enchantment) {
-        return enchantment instanceof AdditionalDamageEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.ADDITIONAL_DAMAGE);
+        return CPCEnchantmentHelper.isInTag(enchantment, ConventionalEnchantmentTags.WEAPON_DAMAGE_ENHANCEMENTS) ||
+                enchantment instanceof DamageEnchantment ||
+                enchantment instanceof  AdditionalDamageEnchantment;
     }
 
     /**
@@ -219,7 +210,9 @@ public class CPCEnchantmentHelper {
      * @return Whether or not this enchantment should be considered as Aspect.
      */
     public static boolean isAspect (Enchantment enchantment) {
-        return enchantment instanceof AspectEnchantment || enchantment instanceof FireAspectEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.ASPECT);
+        return CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.ASPECT) ||
+                enchantment instanceof AspectEnchantment ||
+                enchantment == Enchantments.FIRE_ASPECT;
     }
 
     /**
@@ -229,16 +222,19 @@ public class CPCEnchantmentHelper {
      * @return Whether or not this enchantment should be considered as Offhand.
      */
     public static boolean isOffhand (Enchantment enchantment) {
-        return enchantment instanceof OffHandEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.OFFHAND);
+        return CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.OFFHAND) ||
+                enchantment instanceof OffHandEnchantment;
     }
 
     /**
-     * Checks if a given enchantment is of type {@link WeaponUtilityEnchantment}, {@link SweepingEnchantment}, or is within the related tag.
+     * Checks if a given enchantment is of type {@link WeaponUtilityEnchantment}, Sweeping Edge, or is within the related tag.
      * 
      * @param enchantment The enchantment.
      * @return Whether or not this enchantment should be considered as Weapon Utility.
      */
     public static boolean isWeaponUtility (Enchantment enchantment) {
-        return enchantment instanceof WeaponUtilityEnchantment || enchantment instanceof SweepingEnchantment || CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.WEAPON_UTILITY);
+        return CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.WEAPON_UTILITY) ||
+                enchantment instanceof WeaponUtilityEnchantment ||
+                enchantment == Enchantments.SWEEPING_EDGE;
     }
 }

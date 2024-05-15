@@ -8,7 +8,6 @@
 		"MobEntityMixin",
 		"AxeItemMixin",
 		"SwordItemMixin",
-		"DamageEnchantmentMixin",
 		"LivingEntityMixin",
 		"TridentItemMixin"
 	],

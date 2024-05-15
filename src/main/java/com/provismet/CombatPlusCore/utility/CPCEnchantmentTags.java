@@ -7,10 +7,10 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
 /**
- * Using these tags directly is optional, but enchantments should be registered to them regardless for better inter-mod compatibility outside
- * of the Combat+ ecosystem.
+ * <p> Using these tags directly is optional, but enchantments should be registered to them regardless for better inter-mod compatibility outside
+ * of the Combat+ ecosystem. </p>
  * 
- * <p> See {@link CPCEnchantmentHelper} for how these are used in practice.
+ * <p> See {@link CPCEnchantmentHelper} for how these are used in practice. </p>
  */
 public class CPCEnchantmentTags {
     public static final TagKey<Enchantment> ADDITIONAL_DAMAGE = createItemTag("additional_damage");
