@@ -9,5 +9,12 @@
   "tag.item.combat-plus.breaks_shields": "Breaks Shields",
   "tag.item.combat-plus.dual_weapon": "Dual Weapons",
   "tag.item.combat-plus.enchantable.aspect": "Aspect Enchantable",
+  "tag.item.combat-plus.enchantable.aspect_primary": "Primary Aspect Enchantable",
+  "tag.item.combat-plus.enchantable.damage": "Damage Enchantable",
+  "tag.item.combat-plus.enchantable.damage_primary": "Primary Damage Enchantable",
+  "tag.item.combat-plus.enchantable.offhand": "Offhand Enchantable",
+  "tag.item.combat-plus.enchantable.offhand_primary": "Primary Offhand Enchantable",
+  "tag.item.combat-plus.enchantable.weapon_utility": "Weapon Utility Enchantable",
+  "tag.item.combat-plus.enchantable.weapon_utility_primary": "Primary Weapon Utility Enchantable",
   "tag.item.combat-plus.melee_weapon": "Melee Weapons"
 }

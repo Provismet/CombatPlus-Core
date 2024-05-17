@@ -22,7 +22,15 @@ public class LanguageGenerator extends FabricLanguageProvider {
         translationBuilder.add(CPCItemTags.MELEE_WEAPON, "Melee Weapons");
         translationBuilder.add(CPCItemTags.DUAL_WEAPON, "Dual Weapons");
         translationBuilder.add(CPCItemTags.SHIELD_BREAKER, "Breaks Shields");
+
         translationBuilder.add(CPCItemTags.ASPECT_ENCHANTABLE, "Aspect Enchantable");
+        translationBuilder.add(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE, "Primary Aspect Enchantable");
+        translationBuilder.add(CPCItemTags.DAMAGE_ENCHANTABLE, "Damage Enchantable");
+        translationBuilder.add(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE, "Primary Damage Enchantable");
+        translationBuilder.add(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE, "Weapon Utility Enchantable");
+        translationBuilder.add(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE, "Primary Weapon Utility Enchantable");
+        translationBuilder.add(CPCItemTags.OFFHAND_ENCHANTABLE, "Offhand Enchantable");
+        translationBuilder.add(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE, "Primary Offhand Enchantable");
 
         translationBuilder.add(CPCEnchantmentTags.ADDITIONAL_DAMAGE, "Additional Damage Enchantments");
         translationBuilder.add(CPCEnchantmentTags.ASPECT, "Aspect Enchantments");
