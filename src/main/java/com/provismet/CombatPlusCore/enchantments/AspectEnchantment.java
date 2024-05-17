@@ -12,7 +12,10 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Weapon enchantments that apply a status change.
  * 
- * <p> Such enchantments should be considered equivalent to Fire Aspect.
+ * <p> Such enchantments should be considered equivalent to Fire Aspect. </p>
+ *
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#ASPECT_ENCHANTABLE
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#ASPECT_PRIMARY_ENCHANTABLE
  */
 public abstract class AspectEnchantment extends Enchantment implements CPCEnchantment {
     protected AspectEnchantment (Properties properties) {
@@ -21,9 +24,9 @@ public abstract class AspectEnchantment extends Enchantment implements CPCEnchan
 
     /**
      * <p> Deprecated in Combat+. </p>
-     * <p> Use {@link CPCEnchantment#getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
+     * <p> Use {@link #getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
      */
-    @Override
+    @Override @Deprecated
     public final float getAttackDamage (int level, @Nullable EntityType<?> entityType) {
         return 0f;
     }

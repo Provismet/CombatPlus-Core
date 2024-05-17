@@ -13,10 +13,14 @@ import org.jetbrains.annotations.Nullable;
  * Enchantments that add utility effects to a weapon. It is intended, but not required, that these
  * enchantments do not damage the opponent directly.
  * 
- * <p> For example: if Sweeping Edge were not in vanilla, then it would be considered one of these.
+ * <p> For example: if Sweeping Edge were not in vanilla, then it would be considered one of these. </p>
  * 
  * <p> See {@link AdditionalDamageEnchantment} for enchantments that directly increase damage dealt
- * to an opponent.
+ * to an opponent. </p>
+ *
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#MELEE_WEAPON
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#WEAPON_UTILITY_ENCHANTABLE
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#WEAPON_UTILITY_PRIMARY_ENCHANTABLE
  */
 public abstract class WeaponUtilityEnchantment extends Enchantment implements CPCEnchantment {
     protected WeaponUtilityEnchantment(Properties properties) {
@@ -25,9 +29,9 @@ public abstract class WeaponUtilityEnchantment extends Enchantment implements CP
 
     /**
      * <p> Deprecated in Combat+. </p>
-     * <p> Use {@link CPCEnchantment#getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
+     * <p> Use {@link #getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
      */
-    @Override
+    @Override @Deprecated
     public final float getAttackDamage (int level, @Nullable EntityType<?> entityType) {
         return 0f;
     }

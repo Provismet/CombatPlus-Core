@@ -3,10 +3,6 @@
     {
       "id": "#minecraft:enchantable/fire_aspect",
       "required": false
-    },
-    {
-      "id": "#combat-plus:enchantable/aspect_primary",
-      "required": false
     }
   ]
 }

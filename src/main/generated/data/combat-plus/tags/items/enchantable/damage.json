@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:enchantable/weapon",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:enchantable/damage_primary",
+      "required": false
+    }
+  ]
+}

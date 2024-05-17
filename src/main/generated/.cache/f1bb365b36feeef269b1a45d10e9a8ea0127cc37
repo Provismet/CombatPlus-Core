@@ -1,7 +1,0 @@
-// 1.20.6	2024-05-15T01:28:26.8639799	Combat+ Core/Tags for minecraft:item
-c24c428fecbb780a42e9666ad2e7ebd512a64aed data\combat-plus\tags\items\enchantable\aspect.json
-4a6b87559e48177ab068e19ad80790cb3835e13b data\c\tags\items\tools\melee_weapons.json
-a35a935ea60dfb4ae467bf89749d763f7a378b05 data\combat-plus\tags\items\melee_weapon.json
-4a6b87559e48177ab068e19ad80790cb3835e13b data\minecraft\tags\items\enchantable\weapon.json
-0920b44962def81502667a666d3ded82d176c3fe data\combat-plus\tags\items\dual_weapon.json
-58b92ae412db10a7041d5ae649a445f3ac2e4a13 data\combat-plus\tags\items\breaks_shields.json

@@ -12,6 +12,9 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Damaging enchantments intended as alternatives to the typical {@link DamageEnchantment} type.
+ *
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#DAMAGE_ENCHANTABLE
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#DAMAGE_PRIMARY_ENCHANTABLE
  */
 public abstract class AdditionalDamageEnchantment extends Enchantment implements CPCEnchantment {
     protected AdditionalDamageEnchantment(Properties properties) {
@@ -20,9 +23,9 @@ public abstract class AdditionalDamageEnchantment extends Enchantment implements
 
     /**
      * <p> Deprecated in Combat+. </p>
-     * <p> Use {@link CPCEnchantment#getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
+     * <p> Use {@link #getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
      */
-    @Override
+    @Override @Deprecated
     public final float getAttackDamage (int level, @Nullable EntityType<?> entityType) {
         return 0f;
     }

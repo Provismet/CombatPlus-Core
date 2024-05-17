@@ -14,6 +14,10 @@ import net.minecraft.enchantment.LuckEnchantment;
 
 /**
  * Enchantments that are applied to offhanded dual weapons.
+ *
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#DUAL_WEAPON
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#OFFHAND_ENCHANTABLE
+ * @see com.provismet.CombatPlusCore.utility.CPCItemTags#OFFHAND_PRIMARY_ENCHANTABLE
  */
 public abstract class OffHandEnchantment extends Enchantment implements CPCEnchantment {
     protected OffHandEnchantment(Properties properties) {
@@ -22,9 +26,9 @@ public abstract class OffHandEnchantment extends Enchantment implements CPCEncha
 
     /**
      * <p> Deprecated in Combat+. </p>
-     * <p> Use {@link CPCEnchantment#getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
+     * <p> Use {@link #getAttackDamage(int, EquipmentSlot, LivingEntity, LivingEntity)} instead. </p>
      */
-    @Override
+    @Override @Deprecated
     public final float getAttackDamage (int level, @Nullable EntityType<?> entityType) {
         return 0f;
     }

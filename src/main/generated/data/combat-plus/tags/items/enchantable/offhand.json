@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:enchantable/offhand",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:dual_weapon",
+      "required": false
+    }
+  ]
+}
