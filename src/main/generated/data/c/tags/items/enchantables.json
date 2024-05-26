@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:enchantable/damage",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:enchantable/weapon_utility",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:enchantable/aspect",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:enchantable/offhand",
+      "required": false
+    }
+  ]
+}

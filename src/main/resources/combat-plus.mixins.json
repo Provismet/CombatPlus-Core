@@ -1,17 +1,18 @@
 {
-	"required": true,
-	"package": "com.provismet.CombatPlusCore.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ItemStackMixin",
-		"PlayerEntityMixin",
-		"MobEntityMixin",
-		"AxeItemMixin",
-		"SwordItemMixin",
-		"LivingEntityMixin",
-		"TridentItemMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "com.provismet.CombatPlusCore.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AxeItemMixin",
+    "EnchantmentsMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "MobEntityMixin",
+    "PlayerEntityMixin",
+    "SwordItemMixin",
+    "TridentItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
