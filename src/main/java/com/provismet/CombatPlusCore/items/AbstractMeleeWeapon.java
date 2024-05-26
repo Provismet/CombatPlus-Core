@@ -16,9 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class AbstractMeleeWeapon extends ToolItem implements MeleeWeapon {
-    private float weaponDamage = 0f;
-    private boolean cachedWeaponDamage = false;
-
     protected AbstractMeleeWeapon (ToolMaterial material, Settings settings) {
         super(material, settings);
     }
@@ -37,8 +34,6 @@ public abstract class AbstractMeleeWeapon extends ToolItem implements MeleeWeapo
     // Default getter for weapon damage. Override this if your weapon requires custom damage values.
     @Override
     public float getWeaponDamage (ItemStack itemStack) {
-        if (this.cachedWeaponDamage) return this.weaponDamage;
-
         AttributeModifiersComponent attributes = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
         double bonusDamage = 0f;
         for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
@@ -46,8 +41,6 @@ public abstract class AbstractMeleeWeapon extends ToolItem implements MeleeWeapo
                 bonusDamage += entry.modifier().value();
             }
         }
-        this.weaponDamage = (float)bonusDamage;
-        this.cachedWeaponDamage = true;
-        return this.weaponDamage;
+        return (float)bonusDamage;
     }
 }
