@@ -17,11 +17,20 @@ This mod makes no changes to the vanilla game, it only provides hooks, interface
 - Adds two interfaces for weapons:
   - `MeleeWeapon`
   - `DualWeapon`
-- Adds four item tags for items:
+- Adds two item tags for item types:
   - `combat-plus:melee_weapon`
   - `combat-plus:dual_weapon`
+- Adds one item tag for mechanics:
   - `combat-plus:breaks_shields`
+- Added eight item tags for enchantments
   - `combat-plus:enchantable/aspect`
+  - `combat-plus:enchantable/aspect_primary`
+  - `combat-plus:enchantable/damage`
+  - `combat-plus:enchantable/damage_primary`
+  - `combat-plus:enchantable/weapon_utility`
+  - `combat-plus:enchantable/weapon_utility_primary`
+  - `combat-plus:enchantable/offhand`
+  - `combat-plus:enchantable/offhand_primary`
 - Adds an entrypoint initialiser for easier mod compatibility.
 - Adds utility methods for checking if an item is a Melee or Dual.
 - Adds new types of enchantment for better inter-mod compatibility checking:
@@ -38,6 +47,13 @@ This mod makes no changes to the vanilla game, it only provides hooks, interface
 - Swords implement `DualWeapon`.
 - Axes implement `MeleeWeapon`.
 - Items in the `combat-plus:breaks_shields` tag will _obviously_ break shields.
+- Smite and Bane of Arthropods have their item tags modified:
+  - They support `combat-plus:enchantable/damage` instead of just weapons.
+  - They have primary (enchantment table) support for `combat-plus:enchantable/damage_primary` instead of just Swords.
+- Sharpness now has primary support for `combat-plus:enchantable/damage_primary` instead of just Swords.
+- Fire Aspect now has support for `combat-plus:enchantable/aspect` instead of the original tag.
+
+The vanilla tags are included within the Combat+ tags where appropriate. Vanilla behaviour has been maintained, check the tags for specifics.
 
 ## Dependency
 This mod is available as a dependency on [Jitpack](https://jitpack.io/#Provismet/combatplus-core).
