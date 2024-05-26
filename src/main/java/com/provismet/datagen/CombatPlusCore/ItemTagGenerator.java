@@ -58,6 +58,12 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .addOptionalTag(CPCItemTags.MELEE_WEAPON);
 
         getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
-                .addOptionalTag(CPCItemTags.MELEE_WEAPON);
+            .addOptionalTag(CPCItemTags.MELEE_WEAPON);
+
+        getOrCreateTagBuilder(ConventionalItemTags.ENCHANTABLES)
+            .addOptionalTag(CPCItemTags.DAMAGE_ENCHANTABLE)
+            .addOptionalTag(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
+            .addOptionalTag(CPCItemTags.ASPECT_ENCHANTABLE)
+            .addOptionalTag(CPCItemTags.OFFHAND_ENCHANTABLE);
     }
 }
