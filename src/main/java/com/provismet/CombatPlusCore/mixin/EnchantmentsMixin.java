@@ -21,7 +21,7 @@ public class EnchantmentsMixin {
         }
     }
 
-    @ModifyArgs(method="<clinit>", at= @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;properties(Lnet/minecraft/registry/tag/TagKey;IILnet/minecraft/enchantment/Enchantment$Cost;Lnet/minecraft/enchantment/Enchantment$Cost;I[Lnet/minecraft/entity/EquipmentSlot;)Lnet/minecraft/enchantment/Enchantment$Properties;"))
+    @ModifyArgs(method="<clinit>", at=@At(value="INVOKE", target="Lnet/minecraft/enchantment/Enchantment;properties(Lnet/minecraft/registry/tag/TagKey;IILnet/minecraft/enchantment/Enchantment$Cost;Lnet/minecraft/enchantment/Enchantment$Cost;I[Lnet/minecraft/entity/EquipmentSlot;)Lnet/minecraft/enchantment/Enchantment$Properties;"))
     private static void injectAspectEnchantable (Args args) {
         if (args.get(0) == ItemTags.FIRE_ASPECT_ENCHANTABLE) {
             args.set(0, CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE);
