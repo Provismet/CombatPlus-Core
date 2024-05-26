@@ -22,6 +22,6 @@ public class EnchantmentTagGenerator extends FabricTagProvider.EnchantmentTagPro
         getOrCreateTagBuilder(CPCEnchantmentTags.OFFHAND);
 
         getOrCreateTagBuilder(ConventionalEnchantmentTags.WEAPON_DAMAGE_ENHANCEMENTS)
-                .addOptionalTag(CPCEnchantmentTags.ADDITIONAL_DAMAGE);
+            .addOptionalTag(CPCEnchantmentTags.ADDITIONAL_DAMAGE);
     }
 }
