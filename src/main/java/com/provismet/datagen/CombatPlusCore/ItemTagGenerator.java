@@ -1,5 +1,7 @@
 package com.provismet.datagen.CombatPlusCore;
 
+import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.utility.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -17,7 +19,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure (RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(CPCItemTags.DUAL_WEAPON)
-            .addOptionalTag(ItemTags.SWORDS);
+            .addOptionalTag(ItemTags.SWORDS)
+            .addOptional(CPCMain.identifier("debugger"));
 
         getOrCreateTagBuilder(CPCItemTags.MELEE_WEAPON)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON)

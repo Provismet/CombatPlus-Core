@@ -36,5 +36,8 @@ public class LanguageGenerator extends FabricLanguageProvider {
         translationBuilder.add(CPCEnchantmentTags.ASPECT, "Aspect Enchantments");
         translationBuilder.add(CPCEnchantmentTags.WEAPON_UTILITY, "Weapon Utility Enchantments");
         translationBuilder.add(CPCEnchantmentTags.OFFHAND, "Offhand Enchantments");
+
+        translationBuilder.add("item.combat-plus.debugger", "Example Weapon");
+        translationBuilder.add("enchantment.combat-plus.logger", "Example Enchantment");
     }
 }

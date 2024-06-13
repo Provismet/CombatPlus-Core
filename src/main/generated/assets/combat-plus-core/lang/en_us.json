@@ -1,7 +1,9 @@
 {
+  "enchantment.combat-plus.logger": "Example Enchantment",
   "gamerule.category.combat-plus": "Combat+",
   "gamerule.keepLoyaltyTridents": "Keep Loyalty Tridents",
   "gamerule.sweepingRequiresEnchantment": "Sweeping Requires Enchantment",
+  "item.combat-plus.debugger": "Example Weapon",
   "tag.enchantment.combat-plus.additional_damage": "Additional Damage Enchantments",
   "tag.enchantment.combat-plus.aspect": "Aspect Enchantments",
   "tag.enchantment.combat-plus.offhand": "Offhand Enchantments",

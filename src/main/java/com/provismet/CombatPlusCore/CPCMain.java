@@ -1,5 +1,8 @@
 package com.provismet.CombatPlusCore;
 
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
+import com.provismet.CombatPlusCore.utility.CPCItemGroups;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +29,13 @@ public class CPCMain implements ModInitializer {
     @Override
     public void onInitialize () {
         CombatGameRules.register();
+        CPCItemGroups.register();
+
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
+            CPCDebugItems.register();
+            CPCDebugEnchantments.register();
+        }
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
             if (entity instanceof LivingEntity user) {
