@@ -1,4 +1,8 @@
 accessWidener v2 named
 
-accessible method net/minecraft/item/ItemGroups addMaxLevelEnchantedBooks (Lnet/minecraft/item/ItemGroup$Entries;Lnet/minecraft/registry/RegistryWrapper;Ljava/util/Set;Lnet/minecraft/item/ItemGroup$StackVisibility;Lnet/minecraft/resource/featuretoggle/FeatureSet;)V
-accessible method net/minecraft/item/ItemGroups addAllLevelEnchantedBooks (Lnet/minecraft/item/ItemGroup$Entries;Lnet/minecraft/registry/RegistryWrapper;Ljava/util/Set;Lnet/minecraft/item/ItemGroup$StackVisibility;Lnet/minecraft/resource/featuretoggle/FeatureSet;)V
+accessible class net/minecraft/registry/Registries$Initializer
+
+accessible method net/minecraft/item/ItemGroups addMaxLevelEnchantedBooks (Lnet/minecraft/item/ItemGroup$Entries;Lnet/minecraft/registry/RegistryWrapper;Lnet/minecraft/item/ItemGroup$StackVisibility;)V
+accessible method net/minecraft/item/ItemGroups addAllLevelEnchantedBooks (Lnet/minecraft/item/ItemGroup$Entries;Lnet/minecraft/registry/RegistryWrapper;Lnet/minecraft/item/ItemGroup$StackVisibility;)V
+
+accessible field net/minecraft/loot/context/LootContextTypes MAP Lcom/google/common/collect/BiMap;

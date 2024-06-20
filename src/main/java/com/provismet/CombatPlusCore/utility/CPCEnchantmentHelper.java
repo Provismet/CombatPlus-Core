@@ -1,35 +1,31 @@
 package com.provismet.CombatPlusCore.utility;
 
+import com.provismet.CombatPlusCore.enchantment.component.CPCEnchantmentComponents;
+import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.EnchantmentEffectContext;
+import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
+import net.minecraft.loot.context.LootContext;
 import net.minecraft.registry.entry.RegistryEntry;
-import org.apache.commons.lang3.mutable.MutableFloat;
+import net.minecraft.server.world.ServerWorld;
 
-import com.provismet.CombatPlusCore.enchantments.AdditionalDamageEnchantment;
-import com.provismet.CombatPlusCore.enchantments.AspectEnchantment;
-import com.provismet.CombatPlusCore.enchantments.OffHandEnchantment;
-import com.provismet.CombatPlusCore.enchantments.WeaponUtilityEnchantment;
-import com.provismet.CombatPlusCore.interfaces.CPCEnchantment;
-
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEnchantmentTags;
-import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
 
 /**
- * Enchantment helper to apply hooks from {@link CPCEnchantment}.
+ * Enchantment helper to apply hooks from Combat+ enchantment components.
  */
 public class CPCEnchantmentHelper {
     /**
      * Gets the bonus attack damage that the user should deal against the target.
      * 
-     * <p> This method internally calls the vanilla {@link EnchantmentHelper#getAttackDamage}.
+     * <p> This method internally calls the vanilla {@link EnchantmentHelper#getDamage}.
      * 
      * @param defaultSlot The equipment slot to be passed to the vanilla EnchantmentHelper. Almost always MAINHAND.
      * @param user The wielder of the item.
@@ -37,24 +33,13 @@ public class CPCEnchantmentHelper {
      * @return The additional damage to deal to the target.
      */
     public static float getAttackDamage (EquipmentSlot defaultSlot, LivingEntity user, LivingEntity target) {
-        MutableFloat totalDamage = new MutableFloat();
-
-        // CPCEnchantments should ALWAYS return zero for their vanilla damage to avoiding doubling the effectiveness.
-        totalDamage.add(EnchantmentHelper.getAttackDamage(user.getEquippedStack(defaultSlot), target.getType()));
-
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-                if (enchantment instanceof CPCEnchantment cpcEnchant) totalDamage.add(cpcEnchant.getAttackDamage(level, slot, user, target));
-            }, user, slot);
-        }
-
-        return totalDamage.floatValue();
+        return 0f;
     }
 
     /**
      * Gets the bonus attack damage that the user should deal against the target.
      * 
-     * <p> This method internally calls the vanilla {@link EnchantmentHelper#getAttackDamage} with a MAINHAND equipment slot.
+     * <p> This method internally calls the vanilla {@link EnchantmentHelper#getDamage} with a MAINHAND equipment slot.
      * 
      * @param user The wielder of the item.
      * @param target The entity that was struck.
@@ -66,112 +51,89 @@ public class CPCEnchantmentHelper {
 
     /**
      * Calls enchantment callbacks for charged hits.
-     * 
+     *
+     * @param world The world the effect should occur in.
      * @param user The wielder of the item.
      * @param target The entity that was struck.
      * @param slot The equipment slot to trigger callbacks for.
      */
-    public static void postChargedHit (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postChargedHit(level, user, target);
-        }, user, slot);
-    }
-
-    /**
-     * Calls enchantment callbacks for charged hits.
-     * 
-     * @param user The wielder of the item.
-     * @param target The entity that was struck.
-     * @param itemStack The item stack to trigger callbacks for.
-     */
-    public static void postChargedHit (LivingEntity user, LivingEntity target, ItemStack itemStack) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postChargedHit(level, user, target);
-        }, itemStack);
-    }
-
-    /**
-     * Calls enchantment callbacks for critical hits.
-     * 
-     * @param user The wielder of the item.
-     * @param target The entity that was struck.
-     * @param slot The equipment slot to trigger callbacks for.
-     */
-    public static void postCriticalHit (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postCriticalHit(level, user, target);
+    public static void postChargedHit (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
+            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponents.POST_CHARGED_ATTACK)) {
+                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
+                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
+            }
         }, user, slot);
     }
 
     /**
      * Calls enchantment callbacks for critical hits.
-     * 
+     *
+     * @param world The world the effect should occur in.
      * @param user The wielder of the item.
      * @param target The entity that was struck.
-     * @param itemStack The item stack to trigger callbacks for.
-     */
-    public static void postCriticalHit (LivingEntity user, LivingEntity target, ItemStack itemStack) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postCriticalHit(level, user, target);
-        }, itemStack);
-    }
-
-    /**
-     * Calls enchantment callbacks for kills.
-     * 
-     * @param user The wielder of the item.
-     * @param target The entity that was killed.
      * @param slot The equipment slot to trigger callbacks for.
      */
-    public static void postKill (LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postKill(level, user, target);
+    public static void postCriticalHit (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
+            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponents.POST_CRITICAL_ATTACK)) {
+                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
+                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
+            }
         }, user, slot);
     }
 
     /**
      * Calls enchantment callbacks for kills.
-     * 
+     *
+     * @param world The world the effect should occur in.
      * @param user The wielder of the item.
-     * @param target The entity that was killed.
-     * @param itemStack The item stack to trigger callbacks for.
+     * @param target The entity that was struck.
+     * @param slot The equipment slot to trigger callbacks for.
      */
-    public static void postKill (LivingEntity user, LivingEntity target, ItemStack itemStack) {
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            if (enchantment instanceof CPCEnchantment cpcEnchant) cpcEnchant.postKill(level, user, target);
-        }, itemStack);
+    public static void postKill (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
+            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponents.POST_KILL)) {
+                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
+                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
+            }
+        }, user, slot);
     }
 
     /**
-     * Iterates over all equipment slots on the user, activating a consumer for each enchantment.
-     * 
-     * @param consumer A consumer / lambda function to be called.
-     * @param user The user of the enchanted items.
-     * @param slot The equipment slot that holds the user's item.
+     * Iterates over all enchantments on an item, activating the consumer for each.
+     *
+     * @param consumer A consumer / lambda to be called.
+     * @param user The owner of the enchanted item.
+     * @param slot The equipment slot the item is in.
      */
     public static void forEachEnchantment (Consumer consumer, LivingEntity user, EquipmentSlot slot) {
-        ItemStack itemStack = user.getEquippedStack(slot);
-        CPCEnchantmentHelper.forEachEnchantment(consumer, itemStack);
+        CPCEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getEquippedStack(slot));
     }
 
     /**
-     * Iterates over all enchantments on a given item stack, calling the consumer for each.
-     * 
-     * @param consumer A consumer / lambda function of (Enchantment, int) -> void.
-     * @param itemStack The item stack.
+     * Iterates over all enchantments on an item, activating the consumer for each.
+     *
+     * @param consumer A consumer / lambda to be called.
+     * @param user The owner of the enchanted item.
+     * @param slot The equipment slot the item is in.
+     * @param itemStack The enchanted item.
      */
-    public static void forEachEnchantment (Consumer consumer, ItemStack itemStack) {
+    public static void forEachEnchantment (Consumer consumer, LivingEntity user, EquipmentSlot slot, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
 
         ItemEnchantmentsComponent enchantments = itemStack.getEnchantments();
-        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantments.getEnchantmentsMap()) {
-            consumer.accept(entry.getKey().value(), entry.getIntValue());
+        if (enchantments.isEmpty()) return;
+
+        EnchantmentEffectContext context = new EnchantmentEffectContext(itemStack, slot, user);
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantments.getEnchantmentEntries()) {
+            if (entry.getKey().value().slotMatches(slot)) consumer.accept(entry.getKey(), entry.getIntValue(), context);
         }
     }
 
     @FunctionalInterface
-    private static interface Consumer {
-        public void accept (Enchantment enchantment, int level);
+    public interface Consumer {
+        public void accept (RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context);
     }
 
     /**
@@ -181,60 +143,12 @@ public class CPCEnchantmentHelper {
      * @param enchantmentTag The enchantment tag.
      * @return Whether or not the enchantment is present in the tag. Unregistered enchantments will return false.
      */
-    public static boolean isInTag (Enchantment enchantment, TagKey<Enchantment> enchantmentTag) {
+    public static boolean isInTag (RegistryEntry<Enchantment> enchantment, TagKey<Enchantment> enchantmentTag) {
         try {
-            return Registries.ENCHANTMENT.getEntry(enchantment).isIn(enchantmentTag);
+            return enchantment.isIn(enchantmentTag);
         }
         catch (Exception e) {
             return false;
         }
-    }
-
-    /**
-     * Checks if a given enchantment is of type {@link DamageEnchantment}, {@link AdditionalDamageEnchantment}, or is within the related tag.
-     * 
-     * @param enchantment The enchantment.
-     * @return Whether or not this enchantment should be considered as Damage.
-     */
-    public static boolean isDamage (Enchantment enchantment) {
-        return CPCEnchantmentHelper.isInTag(enchantment, ConventionalEnchantmentTags.WEAPON_DAMAGE_ENHANCEMENTS) ||
-                enchantment instanceof DamageEnchantment ||
-                enchantment instanceof  AdditionalDamageEnchantment;
-    }
-
-    /**
-     * Checks if a given enchantment is of type {@link AspectEnchantment} or is within the related tag.
-     * <p> Additionally checks if the enchantment is Fire Aspect.
-     * 
-     * @param enchantment The enchantment.
-     * @return Whether or not this enchantment should be considered as Aspect.
-     */
-    public static boolean isAspect (Enchantment enchantment) {
-        return CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.ASPECT) ||
-                enchantment instanceof AspectEnchantment ||
-                enchantment == Enchantments.FIRE_ASPECT;
-    }
-
-    /**
-     * Checks if a given enchantment is of type {@link OffHandEnchantment} or is within the related tag.
-     * 
-     * @param enchantment The enchantment.
-     * @return Whether or not this enchantment should be considered as Offhand.
-     */
-    public static boolean isOffhand (Enchantment enchantment) {
-        return CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.OFFHAND) ||
-                enchantment instanceof OffHandEnchantment;
-    }
-
-    /**
-     * Checks if a given enchantment is of type {@link WeaponUtilityEnchantment}, Sweeping Edge, or is within the related tag.
-     * 
-     * @param enchantment The enchantment.
-     * @return Whether or not this enchantment should be considered as Weapon Utility.
-     */
-    public static boolean isWeaponUtility (Enchantment enchantment) {
-        return CPCEnchantmentHelper.isInTag(enchantment, CPCEnchantmentTags.WEAPON_UTILITY) ||
-                enchantment instanceof WeaponUtilityEnchantment ||
-                enchantment == Enchantments.SWEEPING_EDGE;
     }
 }

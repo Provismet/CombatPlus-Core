@@ -16,16 +16,4 @@ public abstract class SwordItemMixin extends ToolItem implements DualWeapon {
     protected SwordItemMixin (ToolMaterial material, Settings settings) {
         super(material, settings);
     }
-
-    @Override
-    public float getWeaponDamage (ItemStack itemStack) {
-        AttributeModifiersComponent attributes = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-        double bonusDamage = 0f;
-        for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
-            if (entry.attribute() == EntityAttributes.GENERIC_ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                    bonusDamage += entry.modifier().value();
-            }
-        }
-        return (float)bonusDamage;
-    }
 }

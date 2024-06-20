@@ -1,7 +1,7 @@
 package com.provismet.datagen.CombatPlusCore;
 
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentTags;
-import com.provismet.CombatPlusCore.utility.CPCItemTags;
+import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
+import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;

@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.provismet.CombatPlusCore.utility.CPCItemTags;
+import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

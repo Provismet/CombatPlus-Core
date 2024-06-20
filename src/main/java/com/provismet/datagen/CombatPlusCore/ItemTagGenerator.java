@@ -1,11 +1,11 @@
 package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.CPCMain;
-import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
-import com.provismet.CombatPlusCore.utility.CPCItemTags;
+import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 
@@ -24,10 +24,12 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(CPCItemTags.MELEE_WEAPON)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON)
-            .addOptionalTag(ItemTags.AXES);
+            .addOptionalTag(ItemTags.AXES)
+            .add(Items.MACE);
 
         getOrCreateTagBuilder(CPCItemTags.SHIELD_BREAKER)
-            .addOptionalTag(ItemTags.AXES);
+            .addOptionalTag(ItemTags.AXES)
+            .addOptional(CPCMain.identifier("debugger"));
 
         getOrCreateTagBuilder(CPCItemTags.ASPECT_ENCHANTABLE)
             .addOptionalTag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
@@ -57,7 +59,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON);
 
-        getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPONS_TOOLS)
+        getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
             .addOptionalTag(CPCItemTags.MELEE_WEAPON);
 
         getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)

@@ -1,0 +1,51 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "combat-plus:developer_mode"
+    }
+  ],
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.combat-plus.logger"
+  },
+  "effects": {
+    "combat-plus:post_charged_attack": [
+      {
+        "effect": {
+          "type": "combat-plus:code_execution_double_entity",
+          "function": "combat-plus:log-charged"
+        }
+      }
+    ],
+    "combat-plus:post_critical_attack": [
+      {
+        "effect": {
+          "type": "combat-plus:code_execution_double_entity",
+          "function": "combat-plus:log-critical"
+        }
+      }
+    ],
+    "combat-plus:post_kill": [
+      {
+        "effect": {
+          "type": "combat-plus:code_execution_double_entity",
+          "function": "combat-plus:log-kill"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#combat-plus:enchantable/damage",
+  "weight": 1
+}

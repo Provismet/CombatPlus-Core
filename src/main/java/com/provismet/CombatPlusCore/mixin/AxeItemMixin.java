@@ -14,20 +14,8 @@ import net.minecraft.registry.tag.TagKey;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(AxeItem.class)
-public class AxeItemMixin extends MiningToolItem implements MeleeWeapon {
+public abstract class AxeItemMixin extends MiningToolItem implements MeleeWeapon {
     protected AxeItemMixin (ToolMaterial material, TagKey<Block> effectiveBlocks, Settings settings) {
         super(material, effectiveBlocks, settings);
-    }
-
-    @Override
-    public float getWeaponDamage (ItemStack itemStack) {
-        AttributeModifiersComponent attributes = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-        double bonusDamage = 0f;
-        for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
-            if (entry.attribute() == EntityAttributes.GENERIC_ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                bonusDamage += entry.modifier().value();
-            }
-        }
-        return (float)bonusDamage;
     }
 }

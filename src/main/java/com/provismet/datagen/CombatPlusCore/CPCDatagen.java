@@ -10,5 +10,6 @@ public class CPCDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(EnchantmentTagGenerator::new);
         pack.addProvider(LanguageGenerator::new);
+        pack.addProvider(EnchantmentGenerator::new);
     }
 }

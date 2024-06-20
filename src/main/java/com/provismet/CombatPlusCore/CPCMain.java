@@ -1,15 +1,22 @@
 package com.provismet.CombatPlusCore;
 
-import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
-import com.provismet.CombatPlusCore.utility.CPCItemGroups;
+import com.provismet.CombatPlusCore.enchantment.component.CPCEnchantmentComponents;
+import com.provismet.CombatPlusCore.registries.CPCDoubleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.CPCEnchantmentDoubleEntityEffects;
+import com.provismet.CombatPlusCore.registries.CPCEnchantmentSingleEntityEffects;
+import com.provismet.CombatPlusCore.registries.CPCSingleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.LambdaRegistry;
+import com.provismet.CombatPlusCore.utility.item.CPCItemGroups;
+import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.resource.CPCResourceConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
 import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import com.provismet.CombatPlusCore.utility.CombatGameRules;
+import com.provismet.CombatPlusCore.utility.CPCGameRules;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
@@ -28,19 +35,26 @@ public class CPCMain implements ModInitializer {
 
     @Override
     public void onInitialize () {
-        CombatGameRules.register();
+        CPCRegistries.init();
+        CPCEnchantmentComponents.init();
+        CPCSingleEntityLootConditionTypes.init();
+        CPCDoubleEntityLootConditionTypes.init();
+        CPCResourceConditions.register();
+        CPCEnchantmentDoubleEntityEffects.register();
+        LambdaRegistry.register();
+        CPCGameRules.register();
         CPCItemGroups.register();
+        CPCEnchantmentSingleEntityEffects.register();
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
             CPCDebugItems.register();
-            CPCDebugEnchantments.register();
         }
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
             if (entity instanceof LivingEntity user) {
                 ((IMixinItemStack)(Object)user.getMainHandStack()).CPC_postKill(user, target);
-                CPCEnchantmentHelper.postKill(user, target, EquipmentSlot.MAINHAND);
+                CPCEnchantmentHelper.postKill(world, user, target, EquipmentSlot.MAINHAND);
             }
         });
 

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:exclusive_set/aspect_offhand",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:offhand",
+      "required": false
+    }
+  ]
+}
