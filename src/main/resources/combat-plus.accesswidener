@@ -1,8 +1,7 @@
 accessWidener v2 named
 
-accessible class net/minecraft/registry/Registries$Initializer
-
-accessible method net/minecraft/item/ItemGroups addMaxLevelEnchantedBooks (Lnet/minecraft/item/ItemGroup$Entries;Lnet/minecraft/registry/RegistryWrapper;Lnet/minecraft/item/ItemGroup$StackVisibility;)V
-accessible method net/minecraft/item/ItemGroups addAllLevelEnchantedBooks (Lnet/minecraft/item/ItemGroup$Entries;Lnet/minecraft/registry/RegistryWrapper;Lnet/minecraft/item/ItemGroup$StackVisibility;)V
+transitive-accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+transitive-accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+transitive-accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
 
 accessible field net/minecraft/loot/context/LootContextTypes MAP Lcom/google/common/collect/BiMap;
