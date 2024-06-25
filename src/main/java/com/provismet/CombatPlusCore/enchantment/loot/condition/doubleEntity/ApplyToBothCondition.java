@@ -6,7 +6,7 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
-import com.provismet.CombatPlusCore.registries.CPCDoubleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
@@ -42,7 +42,7 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
 
     @Override
     public LootConditionType getType () {
-        return CPCDoubleEntityLootConditionTypes.APPLY_TO_BOTH;
+        return DoubleEntityLootConditionTypes.APPLY_TO_BOTH;
     }
 
     @Override

@@ -2,11 +2,12 @@ package com.provismet.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.enchantment.component.CPCEnchantmentComponents;
-import com.provismet.CombatPlusCore.registries.CPCDoubleEntityLootConditionTypes;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentDoubleEntityEffects;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentSingleEntityEffects;
-import com.provismet.CombatPlusCore.registries.CPCSingleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.DoubleEntityEffects;
+import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.ItemConditionTypes;
 import com.provismet.CombatPlusCore.registries.LambdaRegistry;
+import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
+import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.item.CPCItemGroups;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.CombatPlusCore.utility.resource.CPCResourceConditions;
@@ -37,14 +38,15 @@ public class CPCMain implements ModInitializer {
     public void onInitialize () {
         CPCRegistries.init();
         CPCEnchantmentComponents.init();
-        CPCSingleEntityLootConditionTypes.init();
-        CPCDoubleEntityLootConditionTypes.init();
+        SingleEntityLootConditionTypes.init();
+        DoubleEntityLootConditionTypes.init();
+        ItemConditionTypes.init();
         CPCResourceConditions.register();
-        CPCEnchantmentDoubleEntityEffects.register();
+        DoubleEntityEffects.register();
         LambdaRegistry.register();
         CPCGameRules.register();
         CPCItemGroups.register();
-        CPCEnchantmentSingleEntityEffects.register();
+        SingleEntityEffects.register();
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");

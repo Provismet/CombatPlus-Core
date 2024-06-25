@@ -5,6 +5,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutio
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEnchantmentEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Pair;
 
@@ -16,6 +17,7 @@ public class LambdaRegistry {
         registerDoubles();
         registerSingleConditions();
         registerDoubleConditions();
+        registerItemConditions();
     }
 
     private static void registerSingles () {
@@ -38,6 +40,11 @@ public class LambdaRegistry {
         registerDoubleCondition("false", pair -> false);
     }
 
+    private static void registerItemConditions () {
+        registerItemCondition("true", item -> true);
+        registerItemCondition("false", item -> false);
+    }
+
     private static void register (String name, CodeExecutionSingleEntityEnchantmentEffect.Lambda lambda) {
         Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA, CPCMain.identifier(name), lambda);
     }
@@ -52,5 +59,9 @@ public class LambdaRegistry {
 
     private static void registerDoubleCondition (String name, Predicate<Pair<Entity,Entity>> predicate) {
         Registry.register(CPCRegistries.DOUBLE_ENTITY_CONDITION, CPCMain.identifier(name), predicate);
+    }
+
+    private static void registerItemCondition (String name, Predicate<ItemStack> predicate) {
+        Registry.register(CPCRegistries.ITEM_CONDITION, CPCMain.identifier(name), predicate);
     }
 }

@@ -6,6 +6,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutio
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEnchantmentEffect;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Pair;
@@ -17,6 +18,7 @@ public class CPCRegistries {
     public static final Registry<CodeExecutionDoubleEntityEnchantmentEffect.Lambda> DOUBLE_ENTITY_LAMBDA = create(CPCRegistryKeys.DOUBLE_ENTITY_LAMBDA);
     public static final Registry<Predicate<Entity>> SINGLE_ENTITY_CONDITION = create(CPCRegistryKeys.SINGLE_ENTITY_CONDITION);
     public static final Registry<Predicate<Pair<Entity,Entity>>> DOUBLE_ENTITY_CONDITION = create(CPCRegistryKeys.DOUBLE_ENTITY_CONDITION);
+    public static final Registry<Predicate<ItemStack>> ITEM_CONDITION = create(CPCRegistryKeys.ITEM_CONDITION);
 
     public static final Registry<MapCodec<? extends CPCEnchantmentEntityEffect>> ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE = create(CPCRegistryKeys.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE);
 

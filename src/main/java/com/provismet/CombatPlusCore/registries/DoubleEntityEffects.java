@@ -3,11 +3,19 @@ package com.provismet.CombatPlusCore.registries;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.*;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyKnockbackEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToTargetEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToUserEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.InvertedEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCharged;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCritical;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostKill;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.registry.Registry;
 
-public class CPCEnchantmentDoubleEntityEffects {
+public class DoubleEntityEffects {
     public static void register () {
         register("code_execution_double_entity", CodeExecutionDoubleEntityEnchantmentEffect.CODEC);
         register("apply_to_owner", ApplyToUserEntityEnchantmentEffect.CODEC);
@@ -20,7 +28,7 @@ public class CPCEnchantmentDoubleEntityEffects {
         register("weapon_post_kill", WeaponPostKill.CODEC);
     }
 
-    private static <T extends CPCEnchantmentEntityEffect> void register (String name, MapCodec<T> codec) {
+    private static void register (String name, MapCodec<? extends CPCEnchantmentEntityEffect> codec) {
         Registry.register(CPCRegistries.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE, CPCMain.identifier(name), codec);
     }
 }

@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.registries.CPCSingleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
@@ -19,7 +19,7 @@ public record DimensionCondition (Identifier dimension) implements SingleEntityC
 
     @Override
     public LootConditionType getType () {
-        return CPCSingleEntityLootConditionTypes.DIMENSION;
+        return SingleEntityLootConditionTypes.DIMENSION;
     }
 
     @Override

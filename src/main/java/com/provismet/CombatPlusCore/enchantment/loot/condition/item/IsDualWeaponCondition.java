@@ -10,8 +10,8 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 
-public record IsDualWeapon () implements ItemCondition {
-    public static final MapCodec<IsDualWeapon> CODEC = MapCodec.unit(IsDualWeapon::new);
+public record IsDualWeaponCondition() implements ItemCondition {
+    public static final MapCodec<IsDualWeaponCondition> CODEC = MapCodec.unit(IsDualWeaponCondition::new);
 
     @Override
     public LootConditionType getType () {

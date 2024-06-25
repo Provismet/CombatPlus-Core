@@ -4,10 +4,9 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
-import com.provismet.CombatPlusCore.registries.CPCDoubleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.entity.Entity;
-import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
@@ -27,7 +26,7 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
 
     @Override
     public LootConditionType getType () {
-        return CPCDoubleEntityLootConditionTypes.LAMBDA;
+        return DoubleEntityLootConditionTypes.LAMBDA;
     }
 
     @Override

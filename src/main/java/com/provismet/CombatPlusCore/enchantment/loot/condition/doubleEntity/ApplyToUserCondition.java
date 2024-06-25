@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
-import com.provismet.CombatPlusCore.registries.CPCDoubleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
@@ -24,7 +24,7 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
 
     @Override
     public LootConditionType getType () {
-        return CPCDoubleEntityLootConditionTypes.APPLY_TO_USER;
+        return DoubleEntityLootConditionTypes.APPLY_TO_USER;
     }
 
     @Override

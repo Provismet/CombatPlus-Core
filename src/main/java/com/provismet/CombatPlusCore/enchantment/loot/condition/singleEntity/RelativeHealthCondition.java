@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
-import com.provismet.CombatPlusCore.registries.CPCSingleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.enchantment.EnchantmentLevelBasedValue;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.loot.condition.LootConditionType;
@@ -22,7 +22,7 @@ public record RelativeHealthCondition (CPCLootContext.Comparison comparison, Enc
 
     @Override
     public LootConditionType getType () {
-        return CPCSingleEntityLootConditionTypes.RELATIVE_HEALTH;
+        return SingleEntityLootConditionTypes.RELATIVE_HEALTH;
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
-import com.provismet.CombatPlusCore.registries.CPCDoubleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
@@ -25,7 +25,7 @@ public class ApplyToTargetCondition extends AbstractSingleWrapperCondition {
 
     @Override
     public LootConditionType getType () {
-        return CPCDoubleEntityLootConditionTypes.APPLY_TO_TARGET;
+        return DoubleEntityLootConditionTypes.APPLY_TO_TARGET;
     }
 
     @Override

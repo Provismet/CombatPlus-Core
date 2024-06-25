@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.registries.CPCSingleEntityLootConditionTypes;
+import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.entity.Entity;
 import net.minecraft.loot.condition.LootConditionType;
@@ -24,7 +24,7 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
 
     @Override
     public LootConditionType getType () {
-        return CPCSingleEntityLootConditionTypes.LAMBDA;
+        return SingleEntityLootConditionTypes.LAMBDA;
     }
 
     @Override

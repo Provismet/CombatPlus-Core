@@ -10,7 +10,7 @@ import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public class CPCEnchantmentSingleEntityEffects {
+public class SingleEntityEffects {
     public static void register () {
         registerEntityEffect("code_execution_single_entity", CodeExecutionSingleEntityEnchantmentEffect.CODEC);
         registerEntityEffect("freeze", FreezeEnchantmentEffect.CODEC);
