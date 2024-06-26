@@ -4,9 +4,13 @@ import com.provismet.CombatPlusCore.enchantment.component.CPCEnchantmentComponen
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.component.ComponentType;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
+import net.minecraft.enchantment.effect.EnchantmentValueEffect;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
@@ -17,6 +21,10 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.math.random.Random;
+import org.apache.commons.lang3.mutable.MutableFloat;
+
+import java.util.List;
 
 /**
  * Enchantment helper to apply hooks from Combat+ enchantment components.
@@ -101,13 +109,83 @@ public class CPCEnchantmentHelper {
     }
 
     /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param random Random source.
+     * @param item The enchanted item.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (ComponentType<EnchantmentValueEffect> valueType, Random random, ItemStack item, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, random, level, value), item);
+        return value.floatValue();
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param world The server-side world.
+     * @param item The enchanted item.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack item, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, item, value), item);
+        return value.floatValue();
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param world The server-side world.
+     * @param item The enchanted item.
+     * @param user The owner of the item.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack item, LivingEntity user, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, item, user, value), item);
+        return value.floatValue();
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param world The server-side world.
+     * @param item The enchanted item.
+     * @param user The owner of the item.
+     * @param damageSource The associated damage source.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack item, LivingEntity user, DamageSource damageSource, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, item, user, damageSource, value), item);
+        return value.floatValue();
+    }
+
+    public static void forEachEnchantment (Consumer consumer, ItemStack item) {
+        ItemEnchantmentsComponent itemEnchantmentsComponent = item.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : itemEnchantmentsComponent.getEnchantmentEntries()) {
+            consumer.accept(entry.getKey(), entry.getIntValue());
+        }
+    }
+
+    /**
      * Iterates over all enchantments on an item, activating the consumer for each.
      *
      * @param consumer A consumer / lambda to be called.
      * @param user The owner of the enchanted item.
      * @param slot The equipment slot the item is in.
      */
-    public static void forEachEnchantment (Consumer consumer, LivingEntity user, EquipmentSlot slot) {
+    public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getEquippedStack(slot));
     }
 
@@ -119,7 +197,7 @@ public class CPCEnchantmentHelper {
      * @param slot The equipment slot the item is in.
      * @param itemStack The enchanted item.
      */
-    public static void forEachEnchantment (Consumer consumer, LivingEntity user, EquipmentSlot slot, ItemStack itemStack) {
+    public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
 
         ItemEnchantmentsComponent enchantments = itemStack.getEnchantments();
@@ -133,6 +211,11 @@ public class CPCEnchantmentHelper {
 
     @FunctionalInterface
     public interface Consumer {
+        public void accept (RegistryEntry<Enchantment> enchantment, int level);
+    }
+
+    @FunctionalInterface
+    public interface ContextConsumer {
         public void accept (RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context);
     }
 
