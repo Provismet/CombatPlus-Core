@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.utility;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,7 @@ import net.minecraft.util.Pair;
 import java.util.function.Predicate;
 
 public class CPCRegistries {
-    public static final Registry<CodeExecutionSingleEntityEnchantmentEffect.Lambda> SINGLE_ENTITY_LAMBDA = create(CPCRegistryKeys.SINGLE_ENTITY_LAMBDA);
+    public static final Registry<CodeExecutionSingleEntityEffect.Lambda> SINGLE_ENTITY_LAMBDA = create(CPCRegistryKeys.SINGLE_ENTITY_LAMBDA);
     public static final Registry<CodeExecutionDoubleEntityEnchantmentEffect.Lambda> DOUBLE_ENTITY_LAMBDA = create(CPCRegistryKeys.DOUBLE_ENTITY_LAMBDA);
     public static final Registry<Predicate<Entity>> SINGLE_ENTITY_CONDITION = create(CPCRegistryKeys.SINGLE_ENTITY_CONDITION);
     public static final Registry<Predicate<Pair<Entity,Entity>>> DOUBLE_ENTITY_CONDITION = create(CPCRegistryKeys.DOUBLE_ENTITY_CONDITION);

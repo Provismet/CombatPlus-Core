@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -45,7 +45,7 @@ public class LambdaRegistry {
         registerItemCondition("false", item -> false);
     }
 
-    private static void register (String name, CodeExecutionSingleEntityEnchantmentEffect.Lambda lambda) {
+    private static void register (String name, CodeExecutionSingleEntityEffect.Lambda lambda) {
         Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA, CPCMain.identifier(name), lambda);
     }
 

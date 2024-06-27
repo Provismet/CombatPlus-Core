@@ -3,6 +3,7 @@ package com.provismet.CombatPlusCore.enchantment.effect.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.entity.Entity;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 /**
  * Executes a registered function against the pair of entities.
- * @see com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEnchantmentEffect
+ * @see CodeExecutionSingleEntityEffect
  * @param function The identifier of the function.
  */
 public record CodeExecutionDoubleEntityEnchantmentEffect (Identifier function) implements CPCEnchantmentEntityEffect {

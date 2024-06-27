@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.utility;
 
-import com.provismet.CombatPlusCore.enchantment.component.CPCEnchantmentComponents;
+import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -67,7 +67,7 @@ public class CPCEnchantmentHelper {
      */
     public static void postChargedHit (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponents.POST_CHARGED_ATTACK)) {
+            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK)) {
                 LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
                 if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
             }
@@ -84,7 +84,7 @@ public class CPCEnchantmentHelper {
      */
     public static void postCriticalHit (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponents.POST_CRITICAL_ATTACK)) {
+            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK)) {
                 LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
                 if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
             }
@@ -101,7 +101,7 @@ public class CPCEnchantmentHelper {
      */
     public static void postKill (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponents.POST_KILL)) {
+            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_KILL)) {
                 LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
                 if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
             }

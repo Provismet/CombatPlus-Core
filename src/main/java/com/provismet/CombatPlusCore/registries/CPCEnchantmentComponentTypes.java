@@ -1,4 +1,4 @@
-package com.provismet.CombatPlusCore.enchantment.component;
+package com.provismet.CombatPlusCore.registries;
 
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
@@ -11,7 +11,7 @@ import net.minecraft.registry.Registry;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class CPCEnchantmentComponents {
+public class CPCEnchantmentComponentTypes {
     public static final ComponentType<List<EnchantmentEffectEntry<CPCEnchantmentEntityEffect>>> POST_CHARGED_ATTACK = register("post_charged_attack", builder -> builder.codec(EnchantmentEffectEntry.createCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY).listOf()));
     public static final ComponentType<List<EnchantmentEffectEntry<CPCEnchantmentEntityEffect>>> POST_CRITICAL_ATTACK = register("post_critical_attack", builder -> builder.codec(EnchantmentEffectEntry.createCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY).listOf()));
     public static final ComponentType<List<EnchantmentEffectEntry<CPCEnchantmentEntityEffect>>> POST_KILL = register("post_kill", builder -> builder.codec(EnchantmentEffectEntry.createCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY).listOf()));

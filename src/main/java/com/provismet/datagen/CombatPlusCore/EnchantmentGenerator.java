@@ -1,7 +1,9 @@
 package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.CPCMain;
-import com.provismet.CombatPlusCore.enchantment.component.CPCEnchantmentComponents;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.DamageEquipmentEffect;
+import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect;
 import com.provismet.CombatPlusCore.utility.resource.DevModeResourceCondition;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
@@ -9,8 +11,11 @@ import com.provismet.datagen.CombatPlusCore.provider.CPCEnchantmentProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.registry.RegistryWrapper;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentGenerator extends CPCEnchantmentProvider {
@@ -33,13 +38,13 @@ public class EnchantmentGenerator extends CPCEnchantmentProvider {
                     AttributeModifierSlot.MAINHAND
                 )
             ).addEffect(
-                CPCEnchantmentComponents.POST_CHARGED_ATTACK,
+                CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK,
                 new CodeExecutionDoubleEntityEnchantmentEffect(CPCMain.identifier("log-charged"))
             ).addEffect(
-                CPCEnchantmentComponents.POST_CRITICAL_ATTACK,
+                CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK,
                 new CodeExecutionDoubleEntityEnchantmentEffect(CPCMain.identifier("log-critical"))
             ).addEffect(
-                CPCEnchantmentComponents.POST_KILL,
+                CPCEnchantmentComponentTypes.POST_KILL,
                 new CodeExecutionDoubleEntityEnchantmentEffect(CPCMain.identifier("log-kill"))
             ),
             new DevModeResourceCondition()
