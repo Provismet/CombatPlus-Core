@@ -63,6 +63,14 @@ public abstract class CPCEnchantmentProvider extends FabricDynamicRegistryProvid
             this.entries.add(RegistryKey.of(RegistryKeys.ENCHANTMENT, id), enchantmentBuilder.build(id), conditions);
         }
 
+        public void add (RegistryKey<Enchantment> enchantmentKey, Enchantment.Builder enchantmentBuilder) {
+            this.add(enchantmentKey.getValue(), enchantmentBuilder);
+        }
+
+        public void add (RegistryKey<Enchantment> enchantmentKey, Enchantment.Builder enchantmentBuilder, ResourceCondition... conditions) {
+            this.add(enchantmentKey.getValue(), enchantmentBuilder, conditions);
+        }
+
         public RegistryEntryList<Item> getItemEntryList (TagKey<Item> tag) {
             return this.itemLookup.getOrThrow(tag);
         }
