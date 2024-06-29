@@ -45,4 +45,14 @@ public class DebuggerItem extends Item implements DualWeapon {
     public void postKill (ItemStack itemStack, LivingEntity user, LivingEntity target) {
         CPCMain.LOGGER.info("Item: {} has killed {}", user, target);
     }
+
+    @Override
+    public boolean isEnchantable (ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public int getEnchantability () {
+        return 1;
+    }
 }

@@ -40,10 +40,12 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(CPCItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
-            .addOptionalTag(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE);
+            .addOptionalTag(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
+            .addOptional(CPCMain.identifier("debugger"));
 
         getOrCreateTagBuilder(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
-            .addOptionalTag(ItemTags.SWORD_ENCHANTABLE);
+            .addOptionalTag(ItemTags.SWORD_ENCHANTABLE)
+            .addOptional(CPCMain.identifier("debugger"));
 
         getOrCreateTagBuilder(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
