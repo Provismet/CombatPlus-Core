@@ -2,6 +2,7 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToAttacker;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToItem;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.DimensionCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ExposedToMoonCondition;
@@ -26,6 +27,7 @@ public class SingleEntityLootConditionTypes {
     public static final LootConditionType EXPOSED_TO_SUN = register("exposed_to_sun", ExposedToSunCondition.CODEC);
     public static final LootConditionType EXPOSED_TO_MOON = register("exposed_to_moon", ExposedToMoonCondition.CODEC);
     public static final LootConditionType APPLY_TO_ITEM = register("apply_to_item", ApplyToItem.CODEC);
+    public static final LootConditionType APPLY_TO_ATTACKER = register("apply_to_attacker", ApplyToAttacker.CODEC);
 
     private static LootConditionType register (String name, MapCodec<? extends LootCondition> codec) {
         return Registry.register(Registries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootConditionType(codec));
