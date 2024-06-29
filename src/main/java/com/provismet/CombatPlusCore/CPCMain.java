@@ -11,6 +11,9 @@ import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.item.CPCItemGroups;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.CombatPlusCore.utility.resource.CPCResourceConditions;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +54,9 @@ public class CPCMain implements ModInitializer {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
             CPCDebugItems.register();
+            ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
+                content.add(CPCDebugItems.getOptionalDebugItem().get(), ItemGroup.StackVisibility.SEARCH_TAB_ONLY);
+            });
         }
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
