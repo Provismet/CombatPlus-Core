@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:enchantable/damage",
+      "required": false
+    }
+  ]
+}

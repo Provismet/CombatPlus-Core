@@ -5,6 +5,7 @@ import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -66,6 +67,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.MELEE_WEAPON);
+
+        getOrCreateTagBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+            .addOptionalTag(CPCItemTags.DAMAGE_ENCHANTABLE);
 
         getOrCreateTagBuilder(ConventionalItemTags.ENCHANTABLES)
             .addOptionalTag(CPCItemTags.DAMAGE_ENCHANTABLE)

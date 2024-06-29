@@ -3,6 +3,10 @@
     {
       "id": "#minecraft:enchantable/sword",
       "required": false
+    },
+    {
+      "id": "combat-plus:debugger",
+      "required": false
     }
   ]
 }
