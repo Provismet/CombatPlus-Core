@@ -7,7 +7,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyKnockba
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEntityEnchantmentEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToTargetEntityEnchantmentEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToUserEntityEnchantmentEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.InvertedEntityEnchantmentEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCharged;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCritical;
@@ -17,7 +17,7 @@ import net.minecraft.registry.Registry;
 
 public class DoubleEntityEffects {
     public static void register () {
-        register("code_execution_double_entity", CodeExecutionDoubleEntityEnchantmentEffect.CODEC);
+        register("code_execution_double_entity", CodeExecutionDoubleEntityEffect.CODEC);
         register("apply_to_owner", ApplyToUserEntityEnchantmentEffect.CODEC);
         register("apply_to_target", ApplyToTargetEntityEnchantmentEffect.CODEC);
         register("apply_to_both", ApplyToBothEntityEnchantmentEffect.CODEC);

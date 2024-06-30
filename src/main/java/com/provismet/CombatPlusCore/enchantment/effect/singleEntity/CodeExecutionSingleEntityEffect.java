@@ -2,6 +2,7 @@ package com.provismet.CombatPlusCore.enchantment.effect.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 /**
  * Executes a registered lambda function against an entity.
- * @see com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect
+ * @see CodeExecutionDoubleEntityEffect
  * @param function The id of the function.
  */
 public record CodeExecutionSingleEntityEffect(Identifier function) implements EnchantmentEntityEffect {

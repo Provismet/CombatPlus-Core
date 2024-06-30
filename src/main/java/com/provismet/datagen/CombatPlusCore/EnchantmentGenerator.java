@@ -1,14 +1,8 @@
 package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.CPCMain;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEntityEnchantmentEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.DamageEquipmentEffect;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToAttacker;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.RelativeHealthCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEnchantmentEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.utility.resource.DevModeResourceCondition;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.datagen.CombatPlusCore.provider.CPCEnchantmentProvider;
@@ -22,7 +16,6 @@ import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
 import net.minecraft.enchantment.effect.entity.ApplyMobEffectEnchantmentEffect;
 import net.minecraft.enchantment.effect.entity.IgniteEnchantmentEffect;
 import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
@@ -36,7 +29,6 @@ import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.ItemTags;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentGenerator extends CPCEnchantmentProvider {
@@ -60,13 +52,13 @@ public class EnchantmentGenerator extends CPCEnchantmentProvider {
                 )
             ).addEffect(
                 CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK,
-                new CodeExecutionDoubleEntityEnchantmentEffect(CPCMain.identifier("log-charged"))
+                new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-charged"))
             ).addEffect(
                 CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK,
-                new CodeExecutionDoubleEntityEnchantmentEffect(CPCMain.identifier("log-critical"))
+                new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-critical"))
             ).addEffect(
                 CPCEnchantmentComponentTypes.POST_KILL,
-                new CodeExecutionDoubleEntityEnchantmentEffect(CPCMain.identifier("log-kill"))
+                new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-kill"))
             ),
             new DevModeResourceCondition()
         );

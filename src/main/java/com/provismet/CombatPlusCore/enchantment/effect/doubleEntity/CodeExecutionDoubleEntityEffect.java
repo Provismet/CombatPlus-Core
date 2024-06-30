@@ -18,8 +18,8 @@ import java.util.Optional;
  * @see CodeExecutionSingleEntityEffect
  * @param function The identifier of the function.
  */
-public record CodeExecutionDoubleEntityEnchantmentEffect (Identifier function) implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<CodeExecutionDoubleEntityEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionDoubleEntityEnchantmentEffect::function)).apply(instance, CodeExecutionDoubleEntityEnchantmentEffect::new));
+public record CodeExecutionDoubleEntityEffect (Identifier function) implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<CodeExecutionDoubleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionDoubleEntityEffect::function)).apply(instance, CodeExecutionDoubleEntityEffect::new));
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
