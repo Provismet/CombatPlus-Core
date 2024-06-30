@@ -16,9 +16,9 @@ import java.util.function.Predicate;
 public class CPCRegistries {
     public static final Registry<CodeExecutionSingleEntityEffect.Lambda> SINGLE_ENTITY_LAMBDA = create(CPCRegistryKeys.SINGLE_ENTITY_LAMBDA);
     public static final Registry<CodeExecutionDoubleEntityEnchantmentEffect.Lambda> DOUBLE_ENTITY_LAMBDA = create(CPCRegistryKeys.DOUBLE_ENTITY_LAMBDA);
-    public static final Registry<Predicate<Entity>> SINGLE_ENTITY_CONDITION = create(CPCRegistryKeys.SINGLE_ENTITY_CONDITION);
-    public static final Registry<Predicate<Pair<Entity,Entity>>> DOUBLE_ENTITY_CONDITION = create(CPCRegistryKeys.DOUBLE_ENTITY_CONDITION);
-    public static final Registry<Predicate<ItemStack>> ITEM_CONDITION = create(CPCRegistryKeys.ITEM_CONDITION);
+    public static final Registry<Predicate<Entity>> SINGLE_ENTITY_LAMBDA_CONDITION = create(CPCRegistryKeys.SINGLE_ENTITY_CONDITION);
+    public static final Registry<Predicate<Pair<Entity,Entity>>> DOUBLE_ENTITY_LAMBDA_CONDITION = create(CPCRegistryKeys.DOUBLE_ENTITY_CONDITION);
+    public static final Registry<Predicate<ItemStack>> ITEM_LAMBDA_CONDITION = create(CPCRegistryKeys.ITEM_CONDITION);
 
     public static final Registry<MapCodec<? extends CPCEnchantmentEntityEffect>> ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE = create(CPCRegistryKeys.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE);
 

@@ -31,7 +31,7 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
 
     @Override
     public boolean test (LootContext lootContext) {
-        Optional<Predicate<Pair<Entity,Entity>>> predicate = CPCRegistries.DOUBLE_ENTITY_CONDITION.getOrEmpty(function);
+        Optional<Predicate<Pair<Entity,Entity>>> predicate = CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.getOrEmpty(function);
         Pair<Entity,Entity> pair = new Pair<>(lootContext.get(LootContextParameters.THIS_ENTITY), lootContext.get(CPCLootContextParameters.TARGET_ENTITY));
         if (predicate.isEmpty()) return false;
         else return predicate.get().test(pair);

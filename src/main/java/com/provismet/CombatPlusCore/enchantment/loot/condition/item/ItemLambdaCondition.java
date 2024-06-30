@@ -24,7 +24,7 @@ public record ItemLambdaCondition (Identifier function) implements ItemCondition
 
     @Override
     public boolean test (LootContext lootContext) {
-        Optional<Predicate<ItemStack>> predicate = CPCRegistries.ITEM_CONDITION.getOrEmpty(this.function);
+        Optional<Predicate<ItemStack>> predicate = CPCRegistries.ITEM_LAMBDA_CONDITION.getOrEmpty(this.function);
         if (predicate.isPresent()) return predicate.get().test(lootContext.get(LootContextParameters.TOOL));
         return false;
     }

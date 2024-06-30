@@ -29,7 +29,7 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
 
     @Override
     public boolean test (LootContext lootContext) {
-        Optional<Predicate<Entity>> predicate = CPCRegistries.SINGLE_ENTITY_CONDITION.getOrEmpty(this.function);
+        Optional<Predicate<Entity>> predicate = CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION.getOrEmpty(this.function);
         Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
         if (predicate.isEmpty()) return false;
         else return predicate.get().test(entity);

@@ -54,14 +54,14 @@ public class LambdaRegistry {
     }
 
     private static void registerSingleCondition (String name, Predicate<Entity> predicate) {
-        Registry.register(CPCRegistries.SINGLE_ENTITY_CONDITION, CPCMain.identifier(name), predicate);
+        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
     }
 
     private static void registerDoubleCondition (String name, Predicate<Pair<Entity,Entity>> predicate) {
-        Registry.register(CPCRegistries.DOUBLE_ENTITY_CONDITION, CPCMain.identifier(name), predicate);
+        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
     }
 
     private static void registerItemCondition (String name, Predicate<ItemStack> predicate) {
-        Registry.register(CPCRegistries.ITEM_CONDITION, CPCMain.identifier(name), predicate);
+        Registry.register(CPCRegistries.ITEM_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
     }
 }
