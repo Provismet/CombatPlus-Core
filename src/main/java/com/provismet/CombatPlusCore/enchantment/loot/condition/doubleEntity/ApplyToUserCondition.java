@@ -5,10 +5,8 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 
@@ -38,19 +36,19 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
         return this.condition.test(userContext);
     }
 
-    public static DoubleEntityCondition.Builder builder (EntityPropertiesLootCondition propertiesCondition) {
-        return () -> new ApplyToUserCondition(propertiesCondition);
+    public static DoubleEntityCondition.Builder builder (SingleEntityCondition.Builder combatCondition) {
+        return () -> new ApplyToUserCondition(combatCondition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (SingleEntityCondition condition) {
-        return () -> new ApplyToUserCondition(condition);
+    public static DoubleEntityCondition.Builder builder (SingleEntityCondition combatCondition) {
+        return () -> new ApplyToUserCondition(combatCondition);
     }
 
-    public static DoubleEntityCondition.Builder builder (SingleEntityCondition.Builder condition) {
+    public static DoubleEntityCondition.Builder builder (LootCondition.Builder condition) {
         return () -> new ApplyToUserCondition(condition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (MatchToolLootCondition toolCondition) {
-        return () -> new ApplyToUserCondition(toolCondition);
+    public static DoubleEntityCondition.Builder builder (LootCondition condition) {
+        return () -> new ApplyToUserCondition(condition);
     }
 }

@@ -7,7 +7,6 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondi
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
@@ -46,7 +45,11 @@ public record ApplyToItem (LootCondition condition) implements SingleEntityCondi
         return () -> new ApplyToItem(condition.build());
     }
 
-    public static SingleEntityCondition.Builder builder (MatchToolLootCondition condition) {
+    public static SingleEntityCondition.Builder builder (LootCondition condition) {
         return () -> new ApplyToItem((condition));
+    }
+
+    public static SingleEntityCondition.Builder builder (LootCondition.Builder condition) {
+        return () -> new ApplyToItem((condition.build()));
     }
 }

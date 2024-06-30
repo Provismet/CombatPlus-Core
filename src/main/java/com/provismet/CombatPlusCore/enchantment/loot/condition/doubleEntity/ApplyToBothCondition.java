@@ -9,10 +9,8 @@ import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParam
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
@@ -58,19 +56,19 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
         return this.condition.test(attackerContext) && this.condition.test(targetContext);
     }
 
-    public static DoubleEntityCondition.Builder builder (EntityPropertiesLootCondition propertiesCondition) {
-        return () -> new ApplyToBothCondition(propertiesCondition);
+    public static DoubleEntityCondition.Builder builder (SingleEntityCondition.Builder combatCondition) {
+        return () -> new ApplyToBothCondition(combatCondition.build());
     }
 
     public static DoubleEntityCondition.Builder builder (SingleEntityCondition combatCondition) {
         return () -> new ApplyToBothCondition(combatCondition);
     }
 
-    public static DoubleEntityCondition.Builder builder (SingleEntityCondition.Builder combatCondition) {
-        return () -> new ApplyToBothCondition(combatCondition.build());
+    public static DoubleEntityCondition.Builder builder (LootCondition.Builder condition) {
+        return () -> new ApplyToBothCondition(condition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (MatchToolLootCondition toolCondition) {
-        return () -> new ApplyToBothCondition(toolCondition);
+    public static DoubleEntityCondition.Builder builder (LootCondition condition) {
+        return () -> new ApplyToBothCondition(condition);
     }
 }

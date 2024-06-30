@@ -6,10 +6,8 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 
@@ -39,19 +37,19 @@ public class ApplyToTargetCondition extends AbstractSingleWrapperCondition {
         return this.condition.test(targetContext);
     }
 
-    public static DoubleEntityCondition.Builder builder (EntityPropertiesLootCondition propertiesCondition) {
-        return () -> new ApplyToTargetCondition(propertiesCondition);
+    public static DoubleEntityCondition.Builder builder (SingleEntityCondition.Builder combatCondition) {
+        return () -> new ApplyToTargetCondition(combatCondition.build());
     }
 
     public static DoubleEntityCondition.Builder builder (SingleEntityCondition combatCondition) {
         return () -> new ApplyToTargetCondition(combatCondition);
     }
 
-    public static DoubleEntityCondition.Builder builder (SingleEntityCondition.Builder combatCondition) {
-        return () -> new ApplyToTargetCondition(combatCondition.build());
+    public static DoubleEntityCondition.Builder builder (LootCondition.Builder condition) {
+        return () -> new ApplyToTargetCondition(condition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (MatchToolLootCondition toolCondition) {
-        return () -> new ApplyToTargetCondition(toolCondition);
+    public static DoubleEntityCondition.Builder builder (LootCondition condition) {
+        return () -> new ApplyToTargetCondition(condition);
     }
 }
