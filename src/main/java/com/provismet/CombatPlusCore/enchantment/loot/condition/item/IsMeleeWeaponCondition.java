@@ -10,7 +10,7 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 
-public record IsMeleeWeaponCondition() implements ItemCondition {
+public record IsMeleeWeaponCondition () implements ItemCondition {
     public static final MapCodec<IsMeleeWeaponCondition> CODEC = MapCodec.unit(IsMeleeWeaponCondition::new);
 
     @Override

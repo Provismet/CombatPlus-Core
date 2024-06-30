@@ -10,7 +10,7 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 
-public record IsDualWeaponCondition() implements ItemCondition {
+public record IsDualWeaponCondition () implements ItemCondition {
     public static final MapCodec<IsDualWeaponCondition> CODEC = MapCodec.unit(IsDualWeaponCondition::new);
 
     @Override
@@ -22,5 +22,9 @@ public record IsDualWeaponCondition() implements ItemCondition {
     public boolean test (LootContext lootContext) {
         ItemStack item = lootContext.get(LootContextParameters.TOOL);
         return item.isIn(CPCItemTags.DUAL_WEAPON) || item.getItem() instanceof DualWeapon;
+    }
+
+    public static ItemCondition.Builder builder () {
+        return IsDualWeaponCondition::new;
     }
 }

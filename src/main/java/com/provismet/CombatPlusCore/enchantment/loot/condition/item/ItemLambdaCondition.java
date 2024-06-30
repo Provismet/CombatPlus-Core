@@ -28,4 +28,8 @@ public record ItemLambdaCondition (Identifier function) implements ItemCondition
         if (predicate.isPresent()) return predicate.get().test(lootContext.get(LootContextParameters.TOOL));
         return false;
     }
+
+    public static ItemCondition.Builder builder (Identifier function) {
+        return () -> new ItemLambdaCondition(function);
+    }
 }

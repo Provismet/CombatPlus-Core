@@ -35,7 +35,7 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
         else return predicate.get().test(entity);
     }
 
-    SingleEntityCondition.Builder builder (Identifier function) {
+    public static SingleEntityCondition.Builder builder (Identifier function) {
         return () -> new SingleEntityLambdaCondition(function);
     }
 }

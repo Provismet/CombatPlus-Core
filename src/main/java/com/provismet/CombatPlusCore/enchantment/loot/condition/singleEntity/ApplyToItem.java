@@ -38,15 +38,15 @@ public record ApplyToItem (LootCondition condition) implements SingleEntityCondi
         return SingleEntityCondition.getExtendedRequiredParameters();
     }
 
-    public SingleEntityCondition.Builder builder (ItemCondition condition) {
+    public static SingleEntityCondition.Builder builder (ItemCondition condition) {
         return () -> new ApplyToItem(condition);
     }
 
-    public SingleEntityCondition.Builder builder (ItemCondition.Builder condition) {
+    public static SingleEntityCondition.Builder builder (ItemCondition.Builder condition) {
         return () -> new ApplyToItem(condition.build());
     }
 
-    public SingleEntityCondition.Builder builder (MatchToolLootCondition condition) {
+    public static SingleEntityCondition.Builder builder (MatchToolLootCondition condition) {
         return () -> new ApplyToItem((condition));
     }
 }
