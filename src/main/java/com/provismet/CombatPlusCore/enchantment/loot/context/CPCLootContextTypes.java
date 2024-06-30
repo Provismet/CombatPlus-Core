@@ -25,7 +25,7 @@ public class CPCLootContextTypes {
             .require(LootContextParameters.TOOL)
     );
 
-    private static LootContextType register(String name, Consumer<LootContextType.Builder> type) {
+    private static LootContextType register (String name, Consumer<LootContextType.Builder> type) {
         LootContextType.Builder builder = new LootContextType.Builder();
         type.accept(builder);
         LootContextType lootContextType = builder.build();
