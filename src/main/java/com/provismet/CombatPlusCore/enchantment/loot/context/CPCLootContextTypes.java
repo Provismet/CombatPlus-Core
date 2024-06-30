@@ -32,7 +32,7 @@ public class CPCLootContextTypes {
         Identifier identifier = CPCMain.identifier(name);
         LootContextType lootContextType2 = LootContextTypes.MAP.put(identifier, lootContextType);
         if (lootContextType2 != null) {
-            throw new IllegalStateException("Loot table parameter set " + String.valueOf(identifier) + " is already registered");
+            throw new IllegalStateException("Loot table parameter set " + identifier + " is already registered");
         }
         return lootContextType;
     }
