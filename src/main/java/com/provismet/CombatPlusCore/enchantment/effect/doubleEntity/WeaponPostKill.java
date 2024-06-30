@@ -8,6 +8,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 
+/**
+ * Triggers the attacker's on-kill effect against the attacker.
+ */
 public record WeaponPostKill () implements CPCEnchantmentEntityEffect {
     public static final MapCodec<WeaponPostKill> CODEC = MapCodec.unit(WeaponPostKill::new);
 

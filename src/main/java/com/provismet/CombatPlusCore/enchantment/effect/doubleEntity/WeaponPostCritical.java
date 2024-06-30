@@ -8,6 +8,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 
+/**
+ * Triggers the attacker's on-critical-hit effect against the target.
+ */
 public record WeaponPostCritical () implements CPCEnchantmentEntityEffect {
     public static final MapCodec<WeaponPostCritical> CODEC = MapCodec.unit(WeaponPostCritical::new);
 
