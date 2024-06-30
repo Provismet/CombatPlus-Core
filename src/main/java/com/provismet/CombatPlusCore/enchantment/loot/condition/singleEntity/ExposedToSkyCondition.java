@@ -10,7 +10,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public record ExposedToSkyCondition() implements SingleEntityCondition {
+public record ExposedToSkyCondition () implements SingleEntityCondition {
     public static final MapCodec<ExposedToSkyCondition> CODEC = MapCodec.unit(ExposedToSkyCondition::new);
 
     @Override

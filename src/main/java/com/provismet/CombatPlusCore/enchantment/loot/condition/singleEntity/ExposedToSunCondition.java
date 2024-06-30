@@ -6,7 +6,7 @@ import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 
-public record ExposedToSunCondition() implements SingleEntityCondition {
+public record ExposedToSunCondition () implements SingleEntityCondition {
     public static final MapCodec<ExposedToSunCondition> CODEC = MapCodec.unit(ExposedToSunCondition::new);
 
     @Override

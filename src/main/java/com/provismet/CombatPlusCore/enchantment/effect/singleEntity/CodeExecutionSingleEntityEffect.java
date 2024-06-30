@@ -18,7 +18,7 @@ import java.util.Optional;
  * @see CodeExecutionDoubleEntityEffect
  * @param function The id of the function.
  */
-public record CodeExecutionSingleEntityEffect(Identifier function) implements EnchantmentEntityEffect {
+public record CodeExecutionSingleEntityEffect (Identifier function) implements EnchantmentEntityEffect {
     public static final MapCodec<CodeExecutionSingleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionSingleEntityEffect::function)).apply(instance, CodeExecutionSingleEntityEffect::new));
 
     @Override

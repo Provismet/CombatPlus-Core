@@ -6,7 +6,7 @@ import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 
-public record ExposedToMoonCondition() implements SingleEntityCondition {
+public record ExposedToMoonCondition () implements SingleEntityCondition {
     public static final MapCodec<ExposedToMoonCondition> CODEC = MapCodec.unit(ExposedToMoonCondition::new);
 
     @Override

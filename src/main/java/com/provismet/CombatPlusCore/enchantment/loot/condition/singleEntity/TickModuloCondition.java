@@ -15,7 +15,7 @@ import net.minecraft.loot.context.LootContextParameters;
  *
  * @param interval The value to divide by.
  */
-public record TickModuloCondition(EnchantmentLevelBasedValue interval) implements SingleEntityCondition {
+public record TickModuloCondition (EnchantmentLevelBasedValue interval) implements SingleEntityCondition {
     public static final MapCodec<TickModuloCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("value").forGetter(TickModuloCondition::interval)).apply(instance, TickModuloCondition::new));
 
     @Override

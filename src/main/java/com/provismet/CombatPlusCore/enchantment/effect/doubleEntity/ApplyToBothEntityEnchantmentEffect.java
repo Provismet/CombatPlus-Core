@@ -14,7 +14,7 @@ import net.minecraft.server.world.ServerWorld;
  * @see ApplyToTargetEntityEnchantmentEffect
  * @param effect The effect to appy.
  */
-public record ApplyToBothEntityEnchantmentEffect(EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
+public record ApplyToBothEntityEnchantmentEffect (EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
     public static final MapCodec<ApplyToBothEntityEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(ApplyToBothEntityEnchantmentEffect::effect)).apply(instance, ApplyToBothEntityEnchantmentEffect::new));
 
     @Override
