@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Item;
+import net.minecraft.registry.BuiltinRegistries;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -39,6 +40,25 @@ public class EnchantmentContainer {
 
     public RegistryKey<Enchantment> getKey () {
         return this.key;
+    }
+
+    public Optional<? extends RegistryEntry<Enchantment>> getEntry () {
+        return BuiltinRegistries.createWrapperLookup().createRegistryLookup().getOptionalEntry(RegistryKeys.ENCHANTMENT, this.getKey());
+    }
+
+    public Optional<? extends RegistryEntry<Enchantment>> getEntry (DynamicRegistryManager manager) {
+        return manager.get(RegistryKeys.ENCHANTMENT).getEntry(this.key);
+    }
+
+    public Optional<? extends RegistryEntry<Enchantment>> getEntry (RegistryWrapper.WrapperLookup registryLookup) {
+        return registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOptional(this.key);
+    }
+
+    public RegistryEntry<Enchantment> getEntryOrThrow () {
+        Optional<RegistryEntry.Reference<Enchantment>> reference = BuiltinRegistries.createWrapperLookup().createRegistryLookup().getOptionalEntry(
+            RegistryKeys.ENCHANTMENT, this.getKey()
+        );
+        return reference.orElseThrow();
     }
 
     public RegistryEntry<Enchantment> getEntryOrThrow (DynamicRegistryManager manager) {
