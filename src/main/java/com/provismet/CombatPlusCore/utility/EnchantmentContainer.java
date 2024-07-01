@@ -38,39 +38,85 @@ public class EnchantmentContainer {
         this.internalBuilder = builder;
     }
 
+    /**
+     * @return The RegistryKey associated with this enchantment.
+     */
     public RegistryKey<Enchantment> getKey () {
         return this.key;
     }
 
+    /**
+     * Creates a generic registry entry for this enchantment.
+     * <p>
+     * NOTE: This method should only be used if the alternatives are unavailable.
+     *
+     * @return An optional RegistryEntry of this enchantment.
+     */
     public Optional<? extends RegistryEntry<Enchantment>> getEntry () {
         return BuiltinRegistries.createWrapperLookup().createRegistryLookup().getOptionalEntry(RegistryKeys.ENCHANTMENT, this.getKey());
     }
 
+    /**
+     * Uses a registry manager to obtain an entry for this enchantment.
+     *
+     * @see net.minecraft.world.WorldView
+     *
+     * @param manager A registry manager, typically obtained from a World.
+     * @return An optional RegistryEntry of this enchantment.
+     */
     public Optional<? extends RegistryEntry<Enchantment>> getEntry (DynamicRegistryManager manager) {
         return manager.get(RegistryKeys.ENCHANTMENT).getEntry(this.key);
     }
 
+    /**
+     * Uses a registry lookup to obtain an entry for this enchantment.
+     *
+     * @param registryLookup A lookup, typically obtained from the data generator.
+     * @return An optional RegistryEntry of this enchantment.
+     */
     public Optional<? extends RegistryEntry<Enchantment>> getEntry (RegistryWrapper.WrapperLookup registryLookup) {
         return registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOptional(this.key);
     }
 
+    /**
+     * Creates a generic registry entry for this enchantment.
+     * <p>
+     * NOTE: This method should only be used if the alternatives are unavailable.
+     *
+     * @return An RegistryEntry of this enchantment.
+     */
     public RegistryEntry<Enchantment> getEntryOrThrow () {
-        Optional<RegistryEntry.Reference<Enchantment>> reference = BuiltinRegistries.createWrapperLookup().createRegistryLookup().getOptionalEntry(
-            RegistryKeys.ENCHANTMENT, this.getKey()
-        );
-        return reference.orElseThrow();
+        return this.getEntry().orElseThrow();
     }
 
+    /**
+     * Uses a registry manager to obtain an entry for this enchantment.
+     *
+     * @see net.minecraft.world.WorldView
+     *
+     * @param manager A registry manager, typically obtained from a World.
+     * @return An RegistryEntry of this enchantment.
+     */
     public RegistryEntry<Enchantment> getEntryOrThrow (DynamicRegistryManager manager) {
-        Optional<RegistryEntry.Reference<Enchantment>> reference = manager.get(RegistryKeys.ENCHANTMENT).getEntry(this.key);
-        return reference.orElseThrow();
+        return this.getEntry(manager).orElseThrow();
     }
 
+    /**
+     * Uses a registry lookup to obtain an entry for this enchantment.
+     *
+     * @param registryLookup A lookup, typically obtained from the data generator.
+     * @return An RegistryEntry of this enchantment.
+     */
     public RegistryEntry<Enchantment> getEntryOrThrow (RegistryWrapper.WrapperLookup registryLookup) {
-        Optional<RegistryEntry.Reference<Enchantment>> reference = registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOptional(this.key);
-        return reference.orElseThrow();
+        return this.getEntry(registryLookup).orElseThrow();
     }
 
+    /**
+     * Unwraps a registerable provided by the vanilla bootstrapper to produce the enchantment builder associated with this container.
+     *
+     * @param registerable The registry object provided by the vanilla bootstrapper.
+     * @return The enchantment builder.
+     */
     public Enchantment.Builder getBuilder (Registerable<Enchantment> registerable) {
         RegistryEntryLookup<Item> itemLookup = registerable.getRegistryLookup(RegistryKeys.ITEM);
         RegistryEntryLookup<Enchantment> enchantmentLookup = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
@@ -79,10 +125,27 @@ public class EnchantmentContainer {
         return this.getBuilder(itemLookup, enchantmentLookup, damageLookup, blockLookup);
     }
 
+    /**
+     * Unwraps the Combat+ data-gen EnchantmentBuilder to produce the enchantment builder associated with this container.
+     *
+     * @see CPCEnchantmentProvider
+     *
+     * @param enchantmentBuilder The builder provided by the Combat+ provider.
+     * @return The enchantment builder.
+     */
     public Enchantment.Builder getBuilder (CPCEnchantmentProvider.EnchantmentBuilder enchantmentBuilder) {
         return this.getBuilder(enchantmentBuilder.itemLookup, enchantmentBuilder.enchantmentLookup, enchantmentBuilder.damageTypeLookup, enchantmentBuilder.blockLookup);
     }
 
+    /**
+     * Creates the enchantment builder associated with this container.
+     *
+     * @param itemLookup Registry lookup for item tags.
+     * @param enchantmentLookup Registry lookup for enchantment tags.
+     * @param damageLookup Registry lookup for damage type tags.
+     * @param blockLookup  Registry lookup for block tags.
+     * @return The enchantment builder.
+     */
     public Enchantment.Builder getBuilder (RegistryEntryLookup<Item> itemLookup, RegistryEntryLookup<Enchantment> enchantmentLookup, RegistryEntryLookup<DamageType> damageLookup, RegistryEntryLookup<Block> blockLookup) {
         return this.internalBuilder.create(itemLookup, enchantmentLookup, damageLookup, blockLookup);
     }
