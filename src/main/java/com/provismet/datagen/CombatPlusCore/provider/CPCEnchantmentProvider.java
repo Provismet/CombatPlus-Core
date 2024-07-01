@@ -1,5 +1,6 @@
 package com.provismet.datagen.CombatPlusCore.provider;
 
+import com.provismet.CombatPlusCore.utility.EnchantmentContainer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
@@ -39,7 +40,7 @@ public abstract class CPCEnchantmentProvider extends FabricDynamicRegistryProvid
 
     protected abstract void configure (RegistryWrapper.WrapperLookup wrapperLookup, Entries entries, EnchantmentBuilder builder);
 
-    protected static class EnchantmentBuilder {
+    public static class EnchantmentBuilder {
         public final RegistryEntryLookup<Item> itemLookup;
         public final RegistryEntryLookup<DamageType> damageTypeLookup;
         public final RegistryEntryLookup<Block> blockLookup;
@@ -47,7 +48,7 @@ public abstract class CPCEnchantmentProvider extends FabricDynamicRegistryProvid
 
         private final Entries entries;
 
-        public EnchantmentBuilder (Entries entries) {
+        protected EnchantmentBuilder (Entries entries) {
             this.entries = entries;
             this.itemLookup = entries.getLookup(RegistryKeys.ITEM);
             this.damageTypeLookup = entries.getLookup(RegistryKeys.DAMAGE_TYPE);
@@ -69,6 +70,14 @@ public abstract class CPCEnchantmentProvider extends FabricDynamicRegistryProvid
 
         public void add (RegistryKey<Enchantment> enchantmentKey, Enchantment.Builder enchantmentBuilder, ResourceCondition... conditions) {
             this.add(enchantmentKey.getValue(), enchantmentBuilder, conditions);
+        }
+
+        public void add (EnchantmentContainer container) {
+            this.add(container.getKey(), container.getBuilder(this));
+        }
+
+        public void add (EnchantmentContainer container, ResourceCondition... conditions) {
+            this.add(container.getKey(), container.getBuilder(this), conditions);
         }
 
         public RegistryEntryList<Item> getItemEntryList (TagKey<Item> tag) {

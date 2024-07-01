@@ -1,8 +1,6 @@
 package com.provismet.datagen.CombatPlusCore;
 
-import com.provismet.CombatPlusCore.CPCMain;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
 import com.provismet.CombatPlusCore.utility.resource.DevModeResourceCondition;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.datagen.CombatPlusCore.provider.CPCEnchantmentProvider;
@@ -38,30 +36,12 @@ public class EnchantmentGenerator extends CPCEnchantmentProvider {
 
     @Override
     protected void configure (RegistryWrapper.WrapperLookup registries, Entries entries, EnchantmentBuilder builder) {
-        builder.add(
-            CPCMain.identifier("logger"),
-            Enchantment.builder(
-                Enchantment.definition(
-                    builder.getItemEntryList(CPCItemTags.DAMAGE_ENCHANTABLE),
-                    1,
-                    1,
-                    Enchantment.constantCost(1),
-                    Enchantment.constantCost(1),
-                    1,
-                    AttributeModifierSlot.MAINHAND
-                )
-            ).addEffect(
-                CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK,
-                new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-charged"))
-            ).addEffect(
-                CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK,
-                new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-critical"))
-            ).addEffect(
-                CPCEnchantmentComponentTypes.POST_KILL,
-                new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-kill"))
-            ),
-            new DevModeResourceCondition()
-        );
+        if (CPCDebugEnchantments.getDebugContainer().isPresent()) {
+            builder.add(
+                CPCDebugEnchantments.getDebugContainer().get(),
+                new DevModeResourceCondition()
+            );
+        }
 
         builder.add(
             Enchantments.SHARPNESS,
