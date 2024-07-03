@@ -3,7 +3,7 @@ package com.provismet.datagen.CombatPlusCore;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
 import com.provismet.CombatPlusCore.utility.resource.DevModeResourceCondition;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
-import com.provismet.datagen.CombatPlusCore.provider.CPCEnchantmentProvider;
+import com.provismet.lilylib.datagen.provider.LilyEnchantmentProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -29,13 +29,13 @@ import net.minecraft.registry.tag.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EnchantmentGenerator extends CPCEnchantmentProvider {
+public class EnchantmentGenerator extends LilyEnchantmentProvider {
     public EnchantmentGenerator (FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure (RegistryWrapper.WrapperLookup registries, Entries entries, EnchantmentBuilder builder) {
+    protected void generate (RegistryWrapper.WrapperLookup registries, EnchantmentBuilder builder) {
         if (CPCDebugEnchantments.getDebugContainer().isPresent()) {
             builder.add(
                 CPCDebugEnchantments.getDebugContainer().get(),
