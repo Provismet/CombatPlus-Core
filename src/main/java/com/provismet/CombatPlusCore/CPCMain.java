@@ -10,7 +10,6 @@ import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.item.CPCItemGroups;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import com.provismet.CombatPlusCore.utility.resource.CPCResourceConditions;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
@@ -44,7 +43,6 @@ public class CPCMain implements ModInitializer {
         SingleEntityLootConditionTypes.init();
         DoubleEntityLootConditionTypes.init();
         ItemConditionTypes.init();
-        CPCResourceConditions.register();
         DoubleEntityEffects.register();
         LambdaRegistry.register();
         CPCGameRules.register();

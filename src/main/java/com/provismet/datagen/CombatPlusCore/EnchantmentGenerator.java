@@ -1,8 +1,8 @@
 package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
-import com.provismet.CombatPlusCore.utility.resource.DevModeResourceCondition;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
+import com.provismet.lilylib.datagen.condition.DevModeResourceCondition;
 import com.provismet.lilylib.datagen.provider.LilyEnchantmentProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.component.EnchantmentEffectComponentTypes;

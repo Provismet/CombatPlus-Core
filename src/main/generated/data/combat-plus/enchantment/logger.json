@@ -1,7 +1,7 @@
 {
   "fabric:load_conditions": [
     {
-      "condition": "combat-plus:developer_mode"
+      "condition": "lilylib:developer_mode"
     }
   ],
   "anvil_cost": 1,
