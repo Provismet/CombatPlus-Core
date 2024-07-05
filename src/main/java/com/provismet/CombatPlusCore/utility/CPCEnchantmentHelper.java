@@ -20,7 +20,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.random.Random;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
@@ -28,35 +27,10 @@ import java.util.List;
 
 /**
  * Enchantment helper to apply hooks from Combat+ enchantment components.
+ *
+ * @see EnchantmentHelper
  */
 public class CPCEnchantmentHelper {
-    /**
-     * Gets the bonus attack damage that the user should deal against the target.
-     * 
-     * <p> This method internally calls the vanilla {@link EnchantmentHelper#getDamage}.
-     * 
-     * @param defaultSlot The equipment slot to be passed to the vanilla EnchantmentHelper. Almost always MAINHAND.
-     * @param user The wielder of the item.
-     * @param target The entity that was struck.
-     * @return The additional damage to deal to the target.
-     */
-    public static float getAttackDamage (EquipmentSlot defaultSlot, LivingEntity user, LivingEntity target) {
-        return 0f;
-    }
-
-    /**
-     * Gets the bonus attack damage that the user should deal against the target.
-     * 
-     * <p> This method internally calls the vanilla {@link EnchantmentHelper#getDamage} with a MAINHAND equipment slot.
-     * 
-     * @param user The wielder of the item.
-     * @param target The entity that was struck.
-     * @return The additional damage to deal to the target.
-     */
-    public static float getAttackDamage (LivingEntity user, LivingEntity target) {
-        return CPCEnchantmentHelper.getAttackDamage(EquipmentSlot.MAINHAND, user, target);
-    }
-
     /**
      * Calls enchantment callbacks for charged hits.
      *
@@ -217,21 +191,5 @@ public class CPCEnchantmentHelper {
     @FunctionalInterface
     public interface ContextConsumer {
         public void accept (RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context);
-    }
-
-    /**
-     * Safely checks if an enchantment is within an enchantment tag.
-     * 
-     * @param enchantment The enchantment.
-     * @param enchantmentTag The enchantment tag.
-     * @return Whether or not the enchantment is present in the tag. Unregistered enchantments will return false.
-     */
-    public static boolean isInTag (RegistryEntry<Enchantment> enchantment, TagKey<Enchantment> enchantmentTag) {
-        try {
-            return enchantment.isIn(enchantmentTag);
-        }
-        catch (Exception e) {
-            return false;
-        }
     }
 }
