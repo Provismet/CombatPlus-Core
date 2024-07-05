@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:treasure",
+      "required": false
+    },
+    {
+      "id": "#minecraft:non_treasure",
+      "required": false
+    }
+  ]
+}

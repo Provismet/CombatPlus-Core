@@ -29,6 +29,8 @@ public class CPCEnchantmentTags {
     public static final TagKey<Enchantment> ASPECT_OFFHAND_EXCLUSIVE = createTag("exclusive_set/aspect_offhand");
     public static final TagKey<Enchantment> WEAPON_UTILITY_OFFHAND_EXCLUSIVE = createTag("exclusive_set/weapon_utility_offhand");
 
+    public static final TagKey<Enchantment> ALL = createTag("all_enchantments");
+
     private static TagKey<Enchantment> createTag(String path) {
         return TagKey.of(RegistryKeys.ENCHANTMENT, CPCMain.identifier(path));
     }

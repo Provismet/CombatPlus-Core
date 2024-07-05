@@ -51,5 +51,9 @@ public class EnchantmentTagGenerator extends FabricTagProvider.EnchantmentTagPro
 
         getOrCreateTagBuilder(CPCEnchantmentTags.WEAPON_UTILITY_OFFHAND_EXCLUSIVE)
             .addOptionalTag(CPCEnchantmentTags.WEAPON_UTILITY);
+
+        getOrCreateTagBuilder(CPCEnchantmentTags.ALL)
+            .addOptionalTag(EnchantmentTags.TREASURE)
+            .addOptionalTag(EnchantmentTags.NON_TREASURE);
     }
 }
