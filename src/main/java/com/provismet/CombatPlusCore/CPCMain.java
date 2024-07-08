@@ -2,6 +2,7 @@ package com.provismet.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.registries.CPCLootFunctionTypes;
 import com.provismet.CombatPlusCore.registries.DoubleEntityEffects;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.registries.ItemConditionTypes;
@@ -39,6 +40,7 @@ public class CPCMain implements ModInitializer {
     @Override
     public void onInitialize () {
         CPCRegistries.init();
+        CPCLootFunctionTypes.init();
         CPCEnchantmentComponentTypes.init();
         SingleEntityLootConditionTypes.init();
         DoubleEntityLootConditionTypes.init();
