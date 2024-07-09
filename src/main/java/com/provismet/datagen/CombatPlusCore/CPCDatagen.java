@@ -7,9 +7,10 @@ public class CPCDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator (FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+        pack.addProvider(EnchantmentGenerator::new);
+        pack.addProvider(DamageTypeTagGenerator::new);
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(EnchantmentTagGenerator::new);
         pack.addProvider(LanguageGenerator::new);
-        pack.addProvider(EnchantmentGenerator::new);
     }
 }
