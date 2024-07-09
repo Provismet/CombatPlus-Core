@@ -6,11 +6,15 @@ import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
 import net.minecraft.enchantment.effect.EnchantmentValueEffect;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
@@ -31,6 +35,41 @@ import java.util.List;
  * @see EnchantmentHelper
  */
 public class CPCEnchantmentHelper {
+    /**
+     * Replaces the original {@link EnchantmentHelper#getDamage} to provide gamerule compatible damage and multi-item damage bonuses.
+     *
+     * @param world The world.
+     * @param itemStack The enchanted item.
+     * @param target The entity that was attacked.
+     * @param damageSource The damage source of the attack.
+     * @param baseDamage The initial damage amount for the attack.
+     * @return The total damage dealt.
+     */
+    public static float getDamage (ServerWorld world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
+        MutableFloat damage = new MutableFloat();
+        damage.add(CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, 0));
+        if (target instanceof PlayerEntity) damage.setValue(damage.floatValue() * world.getGameRules().get(CPCGameRules.PVP_DAMAGE_MODIFIER).get());
+        damage.add(baseDamage);
+
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            enchantment.value().modifyDamage(world, level, itemStack, target, damageSource, damage);
+        }, itemStack);
+
+        if (damageSource.getAttacker() instanceof LivingEntity attacker) {
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                ItemStack equippedItem = attacker.getEquippedStack(slot);
+                if (equippedItem == null || equippedItem.isEmpty()) continue;
+
+                CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+                    if (enchantment.value().slotMatches(slot))
+                        enchantment.value().modifyValue(CPCEnchantmentComponentTypes.BONUS_DAMAGE, world, level, equippedItem, target, damage);
+                }, equippedItem);
+            }
+        }
+
+        return damage.floatValue();
+    }
+
     /**
      * Calls enchantment callbacks for charged hits.
      *
@@ -87,13 +126,13 @@ public class CPCEnchantmentHelper {
      *
      * @param valueType The type of value to modify.
      * @param random Random source.
-     * @param item The enchanted item.
+     * @param itemStack The enchanted item.
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<EnchantmentValueEffect> valueType, Random random, ItemStack item, float base) {
+    public static float modifyValue (ComponentType<EnchantmentValueEffect> valueType, Random random, ItemStack itemStack, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, random, level, value), item);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, random, level, value), itemStack);
         return value.floatValue();
     }
 
@@ -102,13 +141,13 @@ public class CPCEnchantmentHelper {
      *
      * @param valueType The type of value to modify.
      * @param world The server-side world.
-     * @param item The enchanted item.
+     * @param itemStack The enchanted item.
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack item, float base) {
+    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack itemStack, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, item, value), item);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, itemStack, value), itemStack);
         return value.floatValue();
     }
 
@@ -117,14 +156,14 @@ public class CPCEnchantmentHelper {
      *
      * @param valueType The type of value to modify.
      * @param world The server-side world.
-     * @param item The enchanted item.
+     * @param itemStack The enchanted item.
      * @param user The owner of the item.
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack item, LivingEntity user, float base) {
+    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack itemStack, Entity user, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, item, user, value), item);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, itemStack, user, value), itemStack);
         return value.floatValue();
     }
 
@@ -133,15 +172,15 @@ public class CPCEnchantmentHelper {
      *
      * @param valueType The type of value to modify.
      * @param world The server-side world.
-     * @param item The enchanted item.
+     * @param itemStack The enchanted itemStack.
      * @param user The owner of the item.
      * @param damageSource The associated damage source.
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack item, LivingEntity user, DamageSource damageSource, float base) {
+    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack itemStack, Entity user, DamageSource damageSource, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, item, user, damageSource, value), item);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, itemStack, user, damageSource, value), itemStack);
         return value.floatValue();
     }
 

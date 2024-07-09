@@ -5,6 +5,8 @@ import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffec
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextTypes;
 import net.minecraft.component.ComponentType;
 import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
+import net.minecraft.enchantment.effect.EnchantmentValueEffect;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
@@ -15,6 +17,8 @@ public class CPCEnchantmentComponentTypes {
     public static final ComponentType<List<EnchantmentEffectEntry<CPCEnchantmentEntityEffect>>> POST_CHARGED_ATTACK = register("post_charged_attack", builder -> builder.codec(EnchantmentEffectEntry.createCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY).listOf()));
     public static final ComponentType<List<EnchantmentEffectEntry<CPCEnchantmentEntityEffect>>> POST_CRITICAL_ATTACK = register("post_critical_attack", builder -> builder.codec(EnchantmentEffectEntry.createCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY).listOf()));
     public static final ComponentType<List<EnchantmentEffectEntry<CPCEnchantmentEntityEffect>>> POST_KILL = register("post_kill", builder -> builder.codec(EnchantmentEffectEntry.createCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY).listOf()));
+    public static final ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> BONUS_DAMAGE = register("bonus_damage", builder -> builder.codec(EnchantmentEffectEntry.createCodec(EnchantmentValueEffect.CODEC, LootContextTypes.ENCHANTED_DAMAGE).listOf()));
+    public static final ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> GAMERULE_DAMAGE = register("gamerule_damage", builder -> builder.codec(EnchantmentEffectEntry.createCodec(EnchantmentValueEffect.CODEC, LootContextTypes.ENCHANTED_DAMAGE).listOf()));
 
     public static void init () {}
 

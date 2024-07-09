@@ -4,7 +4,7 @@
     "translate": "enchantment.minecraft.smite"
   },
   "effects": {
-    "minecraft:damage": [
+    "combat-plus:gamerule_damage": [
       {
         "effect": {
           "type": "minecraft:add",

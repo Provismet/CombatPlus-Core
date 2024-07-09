@@ -47,7 +47,7 @@ public class CPCMain implements ModInitializer {
         ItemConditionTypes.init();
         DoubleEntityEffects.register();
         LambdaRegistry.register();
-        CPCGameRules.register();
+        CPCGameRules.init();
         CPCItemGroups.register();
         SingleEntityEffects.register();
 

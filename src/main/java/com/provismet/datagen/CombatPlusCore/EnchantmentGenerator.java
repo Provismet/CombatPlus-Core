@@ -1,6 +1,7 @@
 package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
+import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.datagen.condition.DevModeResourceCondition;
 import com.provismet.lilylib.datagen.provider.LilyEnchantmentProvider;
@@ -82,7 +83,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             ).exclusiveSet(
                 builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE_SET)
             ).addEffect(
-                EnchantmentEffectComponentTypes.DAMAGE,
+                CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
                 new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
                 EntityPropertiesLootCondition.builder(
                     LootContext.EntityTarget.THIS,
@@ -106,7 +107,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             ).exclusiveSet(
                 builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE_SET)
             ).addEffect(
-                EnchantmentEffectComponentTypes.DAMAGE,
+                CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
                 new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
                 EntityPropertiesLootCondition.builder(
                     LootContext.EntityTarget.THIS,
