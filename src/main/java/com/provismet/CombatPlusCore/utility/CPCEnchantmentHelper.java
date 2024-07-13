@@ -6,13 +6,11 @@ import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
 import net.minecraft.enchantment.effect.EnchantmentValueEffect;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.loot.context.LootContext;
@@ -47,7 +45,7 @@ public class CPCEnchantmentHelper {
      */
     public static float getDamage (ServerWorld world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
         MutableFloat damage = new MutableFloat();
-        damage.add(CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, 0));
+        damage.add(CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, damageSource, 0));
         if (target instanceof PlayerEntity) damage.setValue(damage.floatValue() * world.getGameRules().get(CPCGameRules.PVP_DAMAGE_MODIFIER).get());
         damage.add(baseDamage);
 
@@ -62,7 +60,7 @@ public class CPCEnchantmentHelper {
 
                 CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
                     if (enchantment.value().slotMatches(slot))
-                        enchantment.value().modifyValue(CPCEnchantmentComponentTypes.BONUS_DAMAGE, world, level, equippedItem, target, damage);
+                        enchantment.value().modifyValue(CPCEnchantmentComponentTypes.BONUS_DAMAGE, world, level, itemStack, attacker, damageSource, damage);
                 }, equippedItem);
             }
         }
