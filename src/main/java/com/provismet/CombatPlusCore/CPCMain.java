@@ -10,6 +10,7 @@ import com.provismet.CombatPlusCore.registries.LambdaRegistry;
 import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
@@ -48,6 +49,8 @@ public class CPCMain implements ModInitializer {
         LambdaRegistry.register();
         CPCGameRules.init();
         SingleEntityEffects.register();
+
+        LilyResourceConditions.register();
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
