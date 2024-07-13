@@ -19,5 +19,5 @@ public class ItemConditionTypes {
         return Registry.register(Registries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootConditionType(codec));
     }
 
-    public static void init () {};
+    public static void init () {}
 }

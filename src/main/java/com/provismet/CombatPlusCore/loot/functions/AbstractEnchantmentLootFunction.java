@@ -2,7 +2,6 @@ package com.provismet.CombatPlusCore.loot.functions;
 
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
