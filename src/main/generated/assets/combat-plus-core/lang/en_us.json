@@ -2,6 +2,8 @@
   "enchantment.combat-plus.logger": "Example Enchantment",
   "gamerule.category.combat-plus": "Combat+",
   "gamerule.keepLoyaltyTridents": "Keep Loyalty Tridents",
+  "gamerule.pvpEnchantmentModifier": "PvP Enchantment Modifier",
+  "gamerule.pvpEnchantmentModifier.description": "Modifies the effectiveness of certain damaging enchantments when used against players.",
   "gamerule.sweepingRequiresEnchantment": "Sweeping Requires Enchantment",
   "item.combat-plus.debugger": "Example Weapon",
   "tag.enchantment.combat-plus.additional_damage": "Additional Damage Enchantments",

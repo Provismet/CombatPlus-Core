@@ -18,6 +18,8 @@ public class LanguageGenerator extends FabricLanguageProvider {
         translationBuilder.add("gamerule.category.combat-plus", "Combat+");
         translationBuilder.add("gamerule.sweepingRequiresEnchantment", "Sweeping Requires Enchantment");
         translationBuilder.add("gamerule.keepLoyaltyTridents", "Keep Loyalty Tridents");
+        translationBuilder.add("gamerule.pvpEnchantmentModifier", "PvP Enchantment Modifier");
+        translationBuilder.add("gamerule.pvpEnchantmentModifier.description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
 
         translationBuilder.add(CPCItemTags.MELEE_WEAPON, "Melee Weapons");
         translationBuilder.add(CPCItemTags.DUAL_WEAPON, "Dual Weapons");
