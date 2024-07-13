@@ -9,18 +9,18 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 
 /**
- * Triggers the attacker's on-critical-hit effect against the target.
+ * Triggers the attacker's on-kill effect against the attacker.
  */
-public record WeaponPostCritical () implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<WeaponPostCritical> CODEC = MapCodec.unit(WeaponPostCritical::new);
+public record WeaponPostKillEffect () implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<WeaponPostKillEffect> CODEC = MapCodec.unit(WeaponPostKillEffect::new);
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
         if (attacker instanceof LivingEntity livingAttacker && target instanceof LivingEntity livingTarget) {
             if (context.stack().getItem() instanceof MeleeWeapon meleeWeapon)
-                meleeWeapon.postCriticalHit(context.stack(), livingAttacker, livingTarget);
+                meleeWeapon.postKill(context.stack(), livingAttacker, livingTarget);
             else if (attacker.getWeaponStack().getItem() instanceof MeleeWeapon meleeWeapon)
-                meleeWeapon.postCriticalHit(attacker.getWeaponStack(), livingAttacker, livingTarget);
+                meleeWeapon.postKill(attacker.getWeaponStack(), livingAttacker, livingTarget);
         }
     }
 

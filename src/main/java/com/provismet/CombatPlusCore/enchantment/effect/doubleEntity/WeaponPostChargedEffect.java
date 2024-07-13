@@ -9,18 +9,18 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 
 /**
- * Triggers the attacker's on-kill effect against the attacker.
+ * Triggers the attacker's melee weapon on-charged-hit effect against the target.
  */
-public record WeaponPostKill () implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<WeaponPostKill> CODEC = MapCodec.unit(WeaponPostKill::new);
+public record WeaponPostChargedEffect() implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<WeaponPostChargedEffect> CODEC = MapCodec.unit(WeaponPostChargedEffect::new);
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
         if (attacker instanceof LivingEntity livingAttacker && target instanceof LivingEntity livingTarget) {
             if (context.stack().getItem() instanceof MeleeWeapon meleeWeapon)
-                meleeWeapon.postKill(context.stack(), livingAttacker, livingTarget);
+                meleeWeapon.postChargedHit(context.stack(), livingAttacker, livingTarget);
             else if (attacker.getWeaponStack().getItem() instanceof MeleeWeapon meleeWeapon)
-                meleeWeapon.postKill(attacker.getWeaponStack(), livingAttacker, livingTarget);
+                meleeWeapon.postChargedHit(attacker.getWeaponStack(), livingAttacker, livingTarget);
         }
     }
 

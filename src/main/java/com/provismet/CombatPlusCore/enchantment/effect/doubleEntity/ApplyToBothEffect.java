@@ -10,12 +10,12 @@ import net.minecraft.server.world.ServerWorld;
 
 /**
  * Applies an {@link EnchantmentEntityEffect} to both the attacker and the target.
- * @see ApplyToUserEntityEnchantmentEffect
- * @see ApplyToTargetEntityEnchantmentEffect
+ * @see ApplyToUserEntityEffect
+ * @see ApplyToTargetEntityEffect
  * @param effect The effect to apply.
  */
-public record ApplyToBothEntityEnchantmentEffect (EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<ApplyToBothEntityEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(ApplyToBothEntityEnchantmentEffect::effect)).apply(instance, ApplyToBothEntityEnchantmentEffect::new));
+public record ApplyToBothEffect(EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<ApplyToBothEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(ApplyToBothEffect::effect)).apply(instance, ApplyToBothEffect::new));
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {

@@ -11,8 +11,8 @@ import net.minecraft.server.world.ServerWorld;
  * Flips the attacker and target parameters, and executes a {@link CPCEnchantmentEntityEffect} with the new parameters.
  * @param effect The effect to apply.
  */
-public record InvertedEntityEnchantmentEffect (CPCEnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<InvertedEntityEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(CPCEnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(InvertedEntityEnchantmentEffect::effect)).apply(instance, InvertedEntityEnchantmentEffect::new));
+public record InvertedEntityEffect(CPCEnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<InvertedEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(CPCEnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(InvertedEntityEffect::effect)).apply(instance, InvertedEntityEffect::new));
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
