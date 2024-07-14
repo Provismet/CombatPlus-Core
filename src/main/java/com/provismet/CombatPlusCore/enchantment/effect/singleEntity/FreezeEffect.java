@@ -13,8 +13,8 @@ import net.minecraft.util.math.Vec3d;
  * Applies frozen ticks to the target.
  * @param duration The number of seconds to apply frozen ticks for. The entity gains {@code duration * 20} ticks.
  */
-public record FreezeEnchantmentEffect (EnchantmentLevelBasedValue duration) implements EnchantmentEntityEffect {
-    public static final MapCodec<FreezeEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("duration").forGetter(effect -> effect.duration)).apply(instance, FreezeEnchantmentEffect::new));
+public record FreezeEffect(EnchantmentLevelBasedValue duration) implements EnchantmentEntityEffect {
+    public static final MapCodec<FreezeEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("duration").forGetter(effect -> effect.duration)).apply(instance, FreezeEffect::new));
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity entity, Vec3d pos) {
