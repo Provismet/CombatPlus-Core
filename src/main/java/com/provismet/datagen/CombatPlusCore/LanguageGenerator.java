@@ -41,5 +41,10 @@ public class LanguageGenerator extends FabricLanguageProvider {
 
         translationBuilder.add("item.combat-plus.debugger", "Example Weapon");
         translationBuilder.add("enchantment.combat-plus.logger", "Example Enchantment");
+
+        translationBuilder.add("resourcepack.combat-plus.enchanted_numerals", "Enchantment Numerals");
+        translationBuilder.add("resourcepack.combat-plus.enchanted_numerals.description", "Numerals go up to level 255");
+        translationBuilder.add("resourcepack.combat-plus.enchanted_numbers", "Enchantment Numbers");
+        translationBuilder.add("resourcepack.combat-plus.enchanted_numbers.description", "Numerals are now numbers");
     }
 }

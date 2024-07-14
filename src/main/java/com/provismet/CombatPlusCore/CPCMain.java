@@ -12,8 +12,11 @@ import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +54,11 @@ public class CPCMain implements ModInitializer {
         SingleEntityEffects.register();
 
         LilyResourceConditions.register();
+
+        FabricLoader.getInstance().getModContainer(MODID).ifPresent(container -> {
+            ResourceManagerHelper.registerBuiltinResourcePack(identifier("enchanted_numerals"), container, Text.translatable("resourcepack.combat-plus.enchanted_numerals"), ResourcePackActivationType.DEFAULT_ENABLED);
+            ResourceManagerHelper.registerBuiltinResourcePack(identifier("enchanted_numbers"), container, Text.translatable("resourcepack.combat-plus.enchanted_numbers"), ResourcePackActivationType.NORMAL);
+        });
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
