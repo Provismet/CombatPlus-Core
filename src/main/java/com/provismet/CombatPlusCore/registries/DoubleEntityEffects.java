@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyKnockbackEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToTargetEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToUserEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
@@ -20,7 +20,7 @@ public class DoubleEntityEffects {
         register("code_execution_double_entity", CodeExecutionDoubleEntityEffect.CODEC);
         register("apply_to_owner", ApplyToUserEntityEffect.CODEC);
         register("apply_to_target", ApplyToTargetEntityEffect.CODEC);
-        register("apply_to_both", ApplyToBothEffect.CODEC);
+        register("apply_to_both", ApplyToBothEntityEffect.CODEC);
         register("invert", InvertedEntityEffect.CODEC);
         register("apply_knockback", ApplyKnockbackEffect.CODEC);
         register("weapon_post_charged_attack", WeaponPostChargedEffect.CODEC);

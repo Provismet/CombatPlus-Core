@@ -21,8 +21,8 @@ import java.util.Set;
  *
  * @param condition The {@link SingleEntityCondition} to apply.
  */
-public record ApplyToAttacker (LootCondition condition) implements SingleEntityCondition {
-    public static final MapCodec<ApplyToAttacker> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToAttacker::condition)).apply(instance, ApplyToAttacker::new));
+public record ApplyToAttackerCondition(LootCondition condition) implements SingleEntityCondition {
+    public static final MapCodec<ApplyToAttackerCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToAttackerCondition::condition)).apply(instance, ApplyToAttackerCondition::new));
 
     @Override
     public Set<LootContextParameter<?>> getRequiredParameters () {
@@ -49,10 +49,10 @@ public record ApplyToAttacker (LootCondition condition) implements SingleEntityC
     }
 
     public static SingleEntityCondition.Builder builder (SingleEntityCondition condition) {
-        return () -> new ApplyToAttacker(condition);
+        return () -> new ApplyToAttackerCondition(condition);
     }
 
     public static SingleEntityCondition.Builder builder (SingleEntityCondition.Builder condition) {
-        return () -> new ApplyToAttacker(condition.build());
+        return () -> new ApplyToAttackerCondition(condition.build());
     }
 }

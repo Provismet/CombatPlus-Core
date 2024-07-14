@@ -11,7 +11,7 @@ import net.minecraft.server.world.ServerWorld;
 /**
  * Applies an {@link EnchantmentEntityEffect} to the target.
  * @see ApplyToUserEntityEffect
- * @see ApplyToBothEffect
+ * @see ApplyToBothEntityEffect
  * @param effect The effect to apply.
  */
 public record ApplyToTargetEntityEffect(EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {

@@ -14,8 +14,8 @@ import net.minecraft.server.world.ServerWorld;
  * @see ApplyToTargetEntityEffect
  * @param effect The effect to apply.
  */
-public record ApplyToBothEffect(EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<ApplyToBothEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(ApplyToBothEffect::effect)).apply(instance, ApplyToBothEffect::new));
+public record ApplyToBothEntityEffect(EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<ApplyToBothEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(ApplyToBothEntityEffect::effect)).apply(instance, ApplyToBothEntityEffect::new));
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {

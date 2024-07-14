@@ -10,7 +10,7 @@ import net.minecraft.server.world.ServerWorld;
 
 /**
  * Applies an {@link EnchantmentEntityEffect} to the attacker.
- * @see ApplyToBothEffect
+ * @see ApplyToBothEntityEffect
  * @see ApplyToTargetEntityEffect
  * @param effect The effect to apply.
  */

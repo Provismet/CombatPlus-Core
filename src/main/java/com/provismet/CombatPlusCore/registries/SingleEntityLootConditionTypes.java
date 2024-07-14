@@ -2,8 +2,8 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CPCMain;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToAttacker;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToItem;
+import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToAttackerCondition;
+import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ApplyToItemCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.DimensionCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ExposedToMoonCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.ExposedToSkyCondition;
@@ -26,8 +26,8 @@ public class SingleEntityLootConditionTypes {
     public static final LootConditionType EXPOSED_TO_SKY = register("exposed_to_sky", ExposedToSkyCondition.CODEC);
     public static final LootConditionType EXPOSED_TO_SUN = register("exposed_to_sun", ExposedToSunCondition.CODEC);
     public static final LootConditionType EXPOSED_TO_MOON = register("exposed_to_moon", ExposedToMoonCondition.CODEC);
-    public static final LootConditionType APPLY_TO_ITEM = register("apply_to_item", ApplyToItem.CODEC);
-    public static final LootConditionType APPLY_TO_ATTACKER = register("apply_to_attacker", ApplyToAttacker.CODEC);
+    public static final LootConditionType APPLY_TO_ITEM = register("apply_to_item", ApplyToItemCondition.CODEC);
+    public static final LootConditionType APPLY_TO_ATTACKER = register("apply_to_attacker", ApplyToAttackerCondition.CODEC);
 
     private static LootConditionType register (String name, MapCodec<? extends LootCondition> codec) {
         return Registry.register(Registries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootConditionType(codec));

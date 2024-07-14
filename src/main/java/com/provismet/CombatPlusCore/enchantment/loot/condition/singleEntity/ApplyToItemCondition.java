@@ -18,8 +18,8 @@ import java.util.Set;
  *
  * @param condition The condition to apply.
  */
-public record ApplyToItem (LootCondition condition) implements SingleEntityCondition {
-    public static final MapCodec<ApplyToItem> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToItem::condition)).apply(instance, ApplyToItem::new));
+public record ApplyToItemCondition(LootCondition condition) implements SingleEntityCondition {
+    public static final MapCodec<ApplyToItemCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToItemCondition::condition)).apply(instance, ApplyToItemCondition::new));
 
     @Override
     public LootConditionType getType () {
@@ -38,18 +38,18 @@ public record ApplyToItem (LootCondition condition) implements SingleEntityCondi
     }
 
     public static SingleEntityCondition.Builder builder (ItemCondition condition) {
-        return () -> new ApplyToItem(condition);
+        return () -> new ApplyToItemCondition(condition);
     }
 
     public static SingleEntityCondition.Builder builder (ItemCondition.Builder condition) {
-        return () -> new ApplyToItem(condition.build());
+        return () -> new ApplyToItemCondition(condition.build());
     }
 
     public static SingleEntityCondition.Builder builder (LootCondition condition) {
-        return () -> new ApplyToItem((condition));
+        return () -> new ApplyToItemCondition((condition));
     }
 
     public static SingleEntityCondition.Builder builder (LootCondition.Builder condition) {
-        return () -> new ApplyToItem((condition.build()));
+        return () -> new ApplyToItemCondition((condition.build()));
     }
 }
