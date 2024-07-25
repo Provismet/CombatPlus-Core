@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
@@ -44,5 +45,28 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private boolean stopSweeping (boolean original) {
         if (this.getWorld().getGameRules().getBoolean(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(EntityAttributes.PLAYER_SWEEPING_DAMAGE_RATIO) <= 0) return false;
         return original;
+    }
+
+    @Inject(
+        method = "attack",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)V",
+            shift = At.Shift.AFTER
+        ),
+        allow = 1,
+        slice = @Slice(
+            from = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/world/World;getNonSpectatingEntities(Ljava/lang/Class;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
+            ),
+            to = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/entity/player/PlayerEntity;spawnSweepAttackParticles()V"
+            )
+        )
+    )
+    private void sweepingAppliesChargedHit (Entity primaryTarget, CallbackInfo ci, @Local LivingEntity sweepTarget, @Local ServerWorld world) {
+        CPCEnchantmentHelper.postChargedHit(world, this, sweepTarget, EquipmentSlot.MAINHAND);
     }
 }
