@@ -18,10 +18,10 @@ public class LanguageGenerator extends LilyLanguageProvider {
     @Override
     public void generateTranslations (RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("gamerule.category.combat-plus", "Combat+");
-        translationBuilder.add("gamerule.sweepingRequiresEnchantment", "Sweeping Requires Enchantment");
-        translationBuilder.add("gamerule.keepLoyaltyTridents", "Keep Loyalty Tridents");
-        translationBuilder.add("gamerule.pvpEnchantmentModifier", "PvP Enchantment Modifier");
-        translationBuilder.add("gamerule.pvpEnchantmentModifier.description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
+        translationBuilder.add(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT.getTranslationKey(), "Sweeping Requires Enchantment");
+        translationBuilder.add(CPCGameRules.LOYALTY_STAYS_IN_HAND.getTranslationKey(), "Keep Loyalty Tridents");
+        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getTranslationKey(), "PvP Enchantment Modifier");
+        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getTranslationKey() + ".description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
         translationBuilder.add(CPCGameRules.LETHAL_POISON.getTranslationKey(), "Lethal Poison");
 
         translationBuilder.add(CPCItemTags.MELEE_WEAPON, "Melee Weapons");
