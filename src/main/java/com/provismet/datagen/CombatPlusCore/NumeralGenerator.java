@@ -15,7 +15,7 @@ public class NumeralGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations (RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
-        for (int i = 11; i < 256; ++i) {
+        for (int i = 0; i < 256; ++i) {
             translationBuilder.add("enchantment.level." + i, NumeralGenerator.getRomanNumeral(i));
         }
     }
