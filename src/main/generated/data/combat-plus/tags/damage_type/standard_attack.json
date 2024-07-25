@@ -1,6 +1,9 @@
 {
   "values": [
-    "minecraft:player_attack",
+    {
+      "id": "#minecraft:is_player_attack",
+      "required": false
+    },
     "minecraft:mob_attack",
     "minecraft:mob_attack_no_aggro"
   ]
