@@ -10,6 +10,7 @@
     "MaceItemMixin",
     "MobEntityMixin",
     "PlayerEntityMixin",
+    "PoisonStatusEffectMixin",
     "SwordItemMixin",
     "TridentItemMixin"
   ],

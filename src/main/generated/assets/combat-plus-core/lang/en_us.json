@@ -1,7 +1,11 @@
 {
+  "death.attack.lethal_poison": "%1$s couldn't find an antidote",
+  "death.attack.lethal_poison.item": "%1$s succumbed to poison whilst fighting %2$s using %3$s",
+  "death.attack.lethal_poison.player": "%1$s succumbed to poison whilst fighting %2$s",
   "enchantment.combat-plus.logger": "Example Enchantment",
   "gamerule.category.combat-plus": "Combat+",
   "gamerule.keepLoyaltyTridents": "Keep Loyalty Tridents",
+  "gamerule.lethalPoison": "Lethal Poison",
   "gamerule.pvpEnchantmentModifier": "PvP Enchantment Modifier",
   "gamerule.pvpEnchantmentModifier.description": "Modifies the effectiveness of certain damaging enchantments when used against players.",
   "gamerule.sweepingRequiresEnchantment": "Sweeping Requires Enchantment",

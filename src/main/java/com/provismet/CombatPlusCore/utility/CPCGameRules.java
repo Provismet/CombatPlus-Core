@@ -16,6 +16,7 @@ public class CPCGameRules {
     public static final GameRules.Key<BooleanRule> SWEEPING_REQUIRES_ENCHANTMENT = GameRuleRegistry.register("sweepingRequiresEnchantment", CATEGORY, GameRuleFactory.createBooleanRule(false));
     public static final GameRules.Key<BooleanRule> LOYALTY_STAYS_IN_HAND = GameRuleRegistry.register("keepLoyaltyTridents", CATEGORY, GameRuleFactory.createBooleanRule(false));
     public static final GameRules.Key<DoubleRule> PVP_DAMAGE_MODIFIER = GameRuleRegistry.register("pvpEnchantmentModifier", CATEGORY, GameRuleFactory.createDoubleRule(0.5, 0));
+    public static final GameRules.Key<BooleanRule> LETHAL_POISON = GameRuleRegistry.register("lethalPoison", CATEGORY, GameRuleFactory.createBooleanRule(false));
 
     public static void init () {
         // Loads the class...

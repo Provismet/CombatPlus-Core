@@ -1,5 +1,7 @@
 accessWidener v2 named
 
+accessible class net/minecraft/entity/effect/PoisonStatusEffect
+
 accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
 accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
 accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
