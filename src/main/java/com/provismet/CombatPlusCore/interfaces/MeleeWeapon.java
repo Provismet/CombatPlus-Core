@@ -2,7 +2,10 @@ package com.provismet.CombatPlusCore.interfaces;
 
 import com.provismet.CombatPlusCore.enchantments.WeaponUtilityEnchantment;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -18,6 +21,15 @@ import net.minecraft.item.ItemStack;
  */
 public interface MeleeWeapon {
     public float getWeaponDamage ();
+
+    public default float getWeaponDamage (ItemStack itemStack) {
+        double damage = 0;
+        for (EntityAttributeModifier modifier : itemStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(EntityAttributes.GENERIC_ATTACK_DAMAGE)) {
+            if (modifier.getOperation() == EntityAttributeModifier.Operation.ADDITION) damage += modifier.getValue();
+        }
+
+        return (float)damage;
+    }
 
     /**
      * A callback for when an entity performs a fully charged attack with this weapon.
