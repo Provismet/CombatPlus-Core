@@ -96,6 +96,7 @@ publishMods {
 		projectId = project.curseforge_id
 		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 		clientRequired = true
+		serverRequired = true
 		minecraftVersionRange {
 			start = project.version_start
 			end = project.version_end
