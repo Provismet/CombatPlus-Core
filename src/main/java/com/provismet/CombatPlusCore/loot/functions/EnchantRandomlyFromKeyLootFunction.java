@@ -41,7 +41,7 @@ public class EnchantRandomlyFromKeyLootFunction extends AbstractEnchantmentLootF
         if (this.keys.isEmpty()) return itemStack;
         Stream<RegistryEntry.Reference<Enchantment>> valid = this.keys
             .stream()
-            .map(key -> context.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(key))
+            .map(key -> context.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(key))
             .filter(entry -> this.isAcceptable(itemStack, entry));
 
         Optional<RegistryEntry.Reference<Enchantment>> enchantment = Util.getRandomOrEmpty(valid.toList(), context.getRandom());

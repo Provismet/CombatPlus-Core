@@ -22,6 +22,7 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.predicate.entity.DamageSourcePredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.EntityTypePredicate;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.EnchantmentTags;
@@ -87,7 +88,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                 new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
                 EntityPropertiesLootCondition.builder(
                     LootContext.EntityTarget.THIS,
-                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(EntityTypeTags.SENSITIVE_TO_SMITE))
+                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_SMITE))
                 )
             )
         );
@@ -111,7 +112,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                 new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
                 EntityPropertiesLootCondition.builder(
                     LootContext.EntityTarget.THIS,
-                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
+                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 )
             ).addEffect(
                 EnchantmentEffectComponentTypes.POST_ATTACK,
@@ -126,7 +127,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                 ),
                 EntityPropertiesLootCondition.builder(
                     LootContext.EntityTarget.THIS,
-                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
+                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 ).and(
                     DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().isDirect(true))
                 )

@@ -5,15 +5,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
-import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class AbstractMeleeWeapon extends ToolItem implements MeleeWeapon {
-    protected AbstractMeleeWeapon (ToolMaterial material, Settings settings) {
-        super(material, settings);
+public abstract class AbstractMeleeWeapon extends Item implements MeleeWeapon {
+    protected AbstractMeleeWeapon (Settings settings) {
+        super(settings);
     }
 
     @Override

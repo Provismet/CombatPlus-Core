@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(AxeItem.class)
 public abstract class AxeItemMixin extends MiningToolItem implements MeleeWeapon {
-    protected AxeItemMixin (ToolMaterial material, TagKey<Block> effectiveBlocks, Settings settings) {
-        super(material, effectiveBlocks, settings);
+    public AxeItemMixin (ToolMaterial material, TagKey<Block> effectiveBlocks, float attackDamage, float attackSpeed, Settings settings) {
+        super(material, effectiveBlocks, attackDamage, attackSpeed, settings);
     }
 }

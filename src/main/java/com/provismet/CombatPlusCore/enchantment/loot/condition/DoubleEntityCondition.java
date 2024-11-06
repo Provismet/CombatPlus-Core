@@ -3,14 +3,14 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition;
 import com.google.common.collect.ImmutableSet;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
 import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.util.context.ContextParameter;
 
 import java.util.Set;
 
 public interface DoubleEntityCondition extends LootCondition {
     @Override
-    default Set<LootContextParameter<?>> getRequiredParameters () {
+    default Set<ContextParameter<?>> getAllowedParameters () {
         return ImmutableSet.of(
             LootContextParameters.ORIGIN,
             LootContextParameters.ENCHANTMENT_LEVEL,
@@ -21,7 +21,7 @@ public interface DoubleEntityCondition extends LootCondition {
     }
 
     @FunctionalInterface
-    public static interface Builder extends LootCondition.Builder {
+    interface Builder extends LootCondition.Builder {
         DoubleEntityCondition build ();
     }
 }

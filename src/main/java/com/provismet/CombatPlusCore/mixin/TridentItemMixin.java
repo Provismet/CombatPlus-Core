@@ -26,6 +26,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TridentItem.class)
 public abstract class TridentItemMixin extends Item {
@@ -33,8 +34,8 @@ public abstract class TridentItemMixin extends Item {
         super(settings);
     }
     
-    @Inject(method="onStoppedUsing", at=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V"), cancellable=true)
-    private void replaceTridentThrow (ItemStack itemStack, World world, LivingEntity user, int remainingUseTicks, CallbackInfo info) {
+    @Inject(method="onStoppedUsing", at=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/player/PlayerEntity;)V"), cancellable=true)
+    private void replaceTridentThrow (ItemStack itemStack, World world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
         if (world instanceof ServerWorld serverWorld && serverWorld.getGameRules().getBoolean(CPCGameRules.LOYALTY_STAYS_IN_HAND)) {
             int loyalty = EnchantmentHelper.getTridentReturnAcceleration(serverWorld, itemStack, user);
 
@@ -54,14 +55,14 @@ public abstract class TridentItemMixin extends Item {
                 tridentEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 2.5f, 1.0f);
                 tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
 
-                ((PlayerEntity)user).getItemCooldownManager().set(itemStack.getItem(), 105 - loyalty * 15);
+                ((PlayerEntity)user).getItemCooldownManager().set(itemStack, 105 - loyalty * 15);
                 world.spawnEntity(tridentEntity);
                 RegistryEntry<SoundEvent> tridentSound = EnchantmentHelper.getEffect(itemStack, EnchantmentEffectComponentTypes.TRIDENT_SOUND).orElse(SoundEvents.ITEM_TRIDENT_THROW);
                 world.playSoundFromEntity(null, tridentEntity, tridentSound.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
                 
                 ((PlayerEntity)user).incrementStat((Stats.USED.getOrCreateStat((TridentItem)(Object)this)));
 
-                info.cancel();
+                cir.setReturnValue(true);
             }
         }
     }

@@ -64,7 +64,8 @@ public class CPCMain implements ModInitializer {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
             CPCDebugItems.register();
             ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-                content.add(CPCDebugItems.getOptionalDebugItem().get(), ItemGroup.StackVisibility.SEARCH_TAB_ONLY);
+                if (CPCDebugItems.getOptionalDebugItem().isPresent())
+                    content.add(CPCDebugItems.getOptionalDebugItem().get(), ItemGroup.StackVisibility.SEARCH_TAB_ONLY);
             });
         }
 
@@ -82,7 +83,7 @@ public class CPCMain implements ModInitializer {
                     entrypoint.getEntrypoint().onInitialize();
                 }
                 catch (Exception e) {
-                    LOGGER.error("Mod " + otherModId + " caused an error during inter-mod initialisation: ", e);
+                    LOGGER.error("Mod {} caused an error during inter-mod initialisation: ", otherModId, e);
                 }
             }
         );

@@ -15,14 +15,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class DebuggerItem extends Item implements DualWeapon {
-    public DebuggerItem(Settings settings) {
+    public DebuggerItem (Settings settings) {
         super(settings);
     }
 
     public static AttributeModifiersComponent createSimpleAttributes () {
         return AttributeModifiersComponent.builder()
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, 3f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-            .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, -2.4f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+            .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, 3f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+            .add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, -2.4f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
             .build();
     }
 
@@ -44,15 +44,5 @@ public class DebuggerItem extends Item implements DualWeapon {
     @Override
     public void postKill (ItemStack itemStack, LivingEntity user, LivingEntity target) {
         CPCMain.LOGGER.info("Item: {} has killed {}", user, target);
-    }
-
-    @Override
-    public boolean isEnchantable (ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public int getEnchantability () {
-        return 1;
     }
 }

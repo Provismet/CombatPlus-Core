@@ -15,9 +15,8 @@ import java.util.function.Function;
  * @see com.provismet.CombatPlusCore.registries.DoubleEntityEffects
  */
 public interface CPCEnchantmentEntityEffect {
-    public static final Codec<CPCEnchantmentEntityEffect> CODEC = CPCRegistries.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE.getCodec().dispatch(CPCEnchantmentEntityEffect::getCodec, Function.identity());
+    Codec<CPCEnchantmentEntityEffect> CODEC = CPCRegistries.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE.getCodec().dispatch(CPCEnchantmentEntityEffect::getCodec, Function.identity());
 
-    public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target);
-
-    public MapCodec<? extends CPCEnchantmentEntityEffect> getCodec();
+    void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target);
+    MapCodec<? extends CPCEnchantmentEntityEffect> getCodec ();
 }

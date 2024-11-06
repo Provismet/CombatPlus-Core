@@ -26,11 +26,11 @@ public interface MeleeWeapon {
      * @param itemStack The itemstack containing this weapon.
      * @return The damage bonus from this weapon.
      */
-    public default float getWeaponDamage (ItemStack itemStack) {
+    default float getWeaponDamage (ItemStack itemStack) {
         AttributeModifiersComponent attributes = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
         double bonusDamage = 0f;
         for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
-            if (entry.attribute() == EntityAttributes.GENERIC_ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
+            if (entry.attribute() == EntityAttributes.ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
                 bonusDamage += entry.modifier().value();
             }
         }
@@ -45,7 +45,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void postChargedHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
+    default void postChargedHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
 
     }
 
@@ -57,7 +57,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void postCriticalHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
+    default void postCriticalHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
 
     }
 
@@ -67,7 +67,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void postKill (ItemStack itemStack, LivingEntity user, LivingEntity target) {
+    default void postKill (ItemStack itemStack, LivingEntity user, LivingEntity target) {
         
     }
 
@@ -79,7 +79,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void preChargedHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
+    default void preChargedHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
 
     }
 
@@ -91,7 +91,7 @@ public interface MeleeWeapon {
      * @param user The wielder of the weapon.
      * @param target The entity that was struck.
      */
-    public default void preCriticalHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
+    default void preCriticalHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
 
     }
 }

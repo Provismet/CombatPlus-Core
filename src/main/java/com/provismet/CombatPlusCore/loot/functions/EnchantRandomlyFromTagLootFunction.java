@@ -42,7 +42,12 @@ public class EnchantRandomlyFromTagLootFunction extends AbstractEnchantmentLootF
     protected ItemStack process (ItemStack itemStack, LootContext context) {
         if (this.tagKey == null) return itemStack;
 
-        Stream<RegistryEntry<Enchantment>> enchantments = context.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(this.tagKey).stream().filter(enchant -> this.isAcceptable(itemStack, enchant));
+        Stream<RegistryEntry<Enchantment>> enchantments = context.getWorld()
+            .getRegistryManager()
+            .getOrThrow(RegistryKeys.ENCHANTMENT)
+            .getOrThrow(this.tagKey)
+            .stream()
+            .filter(enchant -> this.isAcceptable(itemStack, enchant));
         Optional<RegistryEntry<Enchantment>> optionalEnchant = Util.getRandomOrEmpty(enchantments.toList(), context.getRandom());
 
         if (optionalEnchant.isEmpty()) return itemStack;

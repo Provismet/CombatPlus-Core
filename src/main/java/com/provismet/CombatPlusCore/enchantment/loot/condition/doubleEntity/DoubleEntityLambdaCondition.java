@@ -31,10 +31,11 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
 
     @Override
     public boolean test (LootContext lootContext) {
-        Optional<Predicate<Pair<Entity,Entity>>> predicate = CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.getOrEmpty(function);
+        Predicate<Pair<Entity,Entity>> predicate = CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.get(function);
+        if (predicate == null) return false;
+
         Pair<Entity,Entity> pair = new Pair<>(lootContext.get(LootContextParameters.THIS_ENTITY), lootContext.get(CPCLootContextParameters.TARGET_ENTITY));
-        if (predicate.isEmpty()) return false;
-        else return predicate.get().test(pair);
+        return predicate.test(pair);
     }
 
     public static DoubleEntityCondition.Builder builder (Identifier function) {

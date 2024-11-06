@@ -2,6 +2,7 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.item;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.ItemCondition;
 import com.provismet.CombatPlusCore.registries.ItemConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
@@ -24,9 +25,12 @@ public record ItemLambdaCondition (Identifier function) implements ItemCondition
 
     @Override
     public boolean test (LootContext lootContext) {
-        Optional<Predicate<ItemStack>> predicate = CPCRegistries.ITEM_LAMBDA_CONDITION.getOrEmpty(this.function);
-        if (predicate.isPresent()) return predicate.get().test(lootContext.get(LootContextParameters.TOOL));
-        return false;
+        Predicate<ItemStack> predicate = CPCRegistries.ITEM_LAMBDA_CONDITION.get(this.function);
+        if (predicate == null) {
+            CPCMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
+            return false;
+        }
+        return predicate.test(lootContext.get(LootContextParameters.TOOL));
     }
 
     public static ItemCondition.Builder builder (Identifier function) {

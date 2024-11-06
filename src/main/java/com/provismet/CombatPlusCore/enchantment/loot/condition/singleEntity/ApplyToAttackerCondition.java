@@ -9,8 +9,8 @@ import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.util.context.ContextParameter;
 
 import java.util.Set;
 
@@ -25,7 +25,7 @@ public record ApplyToAttackerCondition(LootCondition condition) implements Singl
     public static final MapCodec<ApplyToAttackerCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToAttackerCondition::condition)).apply(instance, ApplyToAttackerCondition::new));
 
     @Override
-    public Set<LootContextParameter<?>> getRequiredParameters () {
+    public Set<ContextParameter<?>> getAllowedParameters () {
         return ImmutableSet.of(
             LootContextParameters.ENCHANTMENT_LEVEL,
             LootContextParameters.ATTACKING_ENTITY

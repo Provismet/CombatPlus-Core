@@ -25,7 +25,7 @@ public record ApplyKnockbackEffect(EnchantmentLevelBasedValue strength, boolean 
         double strengthValue = this.strength.getValue(level);
 
         if (this.respectAttribute && target instanceof LivingEntity living) {
-            strengthValue *= 1 - living.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
+            strengthValue *= 1 - living.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE);
             if (strengthValue <= 0) return;
         }
         Vec3d velocity = new Vec3d(target.getX() - attacker.getX(), 0.0, target.getZ() - attacker.getZ()).normalize().multiply(strengthValue).add(0.0, 0.1, 0.0);

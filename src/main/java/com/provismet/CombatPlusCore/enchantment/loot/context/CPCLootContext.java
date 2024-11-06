@@ -3,11 +3,11 @@ package com.provismet.CombatPlusCore.enchantment.loot.context;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameter;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.context.ContextParameter;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 public final class CPCLootContext {
     public static LootContext createDoubleEntity (ServerWorld world, int level, Entity attacker, Entity target, ItemStack heldItem) {
-        LootContextParameterSet paramSet = new LootContextParameterSet.Builder(world)
+        LootWorldContext paramSet = new LootWorldContext.Builder(world)
             .add(LootContextParameters.THIS_ENTITY, attacker)
             .add(LootContextParameters.ATTACKING_ENTITY, attacker)
             .add(CPCLootContextParameters.TARGET_ENTITY, target)
@@ -33,7 +33,7 @@ public final class CPCLootContext {
 
     public static LootContext createSingleEntity (ServerWorld world, int level, Entity entity, @Nullable ItemStack heldItem) {
         ItemStack weaponStack = heldItem == null ? entity.getWeaponStack() : heldItem;
-        LootContextParameterSet paramSet = new LootContextParameterSet.Builder(world)
+        LootWorldContext paramSet = new LootWorldContext.Builder(world)
             .add(LootContextParameters.THIS_ENTITY, entity)
             .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
             .add(LootContextParameters.ORIGIN, entity.getPos())
@@ -43,7 +43,7 @@ public final class CPCLootContext {
         return new LootContext.Builder(paramSet).build(Optional.empty());
     }
 
-    public static enum Comparison implements StringIdentifiable {
+    public enum Comparison implements StringIdentifiable {
         LESS_THAN("<") {
             @Override
             public boolean compare (float left, float right) {
@@ -78,7 +78,7 @@ public final class CPCLootContext {
         public static final StringIdentifiable.EnumCodec<CPCLootContext.Comparison> CODEC;
         private final String type;
 
-        private Comparison (String type) {
+        Comparison (String type) {
             this.type = type;
         }
 
@@ -94,21 +94,21 @@ public final class CPCLootContext {
         }
     }
 
-    public static enum EntityTarget implements StringIdentifiable {
+    public enum EntityTarget implements StringIdentifiable {
         THIS("this", LootContextParameters.THIS_ENTITY),
         ATTACKER("attacker", LootContextParameters.ATTACKING_ENTITY),
         TARGET("target_entity", CPCLootContextParameters.TARGET_ENTITY);
 
         public static final StringIdentifiable.EnumCodec<CPCLootContext.EntityTarget> CODEC;
         private final String type;
-        private final LootContextParameter<? extends Entity> parameter;
+        private final ContextParameter<? extends Entity> parameter;
 
-        private EntityTarget (String type, LootContextParameter<? extends Entity> parameter) {
+        private EntityTarget (String type, ContextParameter<? extends Entity> parameter) {
             this.type = type;
             this.parameter = parameter;
         }
 
-        public LootContextParameter<? extends Entity> getParameter() {
+        public ContextParameter<? extends Entity> getParameter() {
             return this.parameter;
         }
 

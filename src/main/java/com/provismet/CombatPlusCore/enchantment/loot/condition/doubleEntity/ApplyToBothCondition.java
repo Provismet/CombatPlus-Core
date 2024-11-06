@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.util.context.ContextParameter;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
     }
 
     @Override
-    public Set<LootContextParameter<?>> getRequiredParameters() {
+    public Set<ContextParameter<?>> getAllowedParameters() {
         return ImmutableSet.of(
             LootContextParameters.THIS_ENTITY,
             CPCLootContextParameters.TARGET_ENTITY,

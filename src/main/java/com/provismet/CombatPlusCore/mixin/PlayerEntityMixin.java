@@ -27,7 +27,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", shift=At.Shift.AFTER))
+    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/player/PlayerEntity;getKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F", shift=At.Shift.AFTER))
     private void postApplyHitEffects (Entity entity, CallbackInfo info, @Local(ordinal=0) boolean charged, @Local(ordinal=2) boolean critical) {
         if (entity instanceof LivingEntity target && this.getWorld() instanceof ServerWorld world) {
             if (charged) {
@@ -43,7 +43,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @ModifyVariable(method="attack", at=@At(value="STORE"), ordinal=3)
     private boolean stopSweeping (boolean original) {
-        if (this.getWorld().getGameRules().getBoolean(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(EntityAttributes.PLAYER_SWEEPING_DAMAGE_RATIO) <= 0) return false;
+        if (this.getWorld() instanceof ServerWorld world) {
+            if (world.getGameRules().getBoolean(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(EntityAttributes.SWEEPING_DAMAGE_RATIO) <= 0) return false;
+        }
         return original;
     }
 

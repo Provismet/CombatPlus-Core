@@ -2,6 +2,7 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
@@ -29,10 +30,14 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
 
     @Override
     public boolean test (LootContext lootContext) {
-        Optional<Predicate<Entity>> predicate = CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION.getOrEmpty(this.function);
+        Predicate<Entity> predicate = CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION.get((this.function));
+        if (predicate == null) {
+            CPCMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
+            return false;
+        }
+
         Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
-        if (predicate.isEmpty()) return false;
-        else return predicate.get().test(entity);
+        return predicate.test(entity);
     }
 
     public static SingleEntityCondition.Builder builder (Identifier function) {

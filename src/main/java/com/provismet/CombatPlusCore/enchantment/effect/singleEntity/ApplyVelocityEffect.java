@@ -27,7 +27,7 @@ public record ApplyVelocityEffect(double x, double y, double z, EnchantmentLevel
         Vec3d velocity = new Vec3d(this.x, this.y, this.z);
         if (entity instanceof LivingEntity living) {
             double strengthValue = this.strength.getValue(level);
-            if (this.respectAttribute) strengthValue *= 1 - living.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
+            if (this.respectAttribute) strengthValue *= 1 - living.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE);
             if (strengthValue <= 0) return;
 
             living.addVelocity(velocity.multiply(strengthValue));
