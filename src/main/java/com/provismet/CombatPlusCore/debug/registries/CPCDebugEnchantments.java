@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CPCDebugEnchantments {
     private static final EnchantmentContainer LOGGER = new EnchantmentContainer(
         CPCMain.identifier("logger"),
-        (itemLookup, enchantmentLookup, damageLookup, blockLookup) -> Enchantment.builder(
+        (itemLookup, enchantmentLookup, damageLookup, blockLookup, entityLookup) -> Enchantment.builder(
             Enchantment.definition(
                 itemLookup.getOrThrow(CPCItemTags.DAMAGE_ENCHANTABLE),
                 1,
