@@ -7,3 +7,7 @@ accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecr
 accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
 
 accessible field net/minecraft/loot/context/LootContextTypes MAP Lcom/google/common/collect/BiMap;
+
+transitive-accessible field net/minecraft/item/Item components Lnet/minecraft/component/ComponentMap;
+transitive-mutable field net/minecraft/item/Item components Lnet/minecraft/component/ComponentMap;
+transitive-accessible method net/minecraft/item/Item$Settings getValidatedComponents (Lnet/minecraft/text/Text;Lnet/minecraft/util/Identifier;)Lnet/minecraft/component/ComponentMap;
