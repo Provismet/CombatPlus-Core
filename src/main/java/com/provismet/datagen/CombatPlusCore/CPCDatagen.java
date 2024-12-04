@@ -17,6 +17,7 @@ public class CPCDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(EnchantmentTagGenerator::new);
         pack.addProvider(LanguageGenerator::new);
+        pack.addProvider(ModelGenerator::new);
 
         FabricDataGenerator.Pack numerals = fabricDataGenerator.createBuiltinResourcePack(CPCMain.identifier("enchanted_numerals"));
         numerals.addProvider(NumeralGenerator::new);
