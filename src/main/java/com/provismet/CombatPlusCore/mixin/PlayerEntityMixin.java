@@ -1,9 +1,15 @@
 package com.provismet.CombatPlusCore.mixin;
 
+import com.provismet.CombatPlusCore.interfaces.BlockingItem;
 import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stat;
+import net.minecraft.stat.Stats;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -23,6 +29,10 @@ import net.minecraft.world.World;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
+    @Shadow public abstract ItemCooldownManager getItemCooldownManager ();
+
+    @Shadow public abstract void incrementStat (Stat<?> stat);
+
     protected PlayerEntityMixin (EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -62,5 +72,26 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     )
     private void sweepingAppliesChargedHit (Entity primaryTarget, CallbackInfo ci, @Local LivingEntity sweepTarget, @Local ServerWorld world) {
         CPCEnchantmentHelper.postChargedHit(world, this, sweepTarget, EquipmentSlot.MAINHAND);
+    }
+
+    @Inject(method="disableShield", at=@At("HEAD"), cancellable=true)
+    private void applyShieldCooldown (CallbackInfo info) {
+        if (this.getActiveItem().getItem() instanceof BlockingItem blockingItem) {
+            this.getItemCooldownManager().set(this.getActiveItem().getItem(), blockingItem.getMaxCooldown(this.getActiveItem()));
+            this.clearActiveItem();
+            this.getWorld().sendEntityStatus(this, EntityStatuses.BREAK_SHIELD);
+            info.cancel();
+        }
+    }
+
+    @Inject(method="damageShield", at=@At("HEAD"), cancellable=true)
+    private void damageBlockingItem (float amount, CallbackInfo info) {
+        if (this.activeItemStack.getItem() instanceof BlockingItem) {
+            if (!this.getWorld().isClient) {
+                this.incrementStat(Stats.USED.getOrCreateStat(this.activeItemStack.getItem()));
+                super.damageShield(amount);
+                info.cancel();
+            }
+        }
     }
 }

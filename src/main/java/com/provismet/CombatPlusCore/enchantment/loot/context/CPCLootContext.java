@@ -31,6 +31,19 @@ public final class CPCLootContext {
         return new LootContext.Builder(paramSet).build(Optional.empty());
     }
 
+    public static LootContext createReversedDoubleEntity (ServerWorld world, int level, Entity target, Entity attacker, ItemStack heldItem) {
+        LootContextParameterSet paramSet = new LootContextParameterSet.Builder(world)
+            .add(LootContextParameters.THIS_ENTITY, target)
+            .add(LootContextParameters.ATTACKING_ENTITY, attacker)
+            .add(CPCLootContextParameters.TARGET_ENTITY, target)
+            .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
+            .add(LootContextParameters.TOOL, heldItem)
+            .add(LootContextParameters.ORIGIN, target.getPos())
+            .build(CPCLootContextTypes.DOUBLE_ENTITY);
+
+        return new LootContext.Builder(paramSet).build(Optional.empty());
+    }
+
     public static LootContext createSingleEntity (ServerWorld world, int level, Entity entity, @Nullable ItemStack heldItem) {
         ItemStack weaponStack = heldItem == null ? entity.getWeaponStack() : heldItem;
         LootContextParameterSet paramSet = new LootContextParameterSet.Builder(world)

@@ -10,6 +10,7 @@ import com.provismet.CombatPlusCore.registries.LambdaRegistry;
 import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
 import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -61,9 +62,8 @@ public class CPCMain implements ModInitializer {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
             CPCDebugItems.register();
-            ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-                content.add(CPCDebugItems.getOptionalDebugItem().get(), ItemGroup.StackVisibility.SEARCH_TAB_ONLY);
-            });
+            CPCDebugItems.getOptionalDebugItem().ifPresent(item -> ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> content.add(item, ItemGroup.StackVisibility.SEARCH_TAB_ONLY)));
+            CPCDebugItems.getOptionalDebugShield().ifPresent(item -> ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> content.add(item, ItemGroup.StackVisibility.SEARCH_TAB_ONLY)));
         }
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
@@ -79,7 +79,7 @@ public class CPCMain implements ModInitializer {
                     entrypoint.getEntrypoint().onInitialize();
                 }
                 catch (Exception e) {
-                    LOGGER.error("Mod " + otherModId + " caused an error during inter-mod initialisation: ", e);
+                    LOGGER.error("Mod {} caused an error during inter-mod initialisation: ", otherModId, e);
                 }
             }
         );

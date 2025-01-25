@@ -37,12 +37,8 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
 
     @Override
     protected void generate (RegistryWrapper.WrapperLookup registries, EnchantmentBuilder builder) {
-        if (CPCDebugEnchantments.getDebugContainer().isPresent()) {
-            builder.add(
-                CPCDebugEnchantments.getDebugContainer().get(),
-                new DevModeResourceCondition()
-            );
-        }
+        CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
+        CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
 
         builder.add(
             Enchantments.SHARPNESS,
