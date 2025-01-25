@@ -1,5 +1,6 @@
 package com.provismet.datagen.CombatPlusCore;
 
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
 import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
 import com.provismet.CombatPlusCore.utility.CPCGameRules;
 import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
@@ -43,7 +44,10 @@ public class LanguageGenerator extends LilyLanguageProvider {
         translationBuilder.add(CPCEnchantmentTags.OFFHAND, "Offhand Enchantments");
 
         translationBuilder.add("item.combat-plus.debugger", "Example Weapon");
-        translationBuilder.add("enchantment.combat-plus.logger", "Example Enchantment");
+        translationBuilder.add("item.combat-plus.debug_shield", "Example Shield");
+
+        CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Weapon Enchantment", "Logs attacks to the console for debugging purposes."));
+        CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Shield Enchantment", "Logs to the console when blocking an attack for debugging purposes."));
 
         translationBuilder.add("resourcepack.combat-plus.enchanted_numerals", "Enchantment Numerals");
         translationBuilder.add("resourcepack.combat-plus.enchanted_numerals.description", "Numerals go up to level 255");

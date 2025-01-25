@@ -61,6 +61,13 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON);
 
+        getOrCreateTagBuilder(CPCItemTags.SHIELD_ENCHANTABLE)
+            .addOptionalTag(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE)
+            .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS);
+
+        getOrCreateTagBuilder(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE)
+            .add(Items.SHIELD);
+
         getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
             .addOptionalTag(CPCItemTags.MELEE_WEAPON);
 
@@ -74,6 +81,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .addOptionalTag(CPCItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.ASPECT_ENCHANTABLE)
-            .addOptionalTag(CPCItemTags.OFFHAND_ENCHANTABLE);
+            .addOptionalTag(CPCItemTags.OFFHAND_ENCHANTABLE)
+            .addOptionalTag(CPCItemTags.SHIELD_ENCHANTABLE);
+
+        getOrCreateTagBuilder(ConventionalItemTags.SHIELD_TOOLS)
+            .addOptional(CPCMain.identifier("debug_shield"));
     }
 }

@@ -28,6 +28,8 @@ public class CPCItemTags {
     public static final TagKey<Item> WEAPON_UTILITY_PRIMARY_ENCHANTABLE = createItemTag("enchantable/weapon_utility_primary");
     public static final TagKey<Item> OFFHAND_ENCHANTABLE = createItemTag("enchantable/offhand");
     public static final TagKey<Item> OFFHAND_PRIMARY_ENCHANTABLE = createItemTag("enchantable/offhand_primary");
+    public static final TagKey<Item> SHIELD_ENCHANTABLE = createItemTag("enchantable/shield");
+    public static final TagKey<Item> SHIELD_PRIMARY_ENCHANTABLE = createItemTag("enchantable/shield_primary");
 
     private static TagKey<Item> createItemTag (String path) {
         return TagKey.of(RegistryKeys.ITEM, CPCMain.identifier(path));

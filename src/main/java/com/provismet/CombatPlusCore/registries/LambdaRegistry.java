@@ -28,6 +28,7 @@ public class LambdaRegistry {
         register("log-charged", (world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} performed a charged attack on {}", user.getName().getString(), target.getName().getString()));
         register("log-critical", (world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} performed a critical attack on {}", user.getName().getString(), target.getName().getString()));
         register("log-kill", (world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} killed {}", user.getName().getString(), target.getName().getString()));
+        register("log-block", ((world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} blocked an attack from {}", user.getName().getString(), target.getName().getString())));
     }
 
     private static void registerSingleConditions () {
