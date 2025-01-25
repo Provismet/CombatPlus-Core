@@ -5,7 +5,6 @@
   "mixins": [
     "AxeItemMixin",
     "EnchantmentHelperMixin",
-    "ItemStackMixin",
     "LivingEntityMixin",
     "MaceItemMixin",
     "MobEntityMixin",
