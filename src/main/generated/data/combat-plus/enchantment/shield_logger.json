@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "lilylib:developer_mode"
+    }
+  ],
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.combat-plus.shield_logger"
+  },
+  "effects": {
+    "combat-plus:post_block": [
+      {
+        "effect": {
+          "type": "combat-plus:code_execution_double_entity",
+          "function": "combat-plus:log-block"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#combat-plus:enchantable/shield",
+  "weight": 1
+}
