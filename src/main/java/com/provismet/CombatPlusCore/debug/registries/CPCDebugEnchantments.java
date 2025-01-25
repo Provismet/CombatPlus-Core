@@ -5,6 +5,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutio
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.container.EnchantmentContainer;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -36,8 +37,31 @@ public class CPCDebugEnchantments {
         )
     );
 
+    private static final EnchantmentContainer SHIELD_LOGGER = new EnchantmentContainer(
+        CPCMain.identifier("shield_logger"),
+        (itemLookup, enchantmentLookup, damageLookup, blockLookup, entityLookup) -> Enchantment.builder(
+            Enchantment.definition(
+                itemLookup.getOrThrow(CPCItemTags.SHIELD_ENCHANTABLE),
+                1,
+                1,
+                Enchantment.constantCost(1),
+                Enchantment.constantCost(1),
+                1,
+                AttributeModifierSlot.HAND
+            )
+        ).addEffect(
+            CPCEnchantmentComponentTypes.POST_BLOCK,
+            new CodeExecutionDoubleEntityEffect(CPCMain.identifier("log-block"))
+        )
+    );
+
     public static Optional<EnchantmentContainer> getDebugContainer () {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) return Optional.of(LOGGER);
+        return Optional.empty();
+    }
+
+    public static Optional<EnchantmentContainer> getShieldDebugContainer () {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return Optional.of(SHIELD_LOGGER);
         return Optional.empty();
     }
 }
