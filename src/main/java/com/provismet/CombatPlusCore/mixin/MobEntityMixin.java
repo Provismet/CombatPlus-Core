@@ -1,13 +1,11 @@
 package com.provismet.CombatPlusCore.mixin;
 
+import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -25,8 +23,7 @@ public abstract class MobEntityMixin extends LivingEntity {
     @Inject(method="tryAttack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/mob/MobEntity;getKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F", shift=At.Shift.AFTER))
     public void onHit (Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (target instanceof LivingEntity living && this.getWorld() instanceof ServerWorld world) {
-            ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postChargedHit(this, living);
-            CPCEnchantmentHelper.postChargedHit(world, this, living, EquipmentSlot.MAINHAND);
+            CPCCallbackUtil.postChargedHit(world, this.getMainHandStack(), EquipmentSlot.MAINHAND, this, living);
         }
     }
 }

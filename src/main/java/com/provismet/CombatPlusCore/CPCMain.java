@@ -21,8 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
-import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import com.provismet.CombatPlusCore.utility.CPCGameRules;
 
 import net.fabricmc.api.ModInitializer;
@@ -70,8 +68,7 @@ public class CPCMain implements ModInitializer {
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
             if (entity instanceof LivingEntity user) {
-                ((IMixinItemStack)(Object)user.getMainHandStack()).CPC_postKill(user, target);
-                CPCEnchantmentHelper.postKill(world, user, target, EquipmentSlot.MAINHAND);
+                CPCCallbackUtil.postKill(world, user.getMainHandStack(), EquipmentSlot.MAINHAND, user, target);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
+import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.provismet.CombatPlusCore.interfaces.mixin.IMixinItemStack;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import com.provismet.CombatPlusCore.utility.CPCGameRules;
 
@@ -30,14 +30,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", shift=At.Shift.AFTER))
     private void postApplyHitEffects (Entity entity, CallbackInfo info, @Local(ordinal=0) boolean charged, @Local(ordinal=2) boolean critical) {
         if (entity instanceof LivingEntity target && this.getWorld() instanceof ServerWorld world) {
-            if (charged) {
-                ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postChargedHit(this, target);
-                CPCEnchantmentHelper.postChargedHit(world, this, target, EquipmentSlot.MAINHAND);
-            }
-            if (critical) {
-                ((IMixinItemStack)(Object)this.getMainHandStack()).CPC_postCriticalHit(this, target);
-                CPCEnchantmentHelper.postCriticalHit(world, this, target, EquipmentSlot.MAINHAND);
-            }
+            if (charged) CPCCallbackUtil.postChargedHit(world, this.getMainHandStack(), EquipmentSlot.MAINHAND, this, target);
+            if (critical) CPCCallbackUtil.postCriticalHit(world, this.getMainHandStack(), EquipmentSlot.MAINHAND, this, target);
         }
     }
 
