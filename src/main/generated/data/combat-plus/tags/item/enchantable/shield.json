@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:enchantable/shield_primary",
+      "required": false
+    },
+    {
+      "id": "#c:tools/shield",
+      "required": false
+    }
+  ]
+}
