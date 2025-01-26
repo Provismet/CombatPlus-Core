@@ -37,6 +37,8 @@ public class LanguageGenerator extends LilyLanguageProvider {
         translationBuilder.add(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE, "Primary Weapon Utility Enchantable");
         translationBuilder.add(CPCItemTags.OFFHAND_ENCHANTABLE, "Offhand Enchantable");
         translationBuilder.add(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE, "Primary Offhand Enchantable");
+        translationBuilder.add(CPCItemTags.SHIELD_ENCHANTABLE, "Shield Enchantable");
+        translationBuilder.add(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE, "Primary Shield Enchantable");
 
         translationBuilder.add(CPCEnchantmentTags.ADDITIONAL_DAMAGE, "Additional Damage Enchantments");
         translationBuilder.add(CPCEnchantmentTags.ASPECT, "Aspect Enchantments");
