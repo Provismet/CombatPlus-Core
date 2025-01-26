@@ -3,6 +3,8 @@ package com.provismet.CombatPlusCore.debug.registries;
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.debug.items.DebugShield;
 import com.provismet.CombatPlusCore.debug.items.DebuggerItem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.Item;
@@ -19,8 +21,6 @@ public class CPCDebugItems {
     public static void register () {
         Registry.register(Registries.ITEM, CPCMain.identifier("debugger"), DEBUGGER);
         Registry.register(Registries.ITEM, CPCMain.identifier("debug_shield"), DEBUG_SHIELD);
-
-        ModelPredicateProviderRegistry.register(DEBUG_SHIELD, Identifier.ofVanilla("blocking"), (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
     }
 
     public static Optional<Item> getOptionalDebugItem () {
@@ -31,5 +31,10 @@ public class CPCDebugItems {
     public static Optional<Item> getOptionalDebugShield () {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) return Optional.of(DEBUG_SHIELD);
         else return Optional.empty();
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void registerModel () {
+        ModelPredicateProviderRegistry.register(DEBUG_SHIELD, Identifier.ofVanilla("blocking"), (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
     }
 }

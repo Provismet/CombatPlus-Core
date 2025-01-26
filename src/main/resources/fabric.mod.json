@@ -18,6 +18,9 @@
 		"main": [
 			"com.provismet.CombatPlusCore.CPCMain"
 		],
+		"client": [
+			"com.provismet.CombatPlusCore.CPCClient"
+		],
 		"fabric-datagen": [
 			"com.provismet.datagen.CombatPlusCore.CPCDatagen"
 		]
