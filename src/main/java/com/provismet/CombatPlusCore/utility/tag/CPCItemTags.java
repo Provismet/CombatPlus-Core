@@ -16,9 +16,6 @@ public class CPCItemTags {
     public static final TagKey<Item> DUAL_WEAPON = createItemTag("dual_weapon");
     public static final TagKey<Item> MELEE_WEAPON = createItemTag("melee_weapon");
 
-    // Weapon Effects
-    public static final TagKey<Item> SHIELD_BREAKER = createItemTag("breaks_shields");
-
     // Enchantment Compatibility
     public static final TagKey<Item> ASPECT_ENCHANTABLE = createItemTag("enchantable/aspect");
     public static final TagKey<Item> ASPECT_PRIMARY_ENCHANTABLE = createItemTag("enchantable/aspect_primary");

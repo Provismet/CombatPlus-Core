@@ -27,10 +27,6 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .addOptionalTag(ItemTags.AXES)
             .add(Items.MACE);
 
-        getOrCreateTagBuilder(CPCItemTags.SHIELD_BREAKER)
-            .addOptionalTag(ItemTags.AXES)
-            .addOptional(CPCMain.identifier("debugger"));
-
         getOrCreateTagBuilder(CPCItemTags.ASPECT_ENCHANTABLE)
             .addOptionalTag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE);

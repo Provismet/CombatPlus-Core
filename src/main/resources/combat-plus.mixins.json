@@ -1,19 +1,19 @@
 {
-  "required": true,
-  "package": "com.provismet.CombatPlusCore.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "AxeItemMixin",
-    "EnchantmentHelperMixin",
-    "LivingEntityMixin",
-    "MaceItemMixin",
-    "MobEntityMixin",
-    "PlayerEntityMixin",
-    "PoisonStatusEffectMixin",
-    "SwordItemMixin",
-    "TridentItemMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+    "required": true,
+    "package": "com.provismet.CombatPlusCore.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "AxeItemMixin",
+        "EnchantmentHelperMixin",
+        "ItemCooldownManagerMixin",
+        "LivingEntityMixin",
+        "MaceItemMixin",
+        "MobEntityMixin",
+        "PlayerEntityMixin",
+        "PoisonStatusEffectMixin",
+        "TridentItemMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
 	}
 }

@@ -27,7 +27,6 @@ public class LanguageGenerator extends LilyLanguageProvider {
 
         translationBuilder.add(CPCItemTags.MELEE_WEAPON, "Melee Weapons");
         translationBuilder.add(CPCItemTags.DUAL_WEAPON, "Dual Weapons");
-        translationBuilder.add(CPCItemTags.SHIELD_BREAKER, "Breaks Shields");
 
         translationBuilder.add(CPCItemTags.ASPECT_ENCHANTABLE, "Aspect Enchantable");
         translationBuilder.add(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE, "Primary Aspect Enchantable");
