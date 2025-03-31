@@ -9,9 +9,8 @@ import net.minecraft.item.ItemStack;
  * <p> Dual weapons are applicable for Offhand enchantments.
  */
 public interface DualWeapon extends MeleeWeapon {
-    public default float getOffhandDamage (ItemStack itemStack) {
+    default float getOffhandDamage (ItemStack itemStack) {
         float defaultValue = MoreMath.roundDownToMultipleFloat(this.getWeaponDamage(itemStack) / 3.5f, 0.5f);
-        if (defaultValue > 0.5f) return defaultValue;
-        return 0.5f;
+        return Math.max(defaultValue, 0.5f);
     }
 }

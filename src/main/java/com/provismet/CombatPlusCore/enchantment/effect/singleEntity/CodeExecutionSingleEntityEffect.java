@@ -12,15 +12,17 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.Optional;
-
 /**
  * Executes a registered lambda function against an entity.
  * @see CodeExecutionDoubleEntityEffect
  * @param function The id of the function.
  */
 public record CodeExecutionSingleEntityEffect (Identifier function) implements EnchantmentEntityEffect {
-    public static final MapCodec<CodeExecutionSingleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionSingleEntityEffect::function)).apply(instance, CodeExecutionSingleEntityEffect::new));
+    public static final MapCodec<CodeExecutionSingleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(
+            Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionSingleEntityEffect::function)
+        ).apply(instance, CodeExecutionSingleEntityEffect::new)
+    );
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity entity, Vec3d pos) {

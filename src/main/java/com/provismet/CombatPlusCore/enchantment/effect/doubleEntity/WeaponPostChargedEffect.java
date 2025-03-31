@@ -11,7 +11,7 @@ import net.minecraft.server.world.ServerWorld;
 /**
  * Triggers the attacker's melee weapon on-charged-hit effect against the target.
  */
-public record WeaponPostChargedEffect() implements CPCEnchantmentEntityEffect {
+public record WeaponPostChargedEffect () implements CPCEnchantmentEntityEffect {
     public static final MapCodec<WeaponPostChargedEffect> CODEC = MapCodec.unit(WeaponPostChargedEffect::new);
 
     @Override

@@ -17,8 +17,12 @@ import net.minecraft.util.math.Vec3d;
  * @param strength The strength of the knockback.
  * @param respectAttribute Whether or not this should respect knockback resistance.
  */
-public record ApplyKnockbackEffect(EnchantmentLevelBasedValue strength, boolean respectAttribute) implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<ApplyKnockbackEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("strength").forGetter(ApplyKnockbackEffect::strength), Codec.BOOL.fieldOf("respect_knockback_resistance").forGetter(ApplyKnockbackEffect::respectAttribute)).apply(instance, ApplyKnockbackEffect::new));
+public record ApplyKnockbackEffect (EnchantmentLevelBasedValue strength, boolean respectAttribute) implements CPCEnchantmentEntityEffect {
+    public static final MapCodec<ApplyKnockbackEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("strength").forGetter(ApplyKnockbackEffect::strength),
+            Codec.BOOL.fieldOf("respect_knockback_resistance").forGetter(ApplyKnockbackEffect::respectAttribute)
+        ).apply(instance, ApplyKnockbackEffect::new)
+    );
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {

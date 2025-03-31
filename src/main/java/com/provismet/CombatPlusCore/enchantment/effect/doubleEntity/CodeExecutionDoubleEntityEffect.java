@@ -12,15 +12,17 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.Optional;
-
 /**
  * Executes a registered function against the pair of entities.
  * @see CodeExecutionSingleEntityEffect
  * @param function The identifier of the function.
  */
 public record CodeExecutionDoubleEntityEffect (Identifier function) implements CPCEnchantmentEntityEffect {
-    public static final MapCodec<CodeExecutionDoubleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionDoubleEntityEffect::function)).apply(instance, CodeExecutionDoubleEntityEffect::new));
+    public static final MapCodec<CodeExecutionDoubleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(
+            Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionDoubleEntityEffect::function)
+        ).apply(instance, CodeExecutionDoubleEntityEffect::new)
+    );
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {

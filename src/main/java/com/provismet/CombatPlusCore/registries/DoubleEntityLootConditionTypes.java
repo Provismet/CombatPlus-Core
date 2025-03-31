@@ -11,7 +11,7 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public class DoubleEntityLootConditionTypes {
+public abstract class DoubleEntityLootConditionTypes {
     public static final LootConditionType LAMBDA = register("code_execution_double_entity_condition", DoubleEntityLambdaCondition.CODEC);
     public static final LootConditionType APPLY_TO_BOTH = register("apply_to_both", ApplyToBothCondition.CODEC);
     public static final LootConditionType APPLY_TO_USER = register("apply_to_user", ApplyToUserCondition.CODEC);

@@ -11,7 +11,7 @@ import net.minecraft.util.Pair;
 
 import java.util.function.Predicate;
 
-public class LambdaRegistry {
+public abstract class LambdaRegistry {
     public static void register () {
         registerSingles();
         registerDoubles();

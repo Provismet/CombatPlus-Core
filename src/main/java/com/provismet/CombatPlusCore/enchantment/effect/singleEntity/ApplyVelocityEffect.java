@@ -19,8 +19,16 @@ import net.minecraft.util.math.Vec3d;
  * @param z The z component.
  * @param strength The strength of the velocity vector. All values are multiplied by strength.
  */
-public record ApplyVelocityEffect(double x, double y, double z, EnchantmentLevelBasedValue strength, boolean respectAttribute) implements EnchantmentEntityEffect {
-    public static final MapCodec<ApplyVelocityEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.DOUBLE.fieldOf("x").forGetter(ApplyVelocityEffect::x), Codec.DOUBLE.fieldOf("y").forGetter(ApplyVelocityEffect::y), Codec.DOUBLE.fieldOf("z").forGetter(ApplyVelocityEffect::z), EnchantmentLevelBasedValue.CODEC.fieldOf("strength").forGetter(ApplyVelocityEffect::strength), Codec.BOOL.fieldOf("respect_knockback_resistance").forGetter(ApplyVelocityEffect::respectAttribute)).apply(instance, ApplyVelocityEffect::new));
+public record ApplyVelocityEffect (double x, double y, double z, EnchantmentLevelBasedValue strength, boolean respectAttribute) implements EnchantmentEntityEffect {
+    public static final MapCodec<ApplyVelocityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(
+            Codec.DOUBLE.fieldOf("x").forGetter(ApplyVelocityEffect::x),
+            Codec.DOUBLE.fieldOf("y").forGetter(ApplyVelocityEffect::y),
+            Codec.DOUBLE.fieldOf("z").forGetter(ApplyVelocityEffect::z),
+            EnchantmentLevelBasedValue.CODEC.fieldOf("strength").forGetter(ApplyVelocityEffect::strength),
+            Codec.BOOL.fieldOf("respect_knockback_resistance").forGetter(ApplyVelocityEffect::respectAttribute)
+        ).apply(instance, ApplyVelocityEffect::new)
+    );
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity entity, Vec3d pos) {

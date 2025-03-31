@@ -14,8 +14,12 @@ import net.minecraft.util.math.Vec3d;
  * Heals the entity. This cannot take the entity over its maximum health.
  * @param value The amount of health to heal.
  */
-public record HealEffect(EnchantmentLevelBasedValue value) implements EnchantmentEntityEffect {
-    public static final MapCodec<HealEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("value").forGetter(HealEffect::value)).apply(instance, HealEffect::new));
+public record HealEffect (EnchantmentLevelBasedValue value) implements EnchantmentEntityEffect {
+    public static final MapCodec<HealEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(
+            EnchantmentLevelBasedValue.CODEC.fieldOf("value").forGetter(HealEffect::value)
+        ).apply(instance, HealEffect::new)
+    );
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity entity, Vec3d pos) {

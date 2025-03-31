@@ -10,7 +10,7 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public class ItemConditionTypes {
+public abstract class ItemConditionTypes {
     public static final LootConditionType LAMBDA = register("code_execution_item_condition", ItemLambdaCondition.CODEC);
     public static final LootConditionType IS_MELEE_WEAPON = register("is_melee_weapon", IsMeleeWeaponCondition.CODEC);
     public static final LootConditionType IS_DUAL_WEAPON = register("is_dual_weapon", IsDualWeaponCondition.CODEC);

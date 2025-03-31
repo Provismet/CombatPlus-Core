@@ -11,7 +11,7 @@ import net.minecraft.server.world.ServerWorld;
 /**
  * Triggers the attacker's on-critical-hit effect against the target.
  */
-public record WeaponPostCriticalEffect() implements CPCEnchantmentEntityEffect {
+public record WeaponPostCriticalEffect () implements CPCEnchantmentEntityEffect {
     public static final MapCodec<WeaponPostCriticalEffect> CODEC = MapCodec.unit(WeaponPostCriticalEffect::new);
 
     @Override

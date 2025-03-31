@@ -17,7 +17,7 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public class SingleEntityLootConditionTypes {
+public abstract class SingleEntityLootConditionTypes {
     public static final LootConditionType LAMBDA = register("code_execution_single_entity_condition", SingleEntityLambdaCondition.CODEC);
     public static final LootConditionType HEALTH = register("health", HealthCondition.CODEC);
     public static final LootConditionType RELATIVE_HEALTH = register("relative_health", RelativeHealthCondition.CODEC);
