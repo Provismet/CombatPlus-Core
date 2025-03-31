@@ -20,7 +20,7 @@ public abstract class MobEntityMixin extends LivingEntity {
         super(entityType, world);
     }
     
-    @Inject(method="tryAttack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/mob/MobEntity;getKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F", shift=At.Shift.AFTER))
+    @Inject(method="tryAttack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/mob/MobEntity;getAttackKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F"))
     public void onHit (ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (target instanceof LivingEntity living) {
             CPCCallbackUtil.postChargedHit(world, this.getMainHandStack(), EquipmentSlot.MAINHAND, this, living);

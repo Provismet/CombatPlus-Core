@@ -37,7 +37,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/player/PlayerEntity;getKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F", shift=At.Shift.AFTER))
+    @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/player/PlayerEntity;getAttackKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F", shift=At.Shift.AFTER))
     private void postApplyHitEffects (Entity entity, CallbackInfo info, @Local(ordinal=0) boolean charged, @Local(ordinal=2) boolean critical) {
         if (entity instanceof LivingEntity target && this.getWorld() instanceof ServerWorld world) {
             if (charged) CPCCallbackUtil.postChargedHit(world, this.getMainHandStack(), EquipmentSlot.MAINHAND, this, target);
@@ -74,26 +74,5 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     )
     private void sweepingAppliesChargedHit (Entity primaryTarget, CallbackInfo ci, @Local LivingEntity sweepTarget, @Local ServerWorld world) {
         CPCEnchantmentHelper.postChargedHit(world, this, sweepTarget, EquipmentSlot.MAINHAND);
-    }
-
-    @Inject(method="disableShield", at=@At("HEAD"), cancellable=true)
-    private void applyShieldCooldown (CallbackInfo info) {
-        if (this.getActiveItem().getItem() instanceof BlockingItem blockingItem) {
-            this.getItemCooldownManager().set(this.getActiveItem(), blockingItem.getMaxCooldown(this.getActiveItem()));
-            this.clearActiveItem();
-            this.getWorld().sendEntityStatus(this, EntityStatuses.BREAK_SHIELD);
-            info.cancel();
-        }
-    }
-
-    @Inject(method="damageShield", at=@At("HEAD"), cancellable=true)
-    private void damageBlockingItem (float amount, CallbackInfo info) {
-        if (this.activeItemStack.getItem() instanceof BlockingItem) {
-            if (!this.getWorld().isClient) {
-                this.incrementStat(Stats.USED.getOrCreateStat(this.activeItemStack.getItem()));
-                super.damageShield(amount);
-                info.cancel();
-            }
-        }
     }
 }

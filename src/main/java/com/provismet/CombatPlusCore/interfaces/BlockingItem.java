@@ -37,7 +37,7 @@ public interface BlockingItem {
                 else user.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
 
                 user.clearActiveItem();
-                user.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8f, 0.8f + user.getWorld().random.nextFloat() * 0.4f);
+                user.playSound(SoundEvents.ITEM_SHIELD_BREAK.value(), 0.8f, 0.8f + user.getWorld().random.nextFloat() * 0.4f);
             }
         }
     }
