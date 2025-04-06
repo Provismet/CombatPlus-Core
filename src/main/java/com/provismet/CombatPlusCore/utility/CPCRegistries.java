@@ -1,6 +1,7 @@
 package com.provismet.CombatPlusCore.utility;
 
 import com.mojang.serialization.MapCodec;
+import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
@@ -21,6 +22,7 @@ public class CPCRegistries {
     public static final Registry<Predicate<ItemStack>> ITEM_LAMBDA_CONDITION = create(CPCRegistryKeys.ITEM_CONDITION);
 
     public static final Registry<MapCodec<? extends CPCEnchantmentEntityEffect>> ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE = create(CPCRegistryKeys.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE);
+    public static final Registry<MapCodec<? extends CPCDataComponentEntityEffect<?>>> ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE = create(CPCRegistryKeys.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE);
 
     private static <T> Registry<T> create (RegistryKey<Registry<T>> key) {
         return FabricRegistryBuilder.createSimple(key).buildAndRegister();

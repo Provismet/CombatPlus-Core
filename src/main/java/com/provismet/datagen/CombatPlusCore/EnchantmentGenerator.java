@@ -1,6 +1,8 @@
 package com.provismet.datagen.CombatPlusCore;
 
+import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
+import com.provismet.CombatPlusCore.enchantment.effect.component.CooldownGroupComponentEntityEffect;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.datagen.condition.DevModeResourceCondition;
@@ -149,6 +151,25 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                 EnchantmentEffectTarget.VICTIM,
                 new IgniteEnchantmentEffect(EnchantmentLevelBasedValue.linear(4.0f)),
                 DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().isDirect(true))
+            )
+        );
+
+        builder.add(
+            Enchantments.LOYALTY,
+            Enchantment.builder(
+                Enchantment.definition(
+                    builder.getItemEntryList(ItemTags.TRIDENT_ENCHANTABLE),
+                    5,
+                    3,
+                    Enchantment.leveledCost(12, 7),
+                    Enchantment.constantCost(50),
+                    2,
+                    AttributeModifierSlot.MAINHAND
+                )
+            ).addEffect(
+                EnchantmentEffectComponentTypes.TRIDENT_RETURN_ACCELERATION, new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(1.0F))
+            ).addEffect(
+                CPCEnchantmentComponentTypes.DATA_COMPONENT, new CooldownGroupComponentEntityEffect(CPCMain.identifier("loyalty_trident"))
             )
         );
     }

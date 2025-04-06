@@ -7,6 +7,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutio
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.DamageEquipmentEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.FreezeEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.HealEffect;
+import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.SetCooldownEnchantmentEffect;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,6 +19,7 @@ public class SingleEntityEffects {
         registerEntityEffect("apply_velocity", ApplyVelocityEffect.CODEC);
         registerEntityEffect("heal", HealEffect.CODEC);
         registerEntityEffect("damage_equipment", DamageEquipmentEffect.CODEC);
+        registerEntityEffect("set_cooldown", SetCooldownEnchantmentEffect.CODEC);
     }
 
     private static void registerEntityEffect (String name, MapCodec<? extends EnchantmentEntityEffect> codec) {

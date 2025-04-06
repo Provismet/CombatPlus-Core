@@ -6,6 +6,7 @@
         "AxeItemMixin",
         "EnchantmentHelperMixin",
         "ItemCooldownManagerMixin",
+        "ItemStackMixin",
         "LivingEntityMixin",
         "MaceItemMixin",
         "MobEntityMixin",

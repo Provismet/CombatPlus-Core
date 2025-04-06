@@ -1,6 +1,8 @@
 package com.provismet.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
+import com.provismet.CombatPlusCore.registries.CPCDataComponentEffects;
+import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.registries.CPCLootFunctionTypes;
 import com.provismet.CombatPlusCore.registries.DoubleEntityEffects;
@@ -51,6 +53,8 @@ public class CPCMain implements ModInitializer {
         LambdaRegistry.register();
         CPCGameRules.init();
         SingleEntityEffects.register();
+        CPCDataComponentEffects.register();
+        CPCDataComponentTypes.init();
 
         LilyResourceConditions.register();
 
