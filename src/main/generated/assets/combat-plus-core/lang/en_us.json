@@ -1,4 +1,5 @@
 {
+  "cpc.attribute.name.protection_effectiveness": "Protection Effectiveness",
   "death.attack.lethal_poison": "%1$s couldn't find an antidote",
   "death.attack.lethal_poison.item": "%1$s succumbed to poison whilst fighting %2$s using %3$s",
   "death.attack.lethal_poison.player": "%1$s succumbed to poison whilst fighting %2$s",
