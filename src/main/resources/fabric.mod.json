@@ -9,7 +9,8 @@
 	],
 	"contact": {
 		"homepage": "https://provismet.github.io/modding?tag=null&series=Combat%2B",
-		"sources": "https://github.com/Provismet/CombatPlus-Core"
+		"sources": "https://github.com/Provismet/CombatPlus-Core",
+		"issues": "https://github.com/Provismet/CombatPlus-Core/issues"
 	},
 	"license": "MIT",
 	"icon": "assets/combat-plus/icon.png",
@@ -28,7 +29,7 @@
 	"accessWidener": "combat-plus.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.21.4",
+		"minecraft": "~1.21.5",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
