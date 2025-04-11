@@ -119,7 +119,7 @@ public class CPCEnchantmentHelper {
         }, user, slot);
     }
 
-    public static void postBlock (ServerWorld world, LivingEntity user, LivingEntity attacker, EquipmentSlot slot) {
+    public static void postBlock (ServerWorld world, LivingEntity user, Entity attacker, EquipmentSlot slot) {
         CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
             for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_BLOCK)) {
                 LootContext conditional = CPCLootContext.createReversedDoubleEntity(world, level, user, attacker, user.getEquippedStack(slot));

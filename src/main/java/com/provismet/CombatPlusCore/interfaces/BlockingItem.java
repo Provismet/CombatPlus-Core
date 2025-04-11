@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.interfaces;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 
 public interface BlockingItem {
@@ -10,9 +10,10 @@ public interface BlockingItem {
      *
      * @param itemStack This item.
      * @param user The entity that blocked the attack.
-     * @param attacker The attacker.
+     * @param source The damage source.
+     * @param damageAmount The amount of damage this attack would deal.
      */
-    default void postBlock (ItemStack itemStack, LivingEntity user, Entity attacker) {
+    default void postBlock (ItemStack itemStack, LivingEntity user, DamageSource source, float damageAmount) {
 
     }
 }

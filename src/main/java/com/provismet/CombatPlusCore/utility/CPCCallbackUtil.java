@@ -4,6 +4,7 @@ import com.provismet.CombatPlusCore.interfaces.BlockingItem;
 import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 
@@ -66,12 +67,13 @@ public class CPCCallbackUtil {
      * @param itemStack The shield or blocking item used.
      * @param slot The equipment slot of the item.
      * @param user The blocking entity.
-     * @param attacker The attacking entity.
+     * @param source The blocked damage source.
+     * @param amount The full damage that would have been dealt.
      */
-    public static void postBlock (ServerWorld world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity attacker) {
+    public static void postBlock (ServerWorld world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, DamageSource source, float amount) {
         if (itemStack.getItem() instanceof BlockingItem block) {
-            block.postBlock(itemStack, user, attacker);
+            block.postBlock(itemStack, user, source, amount);
         }
-        CPCEnchantmentHelper.postBlock(world, user, attacker, slot);
+        CPCEnchantmentHelper.postBlock(world, user, source.getSource(), slot);
     }
 }

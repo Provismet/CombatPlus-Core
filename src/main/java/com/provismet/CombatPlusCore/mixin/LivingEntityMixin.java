@@ -3,13 +3,14 @@ package com.provismet.CombatPlusCore.mixin;
 import com.provismet.CombatPlusCore.registries.CPCEntityAttributes;
 import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,13 +25,16 @@ public abstract class LivingEntityMixin extends Entity {
         super(type, world);
     }
 
-    @Shadow protected ItemStack activeItemStack;
-
     @Shadow public abstract Hand getActiveHand ();
 
-    @Inject(method="takeShieldHit", at=@At("TAIL"))
-    private void applyBlockerItemEffects (ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
-        CPCCallbackUtil.postBlock(world, activeItemStack, LivingEntity.getSlotForHand(this.getActiveHand()), (LivingEntity)(Object)this, attacker);
+    @Shadow public abstract @Nullable ItemStack getBlockingItem ();
+
+    @Inject(method = "getDamageBlockedAmount", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/BlocksAttacksComponent;onShieldHit(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/util/Hand;F)V", shift = At.Shift.AFTER))
+    private void applyBlockerItemEffects (ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
+        ItemStack blockingStack = this.getBlockingItem();
+        if (blockingStack != null) {
+            CPCCallbackUtil.postBlock(world, this.getBlockingItem(), LivingEntity.getSlotForHand(this.getActiveHand()), (LivingEntity)(Object)this, source, amount);
+        }
     }
 
     @Inject(method = "createLivingAttributes", at = @At("RETURN"))
