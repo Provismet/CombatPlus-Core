@@ -1,10 +1,8 @@
 package com.provismet.CombatPlusCore.interfaces;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
+import com.provismet.CombatPlusCore.items.component.MeleeWeaponComponent;
+import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -27,14 +25,7 @@ public interface MeleeWeapon {
      * @return The damage bonus from this weapon.
      */
     default float getWeaponDamage (ItemStack itemStack) {
-        AttributeModifiersComponent attributes = itemStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-        double bonusDamage = 0f;
-        for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
-            if (entry.attribute() == EntityAttributes.ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                bonusDamage += entry.modifier().value();
-            }
-        }
-        return (float)bonusDamage;
+        return itemStack.getOrDefault(CPCDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.DEFAULT).weaponDamage();
     }
 
     /**

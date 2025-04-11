@@ -1,6 +1,7 @@
 package com.provismet.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
+import com.provismet.CombatPlusCore.event.handler.ItemEvents;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentEffects;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
@@ -57,6 +58,7 @@ public class CPCMain implements ModInitializer {
         SingleEntityEffects.register();
         CPCDataComponentEffects.register();
         CPCDataComponentTypes.init();
+        ItemEvents.RegisterComponentPhase();
 
         LilyResourceConditions.register();
 
