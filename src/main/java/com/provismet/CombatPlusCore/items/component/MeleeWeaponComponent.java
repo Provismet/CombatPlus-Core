@@ -39,10 +39,23 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
         MeleeWeaponComponent::new
     );
 
+    /**
+     * Creates a component with no dual damage.
+     *
+     * @param damage The mainhand damage.
+     * @return A new MeleeWeaponComponent.
+     */
     public static MeleeWeaponComponent createMelee (float damage) {
         return new MeleeWeaponComponent(damage, 0);
     }
 
+    /**
+     * Creates a component for a dual weapon, setting the offhand damage to a portion of the mainhand damage.
+     *
+     * @apiNote The dualDamage value will always be at least 0.5.
+     * @param damage The mainhand damage.
+     * @return A new MeleeWeaponComponent.
+     */
     public static MeleeWeaponComponent createDual (float damage) {
         float offhandDamage = MoreMath.roundDownToMultipleFloat(damage / 3.5f, 0.5f);
         offhandDamage = Math.max(offhandDamage, 0.5f);
@@ -50,6 +63,12 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
         return new MeleeWeaponComponent(damage, offhandDamage);
     }
 
+    /**
+     * Creates a component from the mainhand and offhand damage attributes.
+     *
+     * @param attributes Attributes component containing the damage for the new component.
+     * @return A new MeleeWeaponComponent.
+     */
     public static MeleeWeaponComponent createFromAttributes (AttributeModifiersComponent attributes) {
         float meleeDamage = 0f;
         float dualDamage = 0f;
@@ -63,6 +82,13 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
         return new MeleeWeaponComponent(meleeDamage, dualDamage);
     }
 
+    /**
+     * Creates a component, creating a dual weapon component from the mainhand damage of the attributes provided.
+     *
+     * @see MeleeWeaponComponent#createDual
+     * @param attributes Attribute component containing mainhand damage.
+     * @return A new MeleeWeaponComponent.
+     */
     public static MeleeWeaponComponent createDualFromAttributes (AttributeModifiersComponent attributes) {
         float meleeDamage = 0f;
         for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
