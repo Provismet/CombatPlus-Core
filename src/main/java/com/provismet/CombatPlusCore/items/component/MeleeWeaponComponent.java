@@ -45,7 +45,7 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
 
     public static MeleeWeaponComponent createDual (float damage) {
         float offhandDamage = MoreMath.roundDownToMultipleFloat(damage / 3.5f, 0.5f);
-        if (offhandDamage > 0) offhandDamage = Math.max(offhandDamage, 0.5f);
+        offhandDamage = Math.max(offhandDamage, 0.5f);
 
         return new MeleeWeaponComponent(damage, offhandDamage);
     }
