@@ -14,15 +14,18 @@ This is the core API and library mod for the Combat+ mod series, allowing inter-
 This mod makes no changes to the vanilla game, it only provides hooks, interfaces, and implementations for other mods to add their content.
 
 ## API
-- Adds two interfaces for weapons:
+- Adds new interfaces for items:
   - `MeleeWeapon`
   - `DualWeapon`
-- Adds two item tags for item types:
+  - `BlockingItem`
+- Adds new components for items:
+  - `combat-plus:melee_weapon`
+  - `combat-plus:cooldown_group`
+  - `combat-plus:max_use_time`
+- Adds new item tags for item types:
   - `combat-plus:melee_weapon`
   - `combat-plus:dual_weapon`
-- Adds one item tag for mechanics:
-  - `combat-plus:breaks_shields`
-- Added eight item tags for enchantments
+- Added new item tags for enchantments
   - `combat-plus:enchantable/aspect`
   - `combat-plus:enchantable/aspect_primary`
   - `combat-plus:enchantable/damage`
@@ -31,6 +34,10 @@ This mod makes no changes to the vanilla game, it only provides hooks, interface
   - `combat-plus:enchantable/weapon_utility_primary`
   - `combat-plus:enchantable/offhand`
   - `combat-plus:enchantable/offhand_primary`
+- Adds new enchantment component types:
+  - Dual entity enchantments that trigger can effect involving attacker and target.
+  - Data component effects that let enchantments add data components to items.
+- Adds many new enchantment effects that use the new systems. 
 - Adds an entrypoint initialiser for easier mod compatibility.
 - Adds utility methods for checking if an item is a Melee or Dual.
 - Adds new types of enchantment for better inter-mod compatibility checking:
