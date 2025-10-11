@@ -31,7 +31,7 @@ public record CodeExecutionDoubleEntityEffect (Identifier function) implements C
             CPCMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return;
         }
-        lambda.execute(world, level, context, attacker, target, attacker.getPos());
+        lambda.execute(world, level, context, attacker, target, attacker.getEntityPos());
     }
 
     @Override

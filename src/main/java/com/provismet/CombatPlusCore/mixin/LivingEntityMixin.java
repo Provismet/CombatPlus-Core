@@ -33,7 +33,7 @@ public abstract class LivingEntityMixin extends Entity {
     private void applyBlockerItemEffects (ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
         ItemStack blockingStack = this.getBlockingItem();
         if (blockingStack != null) {
-            CPCCallbackUtil.postBlock(world, this.getBlockingItem(), LivingEntity.getSlotForHand(this.getActiveHand()), (LivingEntity)(Object)this, source, amount);
+            CPCCallbackUtil.postBlock(world, this.getBlockingItem(), this.getActiveHand().getEquipmentSlot(), (LivingEntity)(Object)this, source, amount);
         }
     }
 

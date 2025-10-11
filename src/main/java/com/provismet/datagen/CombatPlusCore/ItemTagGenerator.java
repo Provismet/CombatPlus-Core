@@ -1,6 +1,7 @@
 package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -18,69 +19,69 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure (RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(CPCItemTags.DUAL_WEAPON)
+        this.valueLookupBuilder(CPCItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.SWORDS)
-            .addOptional(CPCMain.identifier("debugger"));
+            .addOptional(CPCDebugItems.getOptionalDebugItem().get());
 
-        getOrCreateTagBuilder(CPCItemTags.MELEE_WEAPON)
+        this.valueLookupBuilder(CPCItemTags.MELEE_WEAPON)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.AXES)
             .add(Items.MACE);
 
-        getOrCreateTagBuilder(CPCItemTags.ASPECT_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.ASPECT_ENCHANTABLE)
             .addOptionalTag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE);
 
-        getOrCreateTagBuilder(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.FIRE_ASPECT_ENCHANTABLE);
 
-        getOrCreateTagBuilder(CPCItemTags.DAMAGE_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
-            .addOptional(CPCMain.identifier("debugger"));
+            .addOptional(CPCDebugItems.getOptionalDebugItem().get());
 
-        getOrCreateTagBuilder(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.SWORD_ENCHANTABLE)
-            .addOptional(CPCMain.identifier("debugger"));
+            .addOptional(CPCDebugItems.getOptionalDebugItem().get());
 
-        getOrCreateTagBuilder(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE);
 
-        getOrCreateTagBuilder(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.SWORD_ENCHANTABLE)
             .addOptionalTag(ItemTags.AXES);
 
-        getOrCreateTagBuilder(CPCItemTags.OFFHAND_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.OFFHAND_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE);
 
-        getOrCreateTagBuilder(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON);
 
-        getOrCreateTagBuilder(CPCItemTags.SHIELD_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.SHIELD_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS);
 
-        getOrCreateTagBuilder(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE)
+        this.valueLookupBuilder(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE)
             .add(Items.SHIELD);
 
-        getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
+        this.valueLookupBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
             .addOptionalTag(CPCItemTags.MELEE_WEAPON);
 
-        getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
+        this.valueLookupBuilder(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.MELEE_WEAPON);
 
-        getOrCreateTagBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+        this.valueLookupBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.DAMAGE_ENCHANTABLE);
 
-        getOrCreateTagBuilder(ConventionalItemTags.ENCHANTABLES)
+        this.valueLookupBuilder(ConventionalItemTags.ENCHANTABLES)
             .addOptionalTag(CPCItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.ASPECT_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.OFFHAND_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.SHIELD_ENCHANTABLE);
 
-        getOrCreateTagBuilder(ConventionalItemTags.SHIELD_TOOLS)
-            .addOptional(CPCMain.identifier("debug_shield"));
+        this.valueLookupBuilder(ConventionalItemTags.SHIELD_TOOLS)
+            .addOptional(CPCDebugItems.getOptionalDebugShield().get());
     }
 }

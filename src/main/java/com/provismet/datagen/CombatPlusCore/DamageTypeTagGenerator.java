@@ -17,13 +17,12 @@ public class DamageTypeTagGenerator extends LilyTagProviders.LilyDamageTypeTagPr
 
     @Override
     protected void configure (RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(CPCDamageTypeTags.STANDARD_ATTACK)
+        this.builder(CPCDamageTypeTags.STANDARD_ATTACK)
             .addOptionalTag(DamageTypeTags.IS_PLAYER_ATTACK)
             .add(DamageTypes.MOB_ATTACK)
             .add(DamageTypes.MOB_ATTACK_NO_AGGRO);
 
-
-        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
+        this.builder(DamageTypeTags.BYPASSES_ARMOR)
             .add(CPCDamageTypes.POISON.getKey());
     }
 }

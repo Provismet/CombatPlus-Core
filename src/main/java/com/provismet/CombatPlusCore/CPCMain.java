@@ -76,7 +76,7 @@ public class CPCMain implements ModInitializer {
             });
         }
 
-        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target) -> {
+        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target, damageSource) -> {
             if (entity instanceof LivingEntity user) {
                 CPCCallbackUtil.postKill(world, user.getMainHandStack(), EquipmentSlot.MAINHAND, user, target);
             }

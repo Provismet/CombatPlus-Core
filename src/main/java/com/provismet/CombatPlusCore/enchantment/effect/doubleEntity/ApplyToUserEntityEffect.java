@@ -23,7 +23,7 @@ public record ApplyToUserEntityEffect (EnchantmentEntityEffect effect) implement
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
-        this.effect.apply(world, level, context, attacker, attacker.getPos());
+        this.effect.apply(world, level, context, attacker, attacker.getEntityPos());
     }
 
     @Override

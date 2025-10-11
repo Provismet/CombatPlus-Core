@@ -23,7 +23,7 @@ public record ApplyToTargetEntityEffect (EnchantmentEntityEffect effect) impleme
 
     @Override
     public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
-        this.effect.apply(world, level, context, target, target.getPos());
+        this.effect.apply(world, level, context, target, target.getEntityPos());
     }
 
     @Override

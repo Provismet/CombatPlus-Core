@@ -85,7 +85,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                 CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
                 new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
                 EntityPropertiesLootCondition.builder(
-                    LootContext.EntityTarget.THIS,
+                    LootContext.EntityReference.THIS,
                     EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_SMITE))
                 )
             )
@@ -109,7 +109,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                 CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
                 new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
                 EntityPropertiesLootCondition.builder(
-                    LootContext.EntityTarget.THIS,
+                    LootContext.EntityReference.THIS,
                     EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 )
             ).addEffect(
@@ -124,7 +124,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
                     EnchantmentLevelBasedValue.constant(3.0f)
                 ),
                 EntityPropertiesLootCondition.builder(
-                    LootContext.EntityTarget.THIS,
+                    LootContext.EntityReference.THIS,
                     EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 ).and(
                     DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().isDirect(true))

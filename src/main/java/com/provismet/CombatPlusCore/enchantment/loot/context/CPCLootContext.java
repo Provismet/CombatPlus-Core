@@ -25,7 +25,7 @@ public final class CPCLootContext {
             .add(CPCLootContextParameters.TARGET_ENTITY, target)
             .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
             .add(LootContextParameters.TOOL, heldItem)
-            .add(LootContextParameters.ORIGIN, attacker.getPos())
+            .add(LootContextParameters.ORIGIN, attacker.getEntityPos())
             .build(CPCLootContextTypes.DOUBLE_ENTITY);
 
         return new LootContext.Builder(paramSet).build(Optional.empty());
@@ -38,7 +38,7 @@ public final class CPCLootContext {
             .add(CPCLootContextParameters.TARGET_ENTITY, target)
             .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
             .add(LootContextParameters.TOOL, heldItem)
-            .add(LootContextParameters.ORIGIN, target.getPos())
+            .add(LootContextParameters.ORIGIN, target.getEntityPos())
             .build(CPCLootContextTypes.DOUBLE_ENTITY);
 
         return new LootContext.Builder(paramSet).build(Optional.empty());
@@ -49,7 +49,7 @@ public final class CPCLootContext {
         LootWorldContext paramSet = new LootWorldContext.Builder(world)
             .add(LootContextParameters.THIS_ENTITY, entity)
             .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
-            .add(LootContextParameters.ORIGIN, entity.getPos())
+            .add(LootContextParameters.ORIGIN, entity.getEntityPos())
             .add(LootContextParameters.TOOL, weaponStack)
             .build(CPCLootContextTypes.SINGLE_ENTITY);
 
