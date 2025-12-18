@@ -39,11 +39,11 @@ public record ApplyVelocityEffect (double x, double y, double z, EnchantmentLeve
             if (strengthValue <= 0) return;
 
             living.addVelocity(velocity.multiply(strengthValue));
-            living.velocityModified = true;
+            living.velocityDirty = true;
         }
         else {
             entity.addVelocity(velocity.multiply(this.strength.getValue(level)));
-            entity.velocityModified = true;
+            entity.velocityDirty = true;
         }
     }
 

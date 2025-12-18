@@ -1,6 +1,5 @@
 package com.provismet.datagen.CombatPlusCore;
 
-import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -26,10 +25,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.valueLookupBuilder(CPCItemTags.MELEE_WEAPON)
             .addOptionalTag(CPCItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.AXES)
+            .addOptionalTag(ItemTags.SPEARS)
             .add(Items.MACE);
 
         this.valueLookupBuilder(CPCItemTags.ASPECT_ENCHANTABLE)
-            .addOptionalTag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE);
 
         this.valueLookupBuilder(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE)
@@ -41,7 +40,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .addOptional(CPCDebugItems.getOptionalDebugItem().get());
 
         this.valueLookupBuilder(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
-            .addOptionalTag(ItemTags.SWORD_ENCHANTABLE)
+            .addOptionalTag(ItemTags.MELEE_WEAPON_ENCHANTABLE)
             .addOptional(CPCDebugItems.getOptionalDebugItem().get());
 
         this.valueLookupBuilder(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE)
@@ -49,8 +48,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .addOptionalTag(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE);
 
         this.valueLookupBuilder(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE)
-            .addOptionalTag(ItemTags.SWORD_ENCHANTABLE)
-            .addOptionalTag(ItemTags.AXES);
+            .addOptionalTag(ItemTags.SHARP_WEAPON_ENCHANTABLE);
 
         this.valueLookupBuilder(CPCItemTags.OFFHAND_ENCHANTABLE)
             .addOptionalTag(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE);

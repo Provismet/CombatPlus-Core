@@ -8,6 +8,10 @@
       "id": "#minecraft:axes",
       "required": false
     },
+    {
+      "id": "#minecraft:spears",
+      "required": false
+    },
     "minecraft:mace"
   ]
 }

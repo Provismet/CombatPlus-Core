@@ -17,8 +17,8 @@ import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
 import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.text.Text;
@@ -63,8 +63,8 @@ public class CPCMain implements ModInitializer {
         LilyResourceConditions.register();
 
         FabricLoader.getInstance().getModContainer(MODID).ifPresent(container -> {
-            ResourceManagerHelper.registerBuiltinResourcePack(identifier("enchanted_numerals"), container, Text.translatable("resourcepack.combat-plus.enchanted_numerals"), ResourcePackActivationType.DEFAULT_ENABLED);
-            ResourceManagerHelper.registerBuiltinResourcePack(identifier("enchanted_numbers"), container, Text.translatable("resourcepack.combat-plus.enchanted_numbers"), ResourcePackActivationType.NORMAL);
+            ResourceLoader.registerBuiltinPack(identifier("enchanted_numerals"), container, Text.translatable("resourcepack.combat-plus.enchanted_numerals"), PackActivationType.DEFAULT_ENABLED);
+            ResourceLoader.registerBuiltinPack(identifier("enchanted_numbers"), container, Text.translatable("resourcepack.combat-plus.enchanted_numbers"), PackActivationType.NORMAL);
         });
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {

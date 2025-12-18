@@ -20,7 +20,7 @@ public abstract class PoisonStatusEffectMixin extends StatusEffect {
 
     @Inject(method = "applyUpdateEffect", at=@At("HEAD"))
     private void applyDamage (ServerWorld world, LivingEntity entity, int amplifier, CallbackInfoReturnable<Boolean> cir) {
-        if (entity.getHealth() <= 1 && world.getGameRules().getBoolean(CPCGameRules.LETHAL_POISON)) {
+        if (entity.getHealth() <= 1 && world.getGameRules().getValue(CPCGameRules.LETHAL_POISON)) {
             entity.damage(world, CPCDamageTypes.POISON.createDamageSource(entity.getDamageSources()), 1);
         }
     }

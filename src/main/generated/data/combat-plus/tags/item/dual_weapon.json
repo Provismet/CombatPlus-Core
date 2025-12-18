@@ -4,9 +4,6 @@
       "id": "#minecraft:swords",
       "required": false
     },
-    {
-      "id": "combat-plus:debugger",
-      "required": false
-    }
+    "combat-plus:debugger"
   ]
 }

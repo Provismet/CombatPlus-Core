@@ -9,13 +9,17 @@ import net.minecraft.component.type.AttributeModifiersComponent;
 
 public class ItemEvents {
     public static void RegisterComponentPhase () {
-        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(item -> item instanceof MeleeWeapon, (builder, item) -> {
+        DefaultItemComponentEvents.MODIFY.register(ItemEvents::addMeleeWeaponComponent);
+    }
+
+    private static void addMeleeWeaponComponent (DefaultItemComponentEvents.ModifyContext context) {
+        context.modify(item -> item instanceof MeleeWeapon, (builder, item) -> {
             if (!builder.contains(CPCDataComponentTypes.MELEE_WEAPON) && builder.contains(DataComponentTypes.WEAPON)) {
                 builder.add(
                     CPCDataComponentTypes.MELEE_WEAPON,
                     MeleeWeaponComponent.createFromAttributes(builder.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT))
                 );
             }
-        }));
+        });
     }
 }

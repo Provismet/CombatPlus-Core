@@ -9,25 +9,18 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.ItemCooldownManager;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stat;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
-    @Shadow public abstract ItemCooldownManager getItemCooldownManager ();
-
-    @Shadow public abstract void incrementStat (Stat<?> stat);
-
     protected PlayerEntityMixin (EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -43,31 +36,20 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @ModifyVariable(method="attack", at=@At(value="STORE"), ordinal=3)
     private boolean stopSweeping (boolean original) {
         if (this.getEntityWorld() instanceof ServerWorld world) {
-            if (world.getGameRules().getBoolean(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(EntityAttributes.SWEEPING_DAMAGE_RATIO) <= 0) return false;
+            if (world.getGameRules().getValue(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(EntityAttributes.SWEEPING_DAMAGE_RATIO) <= 0) return false;
         }
         return original;
     }
 
     @Inject(
-        method = "attack",
+        method = "doSweepingAttack",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)V",
             shift = At.Shift.AFTER
-        ),
-        allow = 1,
-        slice = @Slice(
-            from = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/world/World;getNonSpectatingEntities(Ljava/lang/Class;Lnet/minecraft/util/math/Box;)Ljava/util/List;"
-            ),
-            to = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/entity/player/PlayerEntity;spawnSweepAttackParticles()V"
-            )
         )
     )
-    private void sweepingAppliesChargedHit (Entity primaryTarget, CallbackInfo ci, @Local LivingEntity sweepTarget, @Local ServerWorld world) {
+    private void sweepingAppliesChargedHit (Entity target, float damage, DamageSource damageSource, float cooldownProgress, CallbackInfo ci, @Local LivingEntity sweepTarget, @Local ServerWorld world) {
         CPCEnchantmentHelper.postChargedHit(world, this, sweepTarget, EquipmentSlot.MAINHAND);
     }
 }

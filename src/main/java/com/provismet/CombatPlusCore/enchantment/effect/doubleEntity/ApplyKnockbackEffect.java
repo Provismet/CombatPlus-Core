@@ -34,7 +34,7 @@ public record ApplyKnockbackEffect (EnchantmentLevelBasedValue strength, boolean
         }
         Vec3d velocity = new Vec3d(target.getX() - attacker.getX(), 0.0, target.getZ() - attacker.getZ()).normalize().multiply(strengthValue).add(0.0, 0.1, 0.0);
         target.addVelocity(velocity);
-        target.velocityModified = true;
+        target.velocityDirty = true;
     }
 
     @Override

@@ -46,7 +46,7 @@ public class CPCEnchantmentHelper {
     public static float getDamage (ServerWorld world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
         MutableFloat damage = new MutableFloat();
         damage.add(CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, damageSource, 0));
-        if (target instanceof PlayerEntity) damage.setValue(damage.floatValue() * world.getGameRules().get(CPCGameRules.PVP_DAMAGE_MODIFIER).get());
+        if (target instanceof PlayerEntity) damage.setValue(damage.floatValue() * world.getGameRules().getValue(CPCGameRules.PVP_DAMAGE_MODIFIER));
         damage.add(baseDamage);
 
         CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
@@ -231,11 +231,11 @@ public class CPCEnchantmentHelper {
 
     @FunctionalInterface
     public interface Consumer {
-        public void accept (RegistryEntry<Enchantment> enchantment, int level);
+        void accept(RegistryEntry<Enchantment> enchantment, int level);
     }
 
     @FunctionalInterface
     public interface ContextConsumer {
-        public void accept (RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context);
+        void accept(RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context);
     }
 }

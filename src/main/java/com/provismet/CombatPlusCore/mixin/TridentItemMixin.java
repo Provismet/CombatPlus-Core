@@ -35,7 +35,7 @@ public abstract class TridentItemMixin extends Item {
     
     @Inject(method="onStoppedUsing", at=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/player/PlayerEntity;)V"), cancellable=true)
     private void replaceTridentThrow (ItemStack itemStack, World world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
-        if (world instanceof ServerWorld serverWorld && serverWorld.getGameRules().getBoolean(CPCGameRules.LOYALTY_STAYS_IN_HAND) && user instanceof PlayerEntity player) {
+        if (world instanceof ServerWorld serverWorld && serverWorld.getGameRules().getValue(CPCGameRules.LOYALTY_STAYS_IN_HAND) && user instanceof PlayerEntity player) {
             int loyalty = EnchantmentHelper.getTridentReturnAcceleration(serverWorld, itemStack, player);
 
             if (loyalty > 0) {

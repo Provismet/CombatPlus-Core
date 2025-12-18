@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "combat-plus:debug_shield",
-      "required": false
-    }
+    "combat-plus:debug_shield"
   ]
 }

@@ -36,7 +36,7 @@ public abstract class ItemStackMixin {
         }, thisItem);
     }
 
-    @Inject(method = "set", at = @At("HEAD"))
+    @Inject(method = "set(Lnet/minecraft/component/ComponentType;Ljava/lang/Object;)Ljava/lang/Object;", at = @At("HEAD"))
     private <T> void applyItemComponentsFromEnchantments (ComponentType<T> type, @Nullable T value, CallbackInfoReturnable<T> cir) {
         if (type != DataComponentTypes.ENCHANTMENTS) return;
         if (!(value instanceof ItemEnchantmentsComponent newComponent)) return;

@@ -8,9 +8,6 @@
       "id": "#combat-plus:enchantable/damage_primary",
       "required": false
     },
-    {
-      "id": "combat-plus:debugger",
-      "required": false
-    }
+    "combat-plus:debugger"
   ]
 }
