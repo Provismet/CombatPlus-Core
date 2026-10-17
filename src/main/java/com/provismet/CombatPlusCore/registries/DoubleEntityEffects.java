@@ -13,7 +13,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCh
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCriticalEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostKillEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
 
 public abstract class DoubleEntityEffects {
     public static void register () {

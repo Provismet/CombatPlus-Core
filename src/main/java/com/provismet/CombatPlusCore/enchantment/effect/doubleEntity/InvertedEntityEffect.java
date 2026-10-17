@@ -3,9 +3,9 @@ package com.provismet.CombatPlusCore.enchantment.effect.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 
 /**
  * Flips the attacker and target parameters, and executes a {@link CPCEnchantmentEntityEffect} with the new parameters.
@@ -19,7 +19,7 @@ public record InvertedEntityEffect (CPCEnchantmentEntityEffect effect) implement
     );
 
     @Override
-    public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
+    public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity attacker, Entity target) {
         this.effect.apply(world, level, context, target, attacker);
     }
 

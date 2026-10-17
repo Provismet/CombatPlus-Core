@@ -5,11 +5,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import net.minecraft.enchantment.EnchantmentLevelBasedValue;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Compares the entity's health against a provided value.
@@ -17,23 +17,23 @@ import net.minecraft.loot.context.LootContextParameters;
  * @param comparison The type of comparison to evaluate.
  * @param value The value to compare against.
  */
-public record HealthCondition (CPCLootContext.Comparison comparison, EnchantmentLevelBasedValue value) implements SingleEntityCondition {
-    public static final MapCodec<HealthCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(CPCLootContext.Comparison.CODEC.fieldOf("comparison").forGetter(HealthCondition::comparison), EnchantmentLevelBasedValue.CODEC.fieldOf("value").forGetter(HealthCondition::value)).apply(instance, HealthCondition::new));
+public record HealthCondition (CPCLootContext.Comparison comparison, LevelBasedValue value) implements SingleEntityCondition {
+    public static final MapCodec<HealthCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(CPCLootContext.Comparison.CODEC.fieldOf("comparison").forGetter(HealthCondition::comparison), LevelBasedValue.CODEC.fieldOf("value").forGetter(HealthCondition::value)).apply(instance, HealthCondition::new));
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return SingleEntityLootConditionTypes.HEALTH;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
-        if (lootContext.get(LootContextParameters.THIS_ENTITY) instanceof LivingEntity living) {
-            return this.comparison.compare(living.getHealth(), value.getValue(lootContext.get(LootContextParameters.ENCHANTMENT_LEVEL)));
+        if (lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity living) {
+            return this.comparison.compare(living.getHealth(), value.calculate(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL)));
         }
         return false;
     }
 
-    public static SingleEntityCondition.Builder builder (CPCLootContext.Comparison comparison, EnchantmentLevelBasedValue value) {
+    public static SingleEntityCondition.Builder builder (CPCLootContext.Comparison comparison, LevelBasedValue value) {
         return () -> new HealthCondition(comparison, value);
     }
 }

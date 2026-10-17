@@ -8,23 +8,22 @@ import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.datagen.provider.LilyLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 public class LanguageGenerator extends LilyLanguageProvider {
-    protected LanguageGenerator (FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    protected LanguageGenerator (FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     @Override
-    public void generateTranslations (RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
+    public void generateTranslations (HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("gamerule.category.combat-plus", "Combat+");
-        translationBuilder.add(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT.getTranslationKey(), "Sweeping Requires Enchantment");
-        translationBuilder.add(CPCGameRules.LOYALTY_STAYS_IN_HAND.getTranslationKey(), "Keep Loyalty Tridents");
-        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getTranslationKey(), "PvP Enchantment Modifier");
-        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getTranslationKey() + ".description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
-        translationBuilder.add(CPCGameRules.LETHAL_POISON.getTranslationKey(), "Lethal Poison");
+        translationBuilder.add(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT.getDescriptionId(), "Sweeping Requires Enchantment");
+        translationBuilder.add(CPCGameRules.LOYALTY_STAYS_IN_HAND.getDescriptionId(), "Keep Loyalty Tridents");
+        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId(), "PvP Enchantment Modifier");
+        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId() + ".description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
+        translationBuilder.add(CPCGameRules.LETHAL_POISON.getDescriptionId(), "Lethal Poison");
 
         translationBuilder.add(CPCItemTags.MELEE_WEAPON, "Melee Weapons");
         translationBuilder.add(CPCItemTags.DUAL_WEAPON, "Dual Weapons");

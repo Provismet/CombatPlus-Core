@@ -5,26 +5,26 @@ import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.data.tag.ProvidedTagBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagBuilder;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
-    public ItemTagGenerator (FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+    public ItemTagGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 
     @Override
-    protected void configure (RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags (HolderLookup.Provider wrapperLookup) {
         this.valueLookupBuilder(CPCItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.SWORDS)
             .addOptional(CPCDebugItems.getOptionalDebugItem().get());
@@ -91,36 +91,36 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     }
 
     @Override
-    protected @NotNull ProvidedTagBuilder<Item, Item> valueLookupBuilder(@NotNull TagKey<Item> tag) {
-        TagBuilder tagBuilder = this.getTagBuilder(tag);
-        ProvidedTagBuilder<RegistryKey<Item>, Item> builder = ProvidedTagBuilder.of(tagBuilder);
-        Function<Item, RegistryKey<Item>> mapper = item -> item.getRegistryEntry().registryKey();
+    protected @NotNull TagAppender<Item, Item> valueLookupBuilder(@NotNull TagKey<Item> tag) {
+        TagBuilder tagBuilder = this.getOrCreateRawBuilder(tag);
+        TagAppender<ResourceKey<Item>, Item> builder = TagAppender.forBuilder(tagBuilder);
+        Function<Item, ResourceKey<Item>> mapper = item -> item.builtInRegistryHolder().key();
         return fixMapped(mapper, builder);
     }
 
     // This only exists because the vanilla one is bugged and does not do optional entries! This can be safely removed when it's fixed in Minecraft.
-    public static ProvidedTagBuilder<Item, Item> fixMapped (Function<Item, RegistryKey<Item>> mapper, ProvidedTagBuilder<RegistryKey<Item>, Item> providedTagBuilder) {
-        return new ProvidedTagBuilder<> () {
+    public static TagAppender<Item, Item> fixMapped (Function<Item, ResourceKey<Item>> mapper, TagAppender<ResourceKey<Item>, Item> providedTagBuilder) {
+        return new TagAppender<> () {
             @Override
-            public ProvidedTagBuilder<Item, Item> add(Item value) {
+            public TagAppender<Item, Item> add(Item value) {
                 providedTagBuilder.add(mapper.apply(value));
                 return this;
             }
 
             @Override
-            public ProvidedTagBuilder<Item, Item> addOptional(Item value) {
+            public TagAppender<Item, Item> addOptional(Item value) {
                 providedTagBuilder.addOptional(mapper.apply(value));
                 return this;
             }
 
             @Override
-            public ProvidedTagBuilder<Item, Item> addTag(TagKey<Item> tag) {
+            public TagAppender<Item, Item> addTag(TagKey<Item> tag) {
                 providedTagBuilder.addTag(tag);
                 return this;
             }
 
             @Override
-            public ProvidedTagBuilder<Item, Item> addOptionalTag(TagKey<Item> tag) {
+            public TagAppender<Item, Item> addOptionalTag(TagKey<Item> tag) {
                 providedTagBuilder.addOptionalTag(tag);
                 return this;
             }

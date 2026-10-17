@@ -8,167 +8,166 @@ import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.datagen.condition.DevModeResourceCondition;
 import com.provismet.lilylib.datagen.provider.LilyEnchantmentProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.component.EnchantmentEffectComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentLevelBasedValue;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
-import net.minecraft.enchantment.effect.entity.ApplyMobEffectEnchantmentEffect;
-import net.minecraft.enchantment.effect.entity.IgniteEnchantmentEffect;
-import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.predicate.entity.DamageSourcePredicate;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.EntityTypePredicate;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.EnchantmentTags;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.registry.tag.ItemTags;
-
+import net.minecraft.advancements.criterion.DamageSourcePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityTypePredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.AddValue;
+import net.minecraft.world.item.enchantment.effects.ApplyMobEffect;
+import net.minecraft.world.item.enchantment.effects.Ignite;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentGenerator extends LilyEnchantmentProvider {
-    public EnchantmentGenerator (FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public EnchantmentGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void generate (RegistryWrapper.WrapperLookup registries, EnchantmentBuilder builder) {
+    protected void generate (HolderLookup.Provider registries, EnchantmentBuilder builder) {
         CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
         CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
 
         builder.add(
             Enchantments.SHARPNESS,
-            Enchantment.builder(
+            Enchantment.enchantment(
                 Enchantment.definition(
                     builder.getItemEntryList(ItemTags.SHARP_WEAPON_ENCHANTABLE),
                     builder.getItemEntryList(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
                     10,
                     5,
-                    Enchantment.leveledCost(1, 11),
-                    Enchantment.leveledCost(21, 11),
+                    Enchantment.dynamicCost(1, 11),
+                    Enchantment.dynamicCost(21, 11),
                     1,
-                    AttributeModifierSlot.MAINHAND
+                    EquipmentSlotGroup.MAINHAND
                 )
-            ).exclusiveSet(
-                builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE_SET)
-            ).addEffect(
-                EnchantmentEffectComponentTypes.DAMAGE,
-                new AddEnchantmentEffect(
-                    EnchantmentLevelBasedValue.linear(1.0f, 0.5f)
+            ).exclusiveWith(
+                builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE)
+            ).withEffect(
+                EnchantmentEffectComponents.DAMAGE,
+                new AddValue(
+                    LevelBasedValue.perLevel(1.0f, 0.5f)
                 )
             )
         );
 
         builder.add(
             Enchantments.SMITE,
-            Enchantment.builder(
+            Enchantment.enchantment(
                 Enchantment.definition(
                     builder.getItemEntryList(CPCItemTags.DAMAGE_ENCHANTABLE),
                     builder.getItemEntryList(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
                     5,
                     5,
-                    Enchantment.leveledCost(5, 8),
-                    Enchantment.leveledCost(25, 8),
+                    Enchantment.dynamicCost(5, 8),
+                    Enchantment.dynamicCost(25, 8),
                     2,
-                    AttributeModifierSlot.MAINHAND
+                    EquipmentSlotGroup.MAINHAND
                 )
-            ).exclusiveSet(
-                builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE_SET)
-            ).addEffect(
+            ).exclusiveWith(
+                builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE)
+            ).withEffect(
                 CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
-                new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
-                EntityPropertiesLootCondition.builder(
-                    LootContext.EntityReference.THIS,
-                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_SMITE))
+                new AddValue(LevelBasedValue.perLevel(2.5f)),
+                LootItemEntityPropertyCondition.hasProperties(
+                    LootContext.EntityTarget.THIS,
+                    EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(registries.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_SMITE))
                 )
             )
         );
 
         builder.add(
             Enchantments.BANE_OF_ARTHROPODS,
-            Enchantment.builder(
+            Enchantment.enchantment(
                 Enchantment.definition(
                     builder.getItemEntryList(CPCItemTags.DAMAGE_ENCHANTABLE),
                     builder.getItemEntryList(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
                     5,
                     5,
-                    Enchantment.leveledCost(5, 8),
-                    Enchantment.leveledCost(25, 8),
+                    Enchantment.dynamicCost(5, 8),
+                    Enchantment.dynamicCost(25, 8),
                     2,
-                    AttributeModifierSlot.MAINHAND)
-            ).exclusiveSet(
-                builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE_SET)
-            ).addEffect(
+                    EquipmentSlotGroup.MAINHAND)
+            ).exclusiveWith(
+                builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE)
+            ).withEffect(
                 CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
-                new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f)),
-                EntityPropertiesLootCondition.builder(
-                    LootContext.EntityReference.THIS,
-                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
+                new AddValue(LevelBasedValue.perLevel(2.5f)),
+                LootItemEntityPropertyCondition.hasProperties(
+                    LootContext.EntityTarget.THIS,
+                    EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(registries.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 )
-            ).addEffect(
-                EnchantmentEffectComponentTypes.POST_ATTACK,
-                EnchantmentEffectTarget.ATTACKER,
-                EnchantmentEffectTarget.VICTIM,
-                new ApplyMobEffectEnchantmentEffect(
-                    RegistryEntryList.of(StatusEffects.SLOWNESS),
-                    EnchantmentLevelBasedValue.constant(1.5f),
-                    EnchantmentLevelBasedValue.linear(1.5f, 0.5f),
-                    EnchantmentLevelBasedValue.constant(3.0f),
-                    EnchantmentLevelBasedValue.constant(3.0f)
+            ).withEffect(
+                EnchantmentEffectComponents.POST_ATTACK,
+                EnchantmentTarget.ATTACKER,
+                EnchantmentTarget.VICTIM,
+                new ApplyMobEffect(
+                    HolderSet.direct(MobEffects.SLOWNESS),
+                    LevelBasedValue.constant(1.5f),
+                    LevelBasedValue.perLevel(1.5f, 0.5f),
+                    LevelBasedValue.constant(3.0f),
+                    LevelBasedValue.constant(3.0f)
                 ),
-                EntityPropertiesLootCondition.builder(
-                    LootContext.EntityReference.THIS,
-                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(registries.getOrThrow(RegistryKeys.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
+                LootItemEntityPropertyCondition.hasProperties(
+                    LootContext.EntityTarget.THIS,
+                    EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(registries.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 ).and(
-                    DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().isDirect(true))
+                    DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().isDirect(true))
                 )
             )
         );
 
         builder.add(
             Enchantments.FIRE_ASPECT,
-            Enchantment.builder(
+            Enchantment.enchantment(
                 Enchantment.definition(
                     builder.getItemEntryList(CPCItemTags.ASPECT_ENCHANTABLE),
                     builder.getItemEntryList(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE),
                     2,
                     2,
-                    Enchantment.leveledCost(10, 20),
-                    Enchantment.leveledCost(60, 20),
+                    Enchantment.dynamicCost(10, 20),
+                    Enchantment.dynamicCost(60, 20),
                     4,
-                    AttributeModifierSlot.MAINHAND
+                    EquipmentSlotGroup.MAINHAND
                 )
-            ).addEffect(
-                EnchantmentEffectComponentTypes.POST_ATTACK,
-                EnchantmentEffectTarget.ATTACKER,
-                EnchantmentEffectTarget.VICTIM,
-                new IgniteEnchantmentEffect(EnchantmentLevelBasedValue.linear(4.0f)),
-                DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().isDirect(true))
+            ).withEffect(
+                EnchantmentEffectComponents.POST_ATTACK,
+                EnchantmentTarget.ATTACKER,
+                EnchantmentTarget.VICTIM,
+                new Ignite(LevelBasedValue.perLevel(4.0f)),
+                DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().isDirect(true))
             )
         );
 
         builder.add(
             Enchantments.LOYALTY,
-            Enchantment.builder(
+            Enchantment.enchantment(
                 Enchantment.definition(
                     builder.getItemEntryList(ItemTags.TRIDENT_ENCHANTABLE),
                     5,
                     3,
-                    Enchantment.leveledCost(12, 7),
+                    Enchantment.dynamicCost(12, 7),
                     Enchantment.constantCost(50),
                     2,
-                    AttributeModifierSlot.MAINHAND
+                    EquipmentSlotGroup.MAINHAND
                 )
-            ).addEffect(
-                EnchantmentEffectComponentTypes.TRIDENT_RETURN_ACCELERATION, new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(1.0F))
-            ).addEffect(
+            ).withEffect(
+                EnchantmentEffectComponents.TRIDENT_RETURN_ACCELERATION, new AddValue(LevelBasedValue.perLevel(1.0F))
+            ).withEffect(
                 CPCEnchantmentComponentTypes.DATA_COMPONENT, new CooldownGroupComponentEntityEffect(CPCMain.identifier("loyalty_trident"))
             )
         );

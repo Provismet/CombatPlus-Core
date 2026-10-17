@@ -2,32 +2,32 @@ package com.provismet.CombatPlusCore.enchantment.effect.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.EnchantmentLevelBasedValue;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Applies frozen ticks to the target.
  * @param duration The number of seconds to apply frozen ticks for. The entity gains {@code duration * 20} ticks.
  */
-public record FreezeEffect (EnchantmentLevelBasedValue duration) implements EnchantmentEntityEffect {
+public record FreezeEffect (LevelBasedValue duration) implements EnchantmentEntityEffect {
     public static final MapCodec<FreezeEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(
-            EnchantmentLevelBasedValue.CODEC.fieldOf("duration").forGetter(effect -> effect.duration)
+            LevelBasedValue.CODEC.fieldOf("duration").forGetter(effect -> effect.duration)
         ).apply(instance, FreezeEffect::new)
     );
 
     @Override
-    public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity entity, Vec3d pos) {
-        int ticks = Math.min(entity.getFrozenTicks() + (int)(this.duration.getValue(level) * 20), entity.getMinFreezeDamageTicks() + 100);
-        entity.setFrozenTicks(ticks);
+    public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity entity, Vec3 pos) {
+        int ticks = Math.min(entity.getTicksFrozen() + (int)(this.duration.calculate(level) * 20), entity.getTicksRequiredToFreeze() + 100);
+        entity.setTicksFrozen(ticks);
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffect> getCodec() {
+    public MapCodec<? extends EnchantmentEntityEffect> codec() {
         return CODEC;
     }
 }

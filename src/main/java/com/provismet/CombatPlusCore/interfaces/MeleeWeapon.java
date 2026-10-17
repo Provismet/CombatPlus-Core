@@ -2,8 +2,8 @@ package com.provismet.CombatPlusCore.interfaces;
 
 import com.provismet.CombatPlusCore.items.component.MeleeWeaponComponent;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Interface for items intended as melee weapons. All weapons must implement a damage value.

@@ -5,35 +5,34 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.ItemCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.context.ContextParameter;
-
 import java.util.Set;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Applies a condition to the item associated with this single entity condition (typically a held item).
  *
  * @param condition The condition to apply.
  */
-public record ApplyToItemCondition(LootCondition condition) implements SingleEntityCondition {
-    public static final MapCodec<ApplyToItemCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToItemCondition::condition)).apply(instance, ApplyToItemCondition::new));
+public record ApplyToItemCondition(LootItemCondition condition) implements SingleEntityCondition {
+    public static final MapCodec<ApplyToItemCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootItemCondition.DIRECT_CODEC.fieldOf("applied_condition").forGetter(ApplyToItemCondition::condition)).apply(instance, ApplyToItemCondition::new));
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return SingleEntityLootConditionTypes.APPLY_TO_ITEM;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
-        if (lootContext.get(LootContextParameters.TOOL) == null) return false;
+        if (lootContext.getOptionalParameter(LootContextParams.TOOL) == null) return false;
         return this.condition.test(lootContext);
     }
 
     @Override
-    public Set<ContextParameter<?>> getAllowedParameters() {
+    public Set<ContextKey<?>> getReferencedContextParams() {
         return SingleEntityCondition.getExtendedRequiredParameters();
     }
 
@@ -45,11 +44,11 @@ public record ApplyToItemCondition(LootCondition condition) implements SingleEnt
         return () -> new ApplyToItemCondition(condition.build());
     }
 
-    public static SingleEntityCondition.Builder builder (LootCondition condition) {
+    public static SingleEntityCondition.Builder builder (LootItemCondition condition) {
         return () -> new ApplyToItemCondition((condition));
     }
 
-    public static SingleEntityCondition.Builder builder (LootCondition.Builder condition) {
+    public static SingleEntityCondition.Builder builder (LootItemCondition.Builder condition) {
         return () -> new ApplyToItemCondition((condition.build()));
     }
 }

@@ -2,11 +2,11 @@ package com.provismet.CombatPlusCore.utility;
 
 import com.provismet.CombatPlusCore.interfaces.BlockingItem;
 import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Basic utility class for triggering Combat+ callbacks between two entities.
@@ -21,7 +21,7 @@ public class CPCCallbackUtil {
      * @param user The attacking entity.
      * @param target The attacked entity.
      */
-    public static void postChargedHit (ServerWorld world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
+    public static void postChargedHit (ServerLevel world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
         if (itemStack.getItem() instanceof MeleeWeapon meleeWeapon) {
             meleeWeapon.postChargedHit(itemStack, user, target);
         }
@@ -37,7 +37,7 @@ public class CPCCallbackUtil {
      * @param user The attacking entity.
      * @param target The attacked entity.
      */
-    public static void postCriticalHit (ServerWorld world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
+    public static void postCriticalHit (ServerLevel world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
         if (itemStack.getItem() instanceof MeleeWeapon meleeWeapon) {
             meleeWeapon.postCriticalHit(itemStack, user, target);
         }
@@ -53,7 +53,7 @@ public class CPCCallbackUtil {
      * @param user The attacking entity.
      * @param target The slain entity.
      */
-    public static void postKill (ServerWorld world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
+    public static void postKill (ServerLevel world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, LivingEntity target) {
         if (itemStack.getItem() instanceof MeleeWeapon meleeWeapon) {
             meleeWeapon.postKill(itemStack, user, target);
         }
@@ -70,10 +70,10 @@ public class CPCCallbackUtil {
      * @param source The blocked damage source.
      * @param amount The full damage that would have been dealt.
      */
-    public static void postBlock (ServerWorld world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, DamageSource source, float amount) {
+    public static void postBlock (ServerLevel world, ItemStack itemStack, EquipmentSlot slot, LivingEntity user, DamageSource source, float amount) {
         if (itemStack.getItem() instanceof BlockingItem block) {
             block.postBlock(itemStack, user, source, amount);
         }
-        CPCEnchantmentHelper.postBlock(world, user, source.getSource(), slot);
+        CPCEnchantmentHelper.postBlock(world, user, source.getDirectEntity(), slot);
     }
 }

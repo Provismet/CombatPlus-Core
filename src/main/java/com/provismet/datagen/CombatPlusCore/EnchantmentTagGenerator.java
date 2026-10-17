@@ -4,19 +4,18 @@ import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEnchantmentTags;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.EnchantmentTags;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.item.enchantment.Enchantments;
 import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentTagGenerator extends LilyTagProviders.LilyEnchantmentTagProvider {
-    public EnchantmentTagGenerator (FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+    public EnchantmentTagGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 
     @Override
-    protected void configure (RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags (HolderLookup.Provider wrapperLookup) {
         this.builder(CPCEnchantmentTags.ADDITIONAL_DAMAGE);
         this.builder(CPCEnchantmentTags.ASPECT).add(Enchantments.FIRE_ASPECT);
         this.builder(CPCEnchantmentTags.WEAPON_UTILITY).add(Enchantments.SWEEPING_EDGE).add(Enchantments.WIND_BURST);
@@ -26,7 +25,7 @@ public class EnchantmentTagGenerator extends LilyTagProviders.LilyEnchantmentTag
             .addOptionalTag(CPCEnchantmentTags.ADDITIONAL_DAMAGE);
 
         // Exclusive Sets
-        this.builder(EnchantmentTags.DAMAGE_EXCLUSIVE_SET)
+        this.builder(EnchantmentTags.DAMAGE_EXCLUSIVE)
             .addOptionalTag(CPCEnchantmentTags.ADDITIONAL_DAMAGE)
             .addOptionalTag(CPCEnchantmentTags.OFFHAND);
 

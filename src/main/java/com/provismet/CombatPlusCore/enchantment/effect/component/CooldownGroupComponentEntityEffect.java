@@ -4,8 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
-import net.minecraft.component.ComponentType;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.resources.Identifier;
 
 public record CooldownGroupComponentEntityEffect (Identifier group) implements CPCDataComponentEntityEffect<Identifier> {
     public static final MapCodec<CooldownGroupComponentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(
@@ -20,7 +20,7 @@ public record CooldownGroupComponentEntityEffect (Identifier group) implements C
     }
 
     @Override
-    public ComponentType<Identifier> getComponentType () {
+    public DataComponentType<Identifier> getComponentType () {
         return CPCDataComponentTypes.COOLDOWN_GROUP;
     }
 

@@ -3,14 +3,14 @@ package com.provismet.CombatPlusCore.items.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.lilylib.util.MoreMath;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.dynamic.Codecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 /**
  * <p> Item data component that allows data-driven use of melee and dual weapon damage numbers. </p>
@@ -27,14 +27,14 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
 
     public static final Codec<MeleeWeaponComponent> CODEC = RecordCodecBuilder.create(
         instance -> instance.group(
-            Codecs.NON_NEGATIVE_FLOAT.fieldOf("weapon_damage").forGetter(MeleeWeaponComponent::weaponDamage),
-            Codecs.NON_NEGATIVE_FLOAT.fieldOf("dual_damage").forGetter(MeleeWeaponComponent::dualDamage)
+            ExtraCodecs.NON_NEGATIVE_FLOAT.fieldOf("weapon_damage").forGetter(MeleeWeaponComponent::weaponDamage),
+            ExtraCodecs.NON_NEGATIVE_FLOAT.fieldOf("dual_damage").forGetter(MeleeWeaponComponent::dualDamage)
         ).apply(instance, MeleeWeaponComponent::new)
     );
-    public static final PacketCodec<RegistryByteBuf, MeleeWeaponComponent> PACKET_CODEC = PacketCodec.tuple(
-        PacketCodecs.FLOAT,
+    public static final StreamCodec<RegistryFriendlyByteBuf, MeleeWeaponComponent> PACKET_CODEC = StreamCodec.composite(
+        ByteBufCodecs.FLOAT,
         MeleeWeaponComponent::weaponDamage,
-        PacketCodecs.FLOAT,
+        ByteBufCodecs.FLOAT,
         MeleeWeaponComponent::dualDamage,
         MeleeWeaponComponent::new
     );
@@ -69,14 +69,14 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
      * @param attributes Attributes component containing the damage for the new component.
      * @return A new MeleeWeaponComponent.
      */
-    public static MeleeWeaponComponent createFromAttributes (AttributeModifiersComponent attributes) {
+    public static MeleeWeaponComponent createFromAttributes (ItemAttributeModifiers attributes) {
         float meleeDamage = 0f;
         float dualDamage = 0f;
 
-        for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
-            if (entry.attribute() == EntityAttributes.ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE) {
-                if (entry.slot().matches(EquipmentSlot.MAINHAND)) meleeDamage += (float)entry.modifier().value();
-                if (entry.slot().matches(EquipmentSlot.OFFHAND)) dualDamage += (float)entry.modifier().value();
+        for (ItemAttributeModifiers.Entry entry : attributes.modifiers()) {
+            if (entry.attribute() == Attributes.ATTACK_DAMAGE && entry.modifier().operation() == AttributeModifier.Operation.ADD_VALUE) {
+                if (entry.slot().test(EquipmentSlot.MAINHAND)) meleeDamage += (float)entry.modifier().amount();
+                if (entry.slot().test(EquipmentSlot.OFFHAND)) dualDamage += (float)entry.modifier().amount();
             }
         }
         return new MeleeWeaponComponent(meleeDamage, dualDamage);
@@ -89,11 +89,11 @@ public record MeleeWeaponComponent (float weaponDamage, float dualDamage) {
      * @param attributes Attribute component containing mainhand damage.
      * @return A new MeleeWeaponComponent.
      */
-    public static MeleeWeaponComponent createDualFromAttributes (AttributeModifiersComponent attributes) {
+    public static MeleeWeaponComponent createDualFromAttributes (ItemAttributeModifiers attributes) {
         float meleeDamage = 0f;
-        for (AttributeModifiersComponent.Entry entry : attributes.modifiers()) {
-            if (entry.attribute() == EntityAttributes.ATTACK_DAMAGE && entry.modifier().operation() == EntityAttributeModifier.Operation.ADD_VALUE && entry.slot().matches(EquipmentSlot.MAINHAND)) {
-                meleeDamage += (float)entry.modifier().value();
+        for (ItemAttributeModifiers.Entry entry : attributes.modifiers()) {
+            if (entry.attribute() == Attributes.ATTACK_DAMAGE && entry.modifier().operation() == AttributeModifier.Operation.ADD_VALUE && entry.slot().test(EquipmentSlot.MAINHAND)) {
+                meleeDamage += (float)entry.modifier().amount();
             }
         }
         return MeleeWeaponComponent.createDual(meleeDamage);

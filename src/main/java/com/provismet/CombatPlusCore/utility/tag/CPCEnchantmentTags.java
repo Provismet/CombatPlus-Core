@@ -3,9 +3,9 @@ package com.provismet.CombatPlusCore.utility.tag;
 import com.provismet.CombatPlusCore.CPCMain;
 
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 /**
  * <p> Using these tags directly is optional, but enchantments should be registered to them regardless for better inter-mod compatibility outside
@@ -32,6 +32,6 @@ public class CPCEnchantmentTags {
     public static final TagKey<Enchantment> ALL = createTag("all_enchantments");
 
     private static TagKey<Enchantment> createTag(String path) {
-        return TagKey.of(RegistryKeys.ENCHANTMENT, CPCMain.identifier(path));
+        return TagKey.create(Registries.ENCHANTMENT, CPCMain.identifier(path));
     }
 }

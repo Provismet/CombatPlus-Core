@@ -1,66 +1,65 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.EnchantmentEffectComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
 import com.provismet.CombatPlusCore.utility.CPCGameRules;
-
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.TridentItem;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.world.World;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TridentItem;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TridentItem.class)
 public abstract class TridentItemMixin extends Item {
-    public TridentItemMixin (Settings settings) {
+    public TridentItemMixin (Properties settings) {
         super(settings);
     }
     
-    @Inject(method="onStoppedUsing", at=@At(value="INVOKE", target="Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/player/PlayerEntity;)V"), cancellable=true)
-    private void replaceTridentThrow (ItemStack itemStack, World world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
-        if (world instanceof ServerWorld serverWorld && serverWorld.getGameRules().getValue(CPCGameRules.LOYALTY_STAYS_IN_HAND) && user instanceof PlayerEntity player) {
-            int loyalty = EnchantmentHelper.getTridentReturnAcceleration(serverWorld, itemStack, player);
+    @Inject(method="releaseUsing", at=@At(value="INVOKE", target="Lnet/minecraft/world/item/ItemStack;hurtWithoutBreaking(ILnet/minecraft/world/entity/player/Player;)V"), cancellable=true)
+    private void replaceTridentThrow (ItemStack itemStack, Level world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
+        if (world instanceof ServerLevel serverWorld && serverWorld.getGameRules().get(CPCGameRules.LOYALTY_STAYS_IN_HAND) && user instanceof Player player) {
+            int loyalty = EnchantmentHelper.getTridentReturnToOwnerAcceleration(serverWorld, itemStack, player);
 
             if (loyalty > 0) {
                 ItemStack temp = itemStack.copy();
-                ItemEnchantmentsComponent.Builder tempEnchantmentBuilder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
-                ItemEnchantmentsComponent existingEnchantments = temp.getEnchantments();
+                ItemEnchantments.Mutable tempEnchantmentBuilder = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+                ItemEnchantments existingEnchantments = temp.getEnchantments();
 
                 // Don't want the thrown tridents to return to the player, so loyalty must be removed from the enchantment list.
-                for (RegistryEntry<Enchantment> enchantmentEntry : existingEnchantments.getEnchantments()) {
-                    if (!enchantmentEntry.value().getEffect(EnchantmentEffectComponentTypes.TRIDENT_RETURN_ACCELERATION).isEmpty()) continue;
-                    tempEnchantmentBuilder.add(enchantmentEntry, existingEnchantments.getLevel(enchantmentEntry));
+                for (Holder<Enchantment> enchantmentEntry : existingEnchantments.keySet()) {
+                    if (!enchantmentEntry.value().getEffects(EnchantmentEffectComponents.TRIDENT_RETURN_ACCELERATION).isEmpty()) continue;
+                    tempEnchantmentBuilder.upgrade(enchantmentEntry, existingEnchantments.getLevel(enchantmentEntry));
                 }
-                temp.set(DataComponentTypes.ENCHANTMENTS, tempEnchantmentBuilder.build());
+                temp.set(DataComponents.ENCHANTMENTS, tempEnchantmentBuilder.toImmutable());
 
-                TridentEntity tridentEntity = new TridentEntity(world, player, temp);
-                tridentEntity.setVelocity(player, player.getPitch(), player.getYaw(), 0.0f, 2.5f, 1.0f);
-                tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
+                ThrownTrident tridentEntity = new ThrownTrident(world, player, temp);
+                tridentEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 2.5f, 1.0f);
+                tridentEntity.pickup = AbstractArrow.Pickup.DISALLOWED;
 
-                player.getItemCooldownManager().set(itemStack, 105 - loyalty * 15);
-                world.spawnEntity(tridentEntity);
-                RegistryEntry<SoundEvent> tridentSound = EnchantmentHelper.getEffect(itemStack, EnchantmentEffectComponentTypes.TRIDENT_SOUND).orElse(SoundEvents.ITEM_TRIDENT_THROW);
-                world.playSoundFromEntity(null, tridentEntity, tridentSound.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+                player.getCooldowns().addCooldown(itemStack, 105 - loyalty * 15);
+                world.addFreshEntity(tridentEntity);
+                Holder<SoundEvent> tridentSound = EnchantmentHelper.pickHighestLevel(itemStack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
+                world.playSound(null, tridentEntity, tridentSound.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
-                player.incrementStat((Stats.USED.getOrCreateStat((TridentItem)(Object)this)));
-                itemStack.damage(1, player);
+                player.awardStat((Stats.ITEM_USED.get((TridentItem)(Object)this)));
+                itemStack.hurtWithoutBreaking(1, player);
 
                 cir.setReturnValue(true);
             }

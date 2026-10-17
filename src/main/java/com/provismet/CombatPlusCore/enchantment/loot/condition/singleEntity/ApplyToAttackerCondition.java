@@ -6,13 +6,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.context.ContextParameter;
-
 import java.util.Set;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Modifies a loot context to change the ATTACKING_ENTITY to THIS_ENTITY.
@@ -21,28 +20,28 @@ import java.util.Set;
  *
  * @param condition The {@link SingleEntityCondition} to apply.
  */
-public record ApplyToAttackerCondition(LootCondition condition) implements SingleEntityCondition {
-    public static final MapCodec<ApplyToAttackerCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(ApplyToAttackerCondition::condition)).apply(instance, ApplyToAttackerCondition::new));
+public record ApplyToAttackerCondition(LootItemCondition condition) implements SingleEntityCondition {
+    public static final MapCodec<ApplyToAttackerCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootItemCondition.DIRECT_CODEC.fieldOf("applied_condition").forGetter(ApplyToAttackerCondition::condition)).apply(instance, ApplyToAttackerCondition::new));
 
     @Override
-    public Set<ContextParameter<?>> getAllowedParameters () {
+    public Set<ContextKey<?>> getReferencedContextParams () {
         return ImmutableSet.of(
-            LootContextParameters.ENCHANTMENT_LEVEL,
-            LootContextParameters.ATTACKING_ENTITY
+            LootContextParams.ENCHANTMENT_LEVEL,
+            LootContextParams.ATTACKING_ENTITY
         );
     }
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return SingleEntityLootConditionTypes.APPLY_TO_ATTACKER;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
         LootContext flippedContext = CPCLootContext.createSingleEntity(
-            lootContext.getWorld(),
-            lootContext.get(LootContextParameters.ENCHANTMENT_LEVEL),
-            lootContext.get(LootContextParameters.ATTACKING_ENTITY),
+            lootContext.getLevel(),
+            lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL),
+            lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY),
             null
         );
         return this.condition.test(flippedContext);

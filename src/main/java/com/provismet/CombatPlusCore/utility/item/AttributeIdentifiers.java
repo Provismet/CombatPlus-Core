@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.utility.item;
 
 import com.provismet.CombatPlusCore.CPCMain;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 
 public class AttributeIdentifiers {
     public static final Identifier OFFHAND_DAMAGE = CPCMain.identifier("offhand_damage");

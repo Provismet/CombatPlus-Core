@@ -3,18 +3,18 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.phys.Vec3;
 
 public record ExposedToSkyCondition () implements SingleEntityCondition {
     public static final MapCodec<ExposedToSkyCondition> CODEC = MapCodec.unit(ExposedToSkyCondition::new);
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return SingleEntityLootConditionTypes.EXPOSED_TO_SKY;
     }
 
@@ -24,9 +24,9 @@ public record ExposedToSkyCondition () implements SingleEntityCondition {
     }
 
     public static boolean isSkyVisible (LootContext lootContext) {
-        ServerWorld world = lootContext.getWorld();
-        Vec3d position = lootContext.get(LootContextParameters.ORIGIN);
-        return world.isSkyVisible(new BlockPos((int)position.x, (int)position.y, (int)position.z));
+        ServerLevel world = lootContext.getLevel();
+        Vec3 position = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
+        return world.canSeeSky(new BlockPos((int)position.x, (int)position.y, (int)position.z));
     }
 
     public static SingleEntityCondition.Builder builder () {

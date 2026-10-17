@@ -7,15 +7,14 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.context.ContextParameter;
-
 import java.util.Set;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Applies a single condition to both the attacker and the target.
@@ -23,35 +22,35 @@ import java.util.Set;
 public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
     public static final MapCodec<ApplyToBothCondition> CODEC = ApplyToBothCondition.createCodec(ApplyToBothCondition::new);
 
-    protected ApplyToBothCondition (LootCondition condition) {
+    protected ApplyToBothCondition (LootItemCondition condition) {
         super(condition);
     }
 
     @Override
-    public Set<ContextParameter<?>> getAllowedParameters() {
+    public Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(
-            LootContextParameters.THIS_ENTITY,
+            LootContextParams.THIS_ENTITY,
             CPCLootContextParameters.TARGET_ENTITY,
-            LootContextParameters.ATTACKING_ENTITY,
-            LootContextParameters.ORIGIN,
-            LootContextParameters.ENCHANTMENT_LEVEL
+            LootContextParams.ATTACKING_ENTITY,
+            LootContextParams.ORIGIN,
+            LootContextParams.ENCHANTMENT_LEVEL
         );
     }
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return DoubleEntityLootConditionTypes.APPLY_TO_BOTH;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
-        Entity attacker = lootContext.get(LootContextParameters.ATTACKING_ENTITY);
-        Entity target = lootContext.get(CPCLootContextParameters.TARGET_ENTITY);
-        Integer level = lootContext.get(LootContextParameters.ENCHANTMENT_LEVEL);
-        ItemStack item = lootContext.get(LootContextParameters.TOOL);
+        Entity attacker = lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY);
+        Entity target = lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY);
+        Integer level = lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL);
+        ItemStack item = lootContext.getOptionalParameter(LootContextParams.TOOL);
 
-        LootContext attackerContext = CPCLootContext.createSingleEntity(lootContext.getWorld(), level, attacker, item);
-        LootContext targetContext = CPCLootContext.createSingleEntity(lootContext.getWorld(), level, target, null);
+        LootContext attackerContext = CPCLootContext.createSingleEntity(lootContext.getLevel(), level, attacker, item);
+        LootContext targetContext = CPCLootContext.createSingleEntity(lootContext.getLevel(), level, target, null);
 
         return this.condition.test(attackerContext) && this.condition.test(targetContext);
     }
@@ -64,11 +63,11 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
         return () -> new ApplyToBothCondition(combatCondition);
     }
 
-    public static DoubleEntityCondition.Builder builder (LootCondition.Builder condition) {
+    public static DoubleEntityCondition.Builder builder (LootItemCondition.Builder condition) {
         return () -> new ApplyToBothCondition(condition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (LootCondition condition) {
+    public static DoubleEntityCondition.Builder builder (LootItemCondition condition) {
         return () -> new ApplyToBothCondition(condition);
     }
 }

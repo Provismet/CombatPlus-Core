@@ -1,13 +1,7 @@
 accessWidener v2 named
 
-accessible class net/minecraft/entity/effect/PoisonStatusEffect
+accessible field net/minecraft/world/level/storage/loot/parameters/LootContextParamSets REGISTRY Lcom/google/common/collect/BiMap;
 
-accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
-accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
-accessible method net/minecraft/enchantment/Enchantment modifyValue (Lnet/minecraft/component/ComponentType;Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
-
-accessible field net/minecraft/loot/context/LootContextTypes MAP Lcom/google/common/collect/BiMap;
-
-transitive-accessible field net/minecraft/item/Item components Lnet/minecraft/component/ComponentMap;
-transitive-mutable field net/minecraft/item/Item components Lnet/minecraft/component/ComponentMap;
-transitive-accessible method net/minecraft/item/Item$Settings getValidatedComponents (Lnet/minecraft/text/Text;Lnet/minecraft/util/Identifier;)Lnet/minecraft/component/ComponentMap;
+transitive-accessible field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
+transitive-mutable field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
+transitive-accessible method net/minecraft/world/item/Item$Properties buildAndValidateComponents (Lnet/minecraft/network/chat/Component;Lnet/minecraft/resources/Identifier;)Lnet/minecraft/core/component/DataComponentMap;

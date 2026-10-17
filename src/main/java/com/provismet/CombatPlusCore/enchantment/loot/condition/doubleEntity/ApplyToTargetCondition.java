@@ -6,10 +6,10 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Applies a single condition to the target.
@@ -17,21 +17,21 @@ import net.minecraft.loot.context.LootContextParameters;
 public class ApplyToTargetCondition extends AbstractSingleWrapperCondition {
     public static final MapCodec<ApplyToTargetCondition> CODEC = ApplyToTargetCondition.createCodec(ApplyToTargetCondition::new);
 
-    protected ApplyToTargetCondition (LootCondition condition) {
+    protected ApplyToTargetCondition (LootItemCondition condition) {
         super(condition);
     }
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return DoubleEntityLootConditionTypes.APPLY_TO_TARGET;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
         LootContext targetContext = CPCLootContext.createSingleEntity(
-            lootContext.getWorld(),
-            lootContext.get(LootContextParameters.ENCHANTMENT_LEVEL),
-            lootContext.get(CPCLootContextParameters.TARGET_ENTITY),
+            lootContext.getLevel(),
+            lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL),
+            lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY),
             null
         );
         return this.condition.test(targetContext);
@@ -45,11 +45,11 @@ public class ApplyToTargetCondition extends AbstractSingleWrapperCondition {
         return () -> new ApplyToTargetCondition(combatCondition);
     }
 
-    public static DoubleEntityCondition.Builder builder (LootCondition.Builder condition) {
+    public static DoubleEntityCondition.Builder builder (LootItemCondition.Builder condition) {
         return () -> new ApplyToTargetCondition(condition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (LootCondition condition) {
+    public static DoubleEntityCondition.Builder builder (LootItemCondition condition) {
         return () -> new ApplyToTargetCondition(condition);
     }
 }

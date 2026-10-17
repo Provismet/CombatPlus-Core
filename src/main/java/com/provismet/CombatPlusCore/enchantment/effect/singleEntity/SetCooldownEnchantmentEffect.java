@@ -4,31 +4,31 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.EnchantmentLevelBasedValue;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
+import net.minecraft.world.phys.Vec3;
 
-public record SetCooldownEnchantmentEffect (EnchantmentLevelBasedValue ticks) implements EnchantmentEntityEffect {
+public record SetCooldownEnchantmentEffect (LevelBasedValue ticks) implements EnchantmentEntityEffect {
     public static final MapCodec<SetCooldownEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(
-            EnchantmentLevelBasedValue.CODEC.fieldOf("ticks").forGetter(SetCooldownEnchantmentEffect::ticks)
+            LevelBasedValue.CODEC.fieldOf("ticks").forGetter(SetCooldownEnchantmentEffect::ticks)
         ).apply(instance, SetCooldownEnchantmentEffect::new)
     );
 
     @Override
-    public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
-        if (!(user instanceof PlayerEntity player)) return;
+    public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos) {
+        if (!(user instanceof Player player)) return;
 
-        int cooldown = (int)CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.MODIFY_COOLDOWN, world, context.stack(), user, this.ticks.getValue(level));
-        player.getItemCooldownManager().set(context.stack(), cooldown);
+        int cooldown = (int)CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.MODIFY_COOLDOWN, world, context.itemStack(), user, this.ticks.calculate(level));
+        player.getCooldowns().addCooldown(context.itemStack(), cooldown);
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffect> getCodec () {
+    public MapCodec<? extends EnchantmentEntityEffect> codec () {
         return CODEC;
     }
 }

@@ -2,35 +2,35 @@ package com.provismet.CombatPlusCore.enchantment.effect.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.EnchantmentLevelBasedValue;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Heals the entity. This cannot take the entity over its maximum health.
  * @param value The amount of health to heal.
  */
-public record HealEffect (EnchantmentLevelBasedValue value) implements EnchantmentEntityEffect {
+public record HealEffect (LevelBasedValue value) implements EnchantmentEntityEffect {
     public static final MapCodec<HealEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(
-            EnchantmentLevelBasedValue.CODEC.fieldOf("value").forGetter(HealEffect::value)
+            LevelBasedValue.CODEC.fieldOf("value").forGetter(HealEffect::value)
         ).apply(instance, HealEffect::new)
     );
 
     @Override
-    public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity entity, Vec3d pos) {
+    public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity entity, Vec3 pos) {
         if (entity instanceof LivingEntity living) {
-            living.heal(this.value.getValue(level));
+            living.heal(this.value.calculate(level));
             if (living.getHealth() > living.getMaxHealth()) living.setHealth(living.getMaxHealth());
         }
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffect> getCodec () {
+    public MapCodec<? extends EnchantmentEntityEffect> codec () {
         return CODEC;
     }
 }

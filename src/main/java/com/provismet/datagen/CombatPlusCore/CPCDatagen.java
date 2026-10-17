@@ -4,8 +4,8 @@ import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 
 public class CPCDatagen implements DataGeneratorEntrypoint {
     @Override
@@ -27,7 +27,7 @@ public class CPCDatagen implements DataGeneratorEntrypoint {
     }
 
     @Override
-    public void buildRegistry (RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, CPCDamageTypes::bootstrap);
+    public void buildRegistry (RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.DAMAGE_TYPE, CPCDamageTypes::bootstrap);
     }
 }

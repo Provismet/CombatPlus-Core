@@ -8,7 +8,7 @@ import com.provismet.CombatPlusCore.enchantment.effect.component.CooldownGroupCo
 import com.provismet.CombatPlusCore.enchantment.effect.component.MaxUseTimeComponentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.component.UseCooldownComponentEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
 
 public abstract class CPCDataComponentEffects {
     public static void register () {

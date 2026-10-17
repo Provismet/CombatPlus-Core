@@ -6,15 +6,14 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import net.minecraft.entity.Entity;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-
 import java.util.Optional;
 import java.util.function.Predicate;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Executes a registered predicate against the pair of entities.
@@ -25,16 +24,16 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
     public static final MapCodec<DoubleEntityLambdaCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(DoubleEntityLambdaCondition::function)).apply(instance, DoubleEntityLambdaCondition::new));
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return DoubleEntityLootConditionTypes.LAMBDA;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
-        Predicate<Pair<Entity,Entity>> predicate = CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.get(function);
+        Predicate<Tuple<Entity,Entity>> predicate = CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.getValue(function);
         if (predicate == null) return false;
 
-        Pair<Entity,Entity> pair = new Pair<>(lootContext.get(LootContextParameters.THIS_ENTITY), lootContext.get(CPCLootContextParameters.TARGET_ENTITY));
+        Tuple<Entity,Entity> pair = new Tuple<>(lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY), lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY));
         return predicate.test(pair);
     }
 

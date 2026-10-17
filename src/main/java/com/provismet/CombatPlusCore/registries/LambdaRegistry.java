@@ -4,12 +4,11 @@ import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Pair;
-
 import java.util.function.Predicate;
+import net.minecraft.core.Registry;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
 
 public abstract class LambdaRegistry {
     public static void register () {
@@ -58,7 +57,7 @@ public abstract class LambdaRegistry {
         Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
     }
 
-    private static void registerDoubleCondition (String name, Predicate<Pair<Entity,Entity>> predicate) {
+    private static void registerDoubleCondition (String name, Predicate<Tuple<Entity,Entity>> predicate) {
         Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
     }
 

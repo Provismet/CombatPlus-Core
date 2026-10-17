@@ -4,43 +4,42 @@ import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.debug.items.DebugShield;
 import com.provismet.CombatPlusCore.debug.items.DebuggerItem;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.sound.SoundEvents;
-
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.BlocksAttacks;
 import java.util.List;
 import java.util.Optional;
 
 public class CPCDebugItems {
-    private static final RegistryKey<Item> DEBUGGER_KEY = RegistryKey.of(RegistryKeys.ITEM, CPCMain.identifier("debugger"));
-    private static final Item DEBUGGER = new DebuggerItem(new Item.Settings().maxCount(1).enchantable(1).registryKey(DEBUGGER_KEY).attributeModifiers(DebuggerItem.createSimpleAttributes()));
+    private static final ResourceKey<Item> DEBUGGER_KEY = ResourceKey.create(Registries.ITEM, CPCMain.identifier("debugger"));
+    private static final Item DEBUGGER = new DebuggerItem(new Item.Properties().stacksTo(1).enchantable(1).setId(DEBUGGER_KEY).attributes(DebuggerItem.createSimpleAttributes()));
 
-    private static final RegistryKey<Item> DEBUG_SHIELD_KEY = RegistryKey.of(RegistryKeys.ITEM, CPCMain.identifier("debug_shield"));
-    private static final Item DEBUG_SHIELD = new DebugShield(new Item.Settings().maxCount(1).maxDamage(500)
+    private static final ResourceKey<Item> DEBUG_SHIELD_KEY = ResourceKey.create(Registries.ITEM, CPCMain.identifier("debug_shield"));
+    private static final Item DEBUG_SHIELD = new DebugShield(new Item.Properties().stacksTo(1).durability(500)
         .component(
-            DataComponentTypes.BLOCKS_ATTACKS,
-            new BlocksAttacksComponent(
+            DataComponents.BLOCKS_ATTACKS,
+            new BlocksAttacks(
                 0.25f,
                 1f,
-                List.of(new BlocksAttacksComponent.DamageReduction(90f, Optional.empty(), 0f, 1f)),
-                new BlocksAttacksComponent.ItemDamage(3f, 1f, 1f),
+                List.of(new BlocksAttacks.DamageReduction(90f, Optional.empty(), 0f, 1f)),
+                new BlocksAttacks.ItemDamageFunction(3f, 1f, 1f),
                 Optional.of(DamageTypeTags.BYPASSES_SHIELD),
-                Optional.of(SoundEvents.ITEM_SHIELD_BLOCK),
-                Optional.of(SoundEvents.ITEM_SHIELD_BREAK)
+                Optional.of(SoundEvents.SHIELD_BLOCK),
+                Optional.of(SoundEvents.SHIELD_BREAK)
             )
         )
-        .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK)
-        .registryKey(DEBUG_SHIELD_KEY));
+        .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
+        .setId(DEBUG_SHIELD_KEY));
 
     public static void register () {
-        Registry.register(Registries.ITEM, DEBUGGER_KEY, DEBUGGER);
-        Registry.register(Registries.ITEM, DEBUG_SHIELD_KEY, DEBUG_SHIELD);
+        Registry.register(BuiltInRegistries.ITEM, DEBUGGER_KEY, DEBUGGER);
+        Registry.register(BuiltInRegistries.ITEM, DEBUG_SHIELD_KEY, DEBUG_SHIELD);
     }
 
     public static Optional<Item> getOptionalDebugItem () {

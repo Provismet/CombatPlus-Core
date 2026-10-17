@@ -3,11 +3,11 @@ package com.provismet.datagen.CombatPlusCore;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.client.data.ItemModels;
-import net.minecraft.client.data.ModelIds;
-import net.minecraft.client.data.Models;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
 
 public class ModelGenerator extends FabricModelProvider {
     public ModelGenerator (FabricDataOutput output) {
@@ -15,19 +15,19 @@ public class ModelGenerator extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels (BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels (BlockModelGenerators blockStateModelGenerator) {
 
     }
 
     @Override
-    public void generateItemModels (ItemModelGenerator itemModelGenerator) {
-        CPCDebugItems.getOptionalDebugItem().ifPresent(item -> itemModelGenerator.register(item, Models.HANDHELD));
+    public void generateItemModels (ItemModelGenerators itemModelGenerator) {
+        CPCDebugItems.getOptionalDebugItem().ifPresent(item -> itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM));
 
-        CPCDebugItems.getOptionalDebugShield().ifPresent(shield -> itemModelGenerator.registerCondition(
+        CPCDebugItems.getOptionalDebugShield().ifPresent(shield -> itemModelGenerator.generateBooleanDispatch(
             shield,
-            ItemModels.usingItemProperty(),
-            ItemModels.basic(ModelIds.getItemSubModelId(shield, "_blocking")),
-            ItemModels.basic(ModelIds.getItemModelId(shield))
+            ItemModelUtils.isUsingItem(),
+            ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(shield, "_blocking")),
+            ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(shield))
         ));
     }
 }

@@ -5,10 +5,10 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 /**
  * Applies a single condition to the attacker.
@@ -16,22 +16,22 @@ import net.minecraft.loot.context.LootContextParameters;
 public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
     public static final MapCodec<ApplyToUserCondition> CODEC = ApplyToUserCondition.createCodec(ApplyToUserCondition::new);
 
-    protected ApplyToUserCondition (LootCondition condition) {
+    protected ApplyToUserCondition (LootItemCondition condition) {
         super(condition);
     }
 
     @Override
-    public LootConditionType getType () {
+    public LootItemConditionType getType () {
         return DoubleEntityLootConditionTypes.APPLY_TO_USER;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
         LootContext userContext = CPCLootContext.createSingleEntity(
-            lootContext.getWorld(),
-            lootContext.get(LootContextParameters.ENCHANTMENT_LEVEL),
-            lootContext.get(LootContextParameters.THIS_ENTITY),
-            lootContext.get(LootContextParameters.TOOL)
+            lootContext.getLevel(),
+            lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL),
+            lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY),
+            lootContext.getOptionalParameter(LootContextParams.TOOL)
         );
         return this.condition.test(userContext);
     }
@@ -44,11 +44,11 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
         return () -> new ApplyToUserCondition(combatCondition);
     }
 
-    public static DoubleEntityCondition.Builder builder (LootCondition.Builder condition) {
+    public static DoubleEntityCondition.Builder builder (LootItemCondition.Builder condition) {
         return () -> new ApplyToUserCondition(condition.build());
     }
 
-    public static DoubleEntityCondition.Builder builder (LootCondition condition) {
+    public static DoubleEntityCondition.Builder builder (LootItemCondition condition) {
         return () -> new ApplyToUserCondition(condition);
     }
 }

@@ -3,22 +3,21 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondition;
-import net.minecraft.loot.condition.LootCondition;
-
 import java.util.function.Function;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public abstract class AbstractSingleWrapperCondition implements DoubleEntityCondition {
-    protected final LootCondition condition;
+    protected final LootItemCondition condition;
 
-    protected AbstractSingleWrapperCondition (LootCondition condition) {
+    protected AbstractSingleWrapperCondition (LootItemCondition condition) {
         this.condition = condition;
     }
 
-    public LootCondition condition () {
+    public LootItemCondition condition () {
         return this.condition;
     }
 
-    protected static <T extends  AbstractSingleWrapperCondition> MapCodec<T> createCodec (Function<LootCondition, T> termToCondition) {
-        return RecordCodecBuilder.mapCodec(instance -> instance.group(LootCondition.CODEC.fieldOf("applied_condition").forGetter(AbstractSingleWrapperCondition::condition)).apply(instance, termToCondition));
+    protected static <T extends  AbstractSingleWrapperCondition> MapCodec<T> createCodec (Function<LootItemCondition, T> termToCondition) {
+        return RecordCodecBuilder.mapCodec(instance -> instance.group(LootItemCondition.DIRECT_CODEC.fieldOf("applied_condition").forGetter(AbstractSingleWrapperCondition::condition)).apply(instance, termToCondition));
     }
 }

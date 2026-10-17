@@ -12,25 +12,25 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.Heal
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.RelativeHealthCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.SingleEntityLambdaCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity.TickModuloCondition;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public abstract class SingleEntityLootConditionTypes {
-    public static final LootConditionType LAMBDA = register("code_execution_single_entity_condition", SingleEntityLambdaCondition.CODEC);
-    public static final LootConditionType HEALTH = register("health", HealthCondition.CODEC);
-    public static final LootConditionType RELATIVE_HEALTH = register("relative_health", RelativeHealthCondition.CODEC);
-    public static final LootConditionType DIMENSION = register("dimension", DimensionCondition.CODEC);
-    public static final LootConditionType TICK_MODULO = register("every_x_ticks", TickModuloCondition.CODEC);
-    public static final LootConditionType EXPOSED_TO_SKY = register("exposed_to_sky", ExposedToSkyCondition.CODEC);
-    public static final LootConditionType EXPOSED_TO_SUN = register("exposed_to_sun", ExposedToSunCondition.CODEC);
-    public static final LootConditionType EXPOSED_TO_MOON = register("exposed_to_moon", ExposedToMoonCondition.CODEC);
-    public static final LootConditionType APPLY_TO_ITEM = register("apply_to_item", ApplyToItemCondition.CODEC);
-    public static final LootConditionType APPLY_TO_ATTACKER = register("apply_to_attacker", ApplyToAttackerCondition.CODEC);
+    public static final LootItemConditionType LAMBDA = register("code_execution_single_entity_condition", SingleEntityLambdaCondition.CODEC);
+    public static final LootItemConditionType HEALTH = register("health", HealthCondition.CODEC);
+    public static final LootItemConditionType RELATIVE_HEALTH = register("relative_health", RelativeHealthCondition.CODEC);
+    public static final LootItemConditionType DIMENSION = register("dimension", DimensionCondition.CODEC);
+    public static final LootItemConditionType TICK_MODULO = register("every_x_ticks", TickModuloCondition.CODEC);
+    public static final LootItemConditionType EXPOSED_TO_SKY = register("exposed_to_sky", ExposedToSkyCondition.CODEC);
+    public static final LootItemConditionType EXPOSED_TO_SUN = register("exposed_to_sun", ExposedToSunCondition.CODEC);
+    public static final LootItemConditionType EXPOSED_TO_MOON = register("exposed_to_moon", ExposedToMoonCondition.CODEC);
+    public static final LootItemConditionType APPLY_TO_ITEM = register("apply_to_item", ApplyToItemCondition.CODEC);
+    public static final LootItemConditionType APPLY_TO_ATTACKER = register("apply_to_attacker", ApplyToAttackerCondition.CODEC);
 
-    private static LootConditionType register (String name, MapCodec<? extends LootCondition> codec) {
-        return Registry.register(Registries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootConditionType(codec));
+    private static LootItemConditionType register (String name, MapCodec<? extends LootItemCondition> codec) {
+        return Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootItemConditionType(codec));
     }
 
     public static void init () {}

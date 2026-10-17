@@ -3,30 +3,29 @@ package com.provismet.CombatPlusCore.enchantment.effect.component;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.UseCooldownComponent;
-import net.minecraft.enchantment.EnchantmentLevelBasedValue;
-import net.minecraft.util.Identifier;
-
 import java.util.Optional;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.component.UseCooldown;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
 
-public record UseCooldownComponentEntityEffect (EnchantmentLevelBasedValue seconds, Optional<Identifier> cooldownGroup) implements CPCDataComponentEntityEffect<UseCooldownComponent> {
+public record UseCooldownComponentEntityEffect (LevelBasedValue seconds, Optional<Identifier> cooldownGroup) implements CPCDataComponentEntityEffect<UseCooldown> {
     public static final MapCodec<UseCooldownComponentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
-            EnchantmentLevelBasedValue.CODEC.fieldOf("seconds").forGetter(UseCooldownComponentEntityEffect::seconds),
+            LevelBasedValue.CODEC.fieldOf("seconds").forGetter(UseCooldownComponentEntityEffect::seconds),
             Identifier.CODEC.optionalFieldOf("cooldown_group").forGetter(UseCooldownComponentEntityEffect::cooldownGroup)
         ).apply(instance, UseCooldownComponentEntityEffect::new)
     );
 
     @Override
-    public UseCooldownComponent getComponent (int level) {
-        return new UseCooldownComponent(Math.max(this.seconds.getValue(level), 0.0001f), this.cooldownGroup);
+    public UseCooldown getComponent (int level) {
+        return new UseCooldown(Math.max(this.seconds.calculate(level), 0.0001f), this.cooldownGroup);
     }
 
     @Override
-    public ComponentType<UseCooldownComponent> getComponentType () {
-        return DataComponentTypes.USE_COOLDOWN;
+    public DataComponentType<UseCooldown> getComponentType () {
+        return DataComponents.USE_COOLDOWN;
     }
 
     @Override

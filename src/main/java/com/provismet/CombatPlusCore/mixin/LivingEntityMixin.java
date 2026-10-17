@@ -2,43 +2,42 @@ package com.provismet.CombatPlusCore.mixin;
 
 import com.provismet.CombatPlusCore.registries.CPCEntityAttributes;
 import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Hand;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    public LivingEntityMixin (EntityType<?> type, World world) {
+    public LivingEntityMixin (EntityType<?> type, Level world) {
         super(type, world);
     }
 
-    @Shadow public abstract Hand getActiveHand ();
+    @Shadow public abstract InteractionHand getUsedItemHand ();
 
-    @Shadow public abstract @Nullable ItemStack getBlockingItem ();
+    @Shadow public abstract @Nullable ItemStack getItemBlockingWith ();
 
-    @Inject(method = "getDamageBlockedAmount", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/BlocksAttacksComponent;onShieldHit(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/util/Hand;F)V", shift = At.Shift.AFTER))
-    private void applyBlockerItemEffects (ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
-        ItemStack blockingStack = this.getBlockingItem();
+    @Inject(method = "applyItemBlocking", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BlocksAttacks;hurtBlockingItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;F)V", shift = At.Shift.AFTER))
+    private void applyBlockerItemEffects (ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
+        ItemStack blockingStack = this.getItemBlockingWith();
         if (blockingStack != null) {
-            CPCCallbackUtil.postBlock(world, this.getBlockingItem(), this.getActiveHand().getEquipmentSlot(), (LivingEntity)(Object)this, source, amount);
+            CPCCallbackUtil.postBlock(world, this.getItemBlockingWith(), this.getUsedItemHand().asEquipmentSlot(), (LivingEntity)(Object)this, source, amount);
         }
     }
 
     @Inject(method = "createLivingAttributes", at = @At("RETURN"))
-    private static void addCPCAttributes (CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+    private static void addCPCAttributes (CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
         cir.getReturnValue()
             .add(CPCEntityAttributes.PROTECTION_EFFECTIVENESS, 1);
     }

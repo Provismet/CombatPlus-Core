@@ -3,10 +3,10 @@ package com.provismet.CombatPlusCore.enchantment.effect.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 
 /**
  * Triggers the attacker's on-critical-hit effect against the target.
@@ -15,12 +15,12 @@ public record WeaponPostCriticalEffect () implements CPCEnchantmentEntityEffect 
     public static final MapCodec<WeaponPostCriticalEffect> CODEC = MapCodec.unit(WeaponPostCriticalEffect::new);
 
     @Override
-    public void apply (ServerWorld world, int level, EnchantmentEffectContext context, Entity attacker, Entity target) {
+    public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity attacker, Entity target) {
         if (attacker instanceof LivingEntity livingAttacker && target instanceof LivingEntity livingTarget) {
-            if (context.stack().getItem() instanceof MeleeWeapon meleeWeapon)
-                meleeWeapon.postCriticalHit(context.stack(), livingAttacker, livingTarget);
-            else if (attacker.getWeaponStack().getItem() instanceof MeleeWeapon meleeWeapon)
-                meleeWeapon.postCriticalHit(attacker.getWeaponStack(), livingAttacker, livingTarget);
+            if (context.itemStack().getItem() instanceof MeleeWeapon meleeWeapon)
+                meleeWeapon.postCriticalHit(context.itemStack(), livingAttacker, livingTarget);
+            else if (attacker.getWeaponItem().getItem() instanceof MeleeWeapon meleeWeapon)
+                meleeWeapon.postCriticalHit(attacker.getWeaponItem(), livingAttacker, livingTarget);
         }
     }
 

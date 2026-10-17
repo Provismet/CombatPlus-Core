@@ -1,29 +1,28 @@
 package com.provismet.CombatPlusCore.mixin;
 
 import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.world.World;
-
-@Mixin(MobEntity.class)
+@Mixin(Mob.class)
 public abstract class MobEntityMixin extends LivingEntity {
-    protected MobEntityMixin (EntityType<? extends LivingEntity> entityType, World world) {
+    protected MobEntityMixin (EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
     
-    @Inject(method="tryAttack", at=@At(value="INVOKE", target="Lnet/minecraft/entity/mob/MobEntity;getAttackKnockbackAgainst(Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;)F"))
-    public void onHit (ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method="doHurtTarget", at=@At(value="INVOKE", target="Lnet/minecraft/world/entity/Mob;getKnockback(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)F"))
+    public void onHit (ServerLevel world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (target instanceof LivingEntity living) {
-            CPCCallbackUtil.postChargedHit(world, this.getMainHandStack(), EquipmentSlot.MAINHAND, this, living);
+            CPCCallbackUtil.postChargedHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, living);
         }
     }
 }

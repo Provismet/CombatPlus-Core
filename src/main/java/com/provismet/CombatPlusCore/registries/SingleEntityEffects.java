@@ -8,9 +8,9 @@ import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.DamageEquipm
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.FreezeEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.HealEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.SetCooldownEnchantmentEffect;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 
 public class SingleEntityEffects {
     public static void register () {
@@ -23,6 +23,6 @@ public class SingleEntityEffects {
     }
 
     private static void registerEntityEffect (String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
-        Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, CPCMain.identifier(name), codec);
+        Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, CPCMain.identifier(name), codec);
     }
 }

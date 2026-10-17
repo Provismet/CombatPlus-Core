@@ -4,19 +4,18 @@ import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCDamageTypeTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.DamageTypeTags;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageTypes;
 import java.util.concurrent.CompletableFuture;
 
 public class DamageTypeTagGenerator extends LilyTagProviders.LilyDamageTypeTagProvider {
-    public DamageTypeTagGenerator (FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public DamageTypeTagGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure (RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags (HolderLookup.Provider wrapperLookup) {
         this.builder(CPCDamageTypeTags.STANDARD_ATTACK)
             .addOptionalTag(DamageTypeTags.IS_PLAYER_ATTACK)
             .add(DamageTypes.MOB_ATTACK)

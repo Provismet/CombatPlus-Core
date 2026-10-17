@@ -6,19 +6,19 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.Appl
 import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToTargetCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToUserCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.DoubleEntityLambdaCondition;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public abstract class DoubleEntityLootConditionTypes {
-    public static final LootConditionType LAMBDA = register("code_execution_double_entity_condition", DoubleEntityLambdaCondition.CODEC);
-    public static final LootConditionType APPLY_TO_BOTH = register("apply_to_both", ApplyToBothCondition.CODEC);
-    public static final LootConditionType APPLY_TO_USER = register("apply_to_user", ApplyToUserCondition.CODEC);
-    public static final LootConditionType APPLY_TO_TARGET = register("apply_to_target", ApplyToTargetCondition.CODEC);
+    public static final LootItemConditionType LAMBDA = register("code_execution_double_entity_condition", DoubleEntityLambdaCondition.CODEC);
+    public static final LootItemConditionType APPLY_TO_BOTH = register("apply_to_both", ApplyToBothCondition.CODEC);
+    public static final LootItemConditionType APPLY_TO_USER = register("apply_to_user", ApplyToUserCondition.CODEC);
+    public static final LootItemConditionType APPLY_TO_TARGET = register("apply_to_target", ApplyToTargetCondition.CODEC);
 
-    private static LootConditionType register (String name, MapCodec<? extends LootCondition> codec) {
-        return Registry.register(Registries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootConditionType(codec));
+    private static LootItemConditionType register (String name, MapCodec<? extends LootItemCondition> codec) {
+        return Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootItemConditionType(codec));
     }
 
     public static void init () {}

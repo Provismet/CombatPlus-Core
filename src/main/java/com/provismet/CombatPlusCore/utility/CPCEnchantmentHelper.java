@@ -4,28 +4,27 @@ import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
-import net.minecraft.enchantment.effect.EnchantmentValueEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.random.Random;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 import java.util.List;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
+import net.minecraft.world.level.storage.loot.LootContext;
 
 /**
  * Enchantment helper to apply hooks from Combat+ enchantment components.
@@ -34,7 +33,7 @@ import java.util.List;
  */
 public class CPCEnchantmentHelper {
     /**
-     * Replaces the original {@link EnchantmentHelper#getDamage} to provide gamerule compatible damage and multi-item damage bonuses.
+     * Replaces the original {@link EnchantmentHelper#modifyDamage} to provide gamerule compatible damage and multi-item damage bonuses.
      *
      * @param world The world.
      * @param itemStack The enchanted item.
@@ -43,24 +42,24 @@ public class CPCEnchantmentHelper {
      * @param baseDamage The initial damage amount for the attack.
      * @return The total damage dealt.
      */
-    public static float getDamage (ServerWorld world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
+    public static float getDamage (ServerLevel world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
         MutableFloat damage = new MutableFloat();
         damage.add(CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, damageSource, 0));
-        if (target instanceof PlayerEntity) damage.setValue(damage.floatValue() * world.getGameRules().getValue(CPCGameRules.PVP_DAMAGE_MODIFIER));
+        if (target instanceof Player) damage.setValue(damage.floatValue() * world.getGameRules().get(CPCGameRules.PVP_DAMAGE_MODIFIER));
         damage.add(baseDamage);
 
         CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
             enchantment.value().modifyDamage(world, level, itemStack, target, damageSource, damage);
         }, itemStack);
 
-        if (damageSource.getAttacker() instanceof LivingEntity attacker) {
+        if (damageSource.getEntity() instanceof LivingEntity attacker) {
             for (EquipmentSlot slot : EquipmentSlot.values()) {
-                ItemStack equippedItem = attacker.getEquippedStack(slot);
+                ItemStack equippedItem = attacker.getItemBySlot(slot);
                 if (equippedItem == null || equippedItem.isEmpty()) continue;
 
                 CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-                    if (enchantment.value().slotMatches(slot))
-                        enchantment.value().modifyValue(CPCEnchantmentComponentTypes.BONUS_DAMAGE, world, level, itemStack, attacker, damageSource, damage);
+                    if (enchantment.value().matchingSlot(slot))
+                        enchantment.value().modifyDamageFilteredValue(CPCEnchantmentComponentTypes.BONUS_DAMAGE, world, level, itemStack, attacker, damageSource, damage);
                 }, equippedItem);
             }
         }
@@ -76,11 +75,11 @@ public class CPCEnchantmentHelper {
      * @param target The entity that was struck.
      * @param slot The equipment slot to trigger callbacks for.
      */
-    public static void postChargedHit (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK)) {
-                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
-                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
+    public static void postChargedHit (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK)) {
+                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
             }
         }, user, slot);
     }
@@ -93,11 +92,11 @@ public class CPCEnchantmentHelper {
      * @param target The entity that was struck.
      * @param slot The equipment slot to trigger callbacks for.
      */
-    public static void postCriticalHit (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK)) {
-                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
-                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
+    public static void postCriticalHit (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK)) {
+                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
             }
         }, user, slot);
     }
@@ -110,20 +109,20 @@ public class CPCEnchantmentHelper {
      * @param target The entity that was struck.
      * @param slot The equipment slot to trigger callbacks for.
      */
-    public static void postKill (ServerWorld world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_KILL)) {
-                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getEquippedStack(slot));
-                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, target);
+    public static void postKill (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_KILL)) {
+                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
             }
         }, user, slot);
     }
 
-    public static void postBlock (ServerWorld world, LivingEntity user, Entity attacker, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> {
-            for (EnchantmentEffectEntry<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffect(CPCEnchantmentComponentTypes.POST_BLOCK)) {
-                LootContext conditional = CPCLootContext.createReversedDoubleEntity(world, level, user, attacker, user.getEquippedStack(slot));
-                if (effect.test(conditional)) effect.effect().apply(world, level, context, user, attacker);
+    public static void postBlock (ServerLevel world, LivingEntity user, Entity attacker, EquipmentSlot slot) {
+        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_BLOCK)) {
+                LootContext conditional = CPCLootContext.createReversedDoubleEntity(world, level, user, attacker, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, attacker);
             }
         }, user, slot);
     }
@@ -137,9 +136,9 @@ public class CPCEnchantmentHelper {
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<EnchantmentValueEffect> valueType, Random random, ItemStack itemStack, float base) {
+    public static float modifyValue (DataComponentType<EnchantmentValueEffect> valueType, RandomSource random, ItemStack itemStack, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, random, level, value), itemStack);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyUnfilteredValue(valueType, random, level, value), itemStack);
         return value.floatValue();
     }
 
@@ -152,9 +151,9 @@ public class CPCEnchantmentHelper {
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack itemStack, float base) {
+    public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, itemStack, value), itemStack);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyItemFilteredCount(valueType, world, level, itemStack, value), itemStack);
         return value.floatValue();
     }
 
@@ -168,9 +167,9 @@ public class CPCEnchantmentHelper {
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack itemStack, Entity user, float base) {
+    public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, Entity user, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, itemStack, user, value), itemStack);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyEntityFilteredValue(valueType, world, level, itemStack, user, value), itemStack);
         return value.floatValue();
     }
 
@@ -185,15 +184,15 @@ public class CPCEnchantmentHelper {
      * @param base The original float value.
      * @return The new float value.
      */
-    public static float modifyValue (ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> valueType, ServerWorld world, ItemStack itemStack, Entity user, DamageSource damageSource, float base) {
+    public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, Entity user, DamageSource damageSource, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyValue(valueType, world, level, itemStack, user, damageSource, value), itemStack);
+        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyDamageFilteredValue(valueType, world, level, itemStack, user, damageSource, value), itemStack);
         return value.floatValue();
     }
 
     public static void forEachEnchantment (Consumer consumer, ItemStack item) {
-        ItemEnchantmentsComponent itemEnchantmentsComponent = item.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : itemEnchantmentsComponent.getEnchantmentEntries()) {
+        ItemEnchantments itemEnchantmentsComponent = item.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemEnchantmentsComponent.entrySet()) {
             consumer.accept(entry.getKey(), entry.getIntValue());
         }
     }
@@ -206,7 +205,7 @@ public class CPCEnchantmentHelper {
      * @param slot The equipment slot the item is in.
      */
     public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getEquippedStack(slot));
+        CPCEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getItemBySlot(slot));
     }
 
     /**
@@ -220,22 +219,22 @@ public class CPCEnchantmentHelper {
     public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot, ItemStack itemStack) {
         if (itemStack.isEmpty()) return;
 
-        ItemEnchantmentsComponent enchantments = itemStack.getEnchantments();
+        ItemEnchantments enchantments = itemStack.getEnchantments();
         if (enchantments.isEmpty()) return;
 
-        EnchantmentEffectContext context = new EnchantmentEffectContext(itemStack, slot, user);
-        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantments.getEnchantmentEntries()) {
-            if (entry.getKey().value().slotMatches(slot)) consumer.accept(entry.getKey(), entry.getIntValue(), context);
+        EnchantedItemInUse context = new EnchantedItemInUse(itemStack, slot, user);
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
+            if (entry.getKey().value().matchingSlot(slot)) consumer.accept(entry.getKey(), entry.getIntValue(), context);
         }
     }
 
     @FunctionalInterface
     public interface Consumer {
-        void accept(RegistryEntry<Enchantment> enchantment, int level);
+        void accept(Holder<Enchantment> enchantment, int level);
     }
 
     @FunctionalInterface
     public interface ContextConsumer {
-        void accept(RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context);
+        void accept(Holder<Enchantment> enchantment, int level, EnchantedItemInUse context);
     }
 }

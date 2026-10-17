@@ -19,9 +19,6 @@ import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,16 +28,19 @@ import com.provismet.CombatPlusCore.utility.CPCGameRules;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 
 public class CPCMain implements ModInitializer {
     public static final String MODID = "combat-plus";
     public static final Logger LOGGER = LoggerFactory.getLogger("Combat+ Core");
 
     public static Identifier identifier (String path) {
-        return Identifier.of(MODID, path);
+        return Identifier.fromNamespaceAndPath(MODID, path);
     }
 
     @Override
@@ -63,22 +63,22 @@ public class CPCMain implements ModInitializer {
         LilyResourceConditions.register();
 
         FabricLoader.getInstance().getModContainer(MODID).ifPresent(container -> {
-            ResourceLoader.registerBuiltinPack(identifier("enchanted_numerals"), container, Text.translatable("resourcepack.combat-plus.enchanted_numerals"), PackActivationType.DEFAULT_ENABLED);
-            ResourceLoader.registerBuiltinPack(identifier("enchanted_numbers"), container, Text.translatable("resourcepack.combat-plus.enchanted_numbers"), PackActivationType.NORMAL);
+            ResourceLoader.registerBuiltinPack(identifier("enchanted_numerals"), container, Component.translatable("resourcepack.combat-plus.enchanted_numerals"), PackActivationType.DEFAULT_ENABLED);
+            ResourceLoader.registerBuiltinPack(identifier("enchanted_numbers"), container, Component.translatable("resourcepack.combat-plus.enchanted_numbers"), PackActivationType.NORMAL);
         });
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
             CPCDebugItems.register();
-            ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-                CPCDebugItems.getOptionalDebugItem().ifPresent(item -> content.add(item, ItemGroup.StackVisibility.SEARCH_TAB_ONLY));
-                CPCDebugItems.getOptionalDebugShield().ifPresent(item -> content.add(item, ItemGroup.StackVisibility.SEARCH_TAB_ONLY));
+            ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(content -> {
+                CPCDebugItems.getOptionalDebugItem().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
+                CPCDebugItems.getOptionalDebugShield().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
             });
         }
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target, damageSource) -> {
             if (entity instanceof LivingEntity user) {
-                CPCCallbackUtil.postKill(world, user.getMainHandStack(), EquipmentSlot.MAINHAND, user, target);
+                CPCCallbackUtil.postKill(world, user.getMainHandItem(), EquipmentSlot.MAINHAND, user, target);
             }
         });
 

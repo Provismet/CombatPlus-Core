@@ -1,33 +1,32 @@
 package com.provismet.CombatPlusCore.enchantment.loot.condition;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.context.ContextParameter;
-
 import java.util.Set;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public interface SingleEntityCondition extends LootCondition {
+public interface SingleEntityCondition extends LootItemCondition {
     @Override
-    default Set<ContextParameter<?>> getAllowedParameters () {
+    default Set<ContextKey<?>> getReferencedContextParams () {
         return ImmutableSet.of(
-            LootContextParameters.ORIGIN,
-            LootContextParameters.THIS_ENTITY,
-            LootContextParameters.ENCHANTMENT_LEVEL
+            LootContextParams.ORIGIN,
+            LootContextParams.THIS_ENTITY,
+            LootContextParams.ENCHANTMENT_LEVEL
         );
     }
 
-    static Set<ContextParameter<?>> getExtendedRequiredParameters () {
+    static Set<ContextKey<?>> getExtendedRequiredParameters () {
         return ImmutableSet.of(
-            LootContextParameters.ORIGIN,
-            LootContextParameters.THIS_ENTITY,
-            LootContextParameters.ENCHANTMENT_LEVEL,
-            LootContextParameters.TOOL
+            LootContextParams.ORIGIN,
+            LootContextParams.THIS_ENTITY,
+            LootContextParams.ENCHANTMENT_LEVEL,
+            LootContextParams.TOOL
         );
     }
 
     @FunctionalInterface
-    interface Builder extends LootCondition.Builder {
+    interface Builder extends LootItemCondition.Builder {
         SingleEntityCondition build ();
     }
 }

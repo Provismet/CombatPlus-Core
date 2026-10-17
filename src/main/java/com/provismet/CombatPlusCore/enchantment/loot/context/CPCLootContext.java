@@ -1,16 +1,16 @@
 package com.provismet.CombatPlusCore.enchantment.loot.context;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.context.ContextParameter;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 /**
  * Utility class for Combat+ loot contexts.
@@ -18,45 +18,45 @@ import java.util.Optional;
  * @see com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition
  */
 public final class CPCLootContext {
-    public static LootContext createDoubleEntity (ServerWorld world, int level, Entity attacker, Entity target, ItemStack heldItem) {
-        LootWorldContext paramSet = new LootWorldContext.Builder(world)
-            .add(LootContextParameters.THIS_ENTITY, attacker)
-            .add(LootContextParameters.ATTACKING_ENTITY, attacker)
-            .add(CPCLootContextParameters.TARGET_ENTITY, target)
-            .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
-            .add(LootContextParameters.TOOL, heldItem)
-            .add(LootContextParameters.ORIGIN, attacker.getEntityPos())
-            .build(CPCLootContextTypes.DOUBLE_ENTITY);
+    public static LootContext createDoubleEntity (ServerLevel world, int level, Entity attacker, Entity target, ItemStack heldItem) {
+        LootParams paramSet = new LootParams.Builder(world)
+            .withParameter(LootContextParams.THIS_ENTITY, attacker)
+            .withParameter(LootContextParams.ATTACKING_ENTITY, attacker)
+            .withParameter(CPCLootContextParameters.TARGET_ENTITY, target)
+            .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
+            .withParameter(LootContextParams.TOOL, heldItem)
+            .withParameter(LootContextParams.ORIGIN, attacker.position())
+            .create(CPCLootContextTypes.DOUBLE_ENTITY);
 
-        return new LootContext.Builder(paramSet).build(Optional.empty());
+        return new LootContext.Builder(paramSet).create(Optional.empty());
     }
 
-    public static LootContext createReversedDoubleEntity (ServerWorld world, int level, Entity target, Entity attacker, ItemStack heldItem) {
-        LootWorldContext paramSet = new LootWorldContext.Builder(world)
-            .add(LootContextParameters.THIS_ENTITY, target)
-            .add(LootContextParameters.ATTACKING_ENTITY, attacker)
-            .add(CPCLootContextParameters.TARGET_ENTITY, target)
-            .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
-            .add(LootContextParameters.TOOL, heldItem)
-            .add(LootContextParameters.ORIGIN, target.getEntityPos())
-            .build(CPCLootContextTypes.DOUBLE_ENTITY);
+    public static LootContext createReversedDoubleEntity (ServerLevel world, int level, Entity target, Entity attacker, ItemStack heldItem) {
+        LootParams paramSet = new LootParams.Builder(world)
+            .withParameter(LootContextParams.THIS_ENTITY, target)
+            .withParameter(LootContextParams.ATTACKING_ENTITY, attacker)
+            .withParameter(CPCLootContextParameters.TARGET_ENTITY, target)
+            .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
+            .withParameter(LootContextParams.TOOL, heldItem)
+            .withParameter(LootContextParams.ORIGIN, target.position())
+            .create(CPCLootContextTypes.DOUBLE_ENTITY);
 
-        return new LootContext.Builder(paramSet).build(Optional.empty());
+        return new LootContext.Builder(paramSet).create(Optional.empty());
     }
 
-    public static LootContext createSingleEntity (ServerWorld world, int level, Entity entity, @Nullable ItemStack heldItem) {
-        ItemStack weaponStack = heldItem == null ? entity.getWeaponStack() : heldItem;
-        LootWorldContext paramSet = new LootWorldContext.Builder(world)
-            .add(LootContextParameters.THIS_ENTITY, entity)
-            .add(LootContextParameters.ENCHANTMENT_LEVEL, level)
-            .add(LootContextParameters.ORIGIN, entity.getEntityPos())
-            .add(LootContextParameters.TOOL, weaponStack)
-            .build(CPCLootContextTypes.SINGLE_ENTITY);
+    public static LootContext createSingleEntity (ServerLevel world, int level, Entity entity, @Nullable ItemStack heldItem) {
+        ItemStack weaponStack = heldItem == null ? entity.getWeaponItem() : heldItem;
+        LootParams paramSet = new LootParams.Builder(world)
+            .withParameter(LootContextParams.THIS_ENTITY, entity)
+            .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
+            .withParameter(LootContextParams.ORIGIN, entity.position())
+            .withParameter(LootContextParams.TOOL, weaponStack)
+            .create(CPCLootContextTypes.SINGLE_ENTITY);
 
-        return new LootContext.Builder(paramSet).build(Optional.empty());
+        return new LootContext.Builder(paramSet).create(Optional.empty());
     }
 
-    public enum Comparison implements StringIdentifiable {
+    public enum Comparison implements StringRepresentable {
         LESS_THAN("<") {
             @Override
             public boolean compare (float left, float right) {
@@ -88,7 +88,7 @@ public final class CPCLootContext {
             }
         };
 
-        public static final StringIdentifiable.EnumCodec<CPCLootContext.Comparison> CODEC;
+        public static final StringRepresentable.EnumCodec<CPCLootContext.Comparison> CODEC;
         private final String type;
 
         Comparison (String type) {
@@ -98,35 +98,35 @@ public final class CPCLootContext {
         public abstract boolean compare (float left, float right);
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return this.type;
         }
 
         static {
-            CODEC = StringIdentifiable.createCodec(CPCLootContext.Comparison::values);
+            CODEC = StringRepresentable.fromEnum(CPCLootContext.Comparison::values);
         }
     }
 
-    public enum EntityTarget implements StringIdentifiable {
-        THIS("this", LootContextParameters.THIS_ENTITY),
-        ATTACKER("attacker", LootContextParameters.ATTACKING_ENTITY),
+    public enum EntityTarget implements StringRepresentable {
+        THIS("this", LootContextParams.THIS_ENTITY),
+        ATTACKER("attacker", LootContextParams.ATTACKING_ENTITY),
         TARGET("target_entity", CPCLootContextParameters.TARGET_ENTITY);
 
-        public static final StringIdentifiable.EnumCodec<CPCLootContext.EntityTarget> CODEC;
+        public static final StringRepresentable.EnumCodec<CPCLootContext.EntityTarget> CODEC;
         private final String type;
-        private final ContextParameter<? extends Entity> parameter;
+        private final ContextKey<? extends Entity> parameter;
 
-        private EntityTarget (String type, ContextParameter<? extends Entity> parameter) {
+        private EntityTarget (String type, ContextKey<? extends Entity> parameter) {
             this.type = type;
             this.parameter = parameter;
         }
 
-        public ContextParameter<? extends Entity> getParameter() {
+        public ContextKey<? extends Entity> getParameter() {
             return this.parameter;
         }
 
         public static CPCLootContext.EntityTarget fromString (String type) {
-            CPCLootContext.EntityTarget entityTarget = CODEC.byId(type);
+            CPCLootContext.EntityTarget entityTarget = CODEC.byName(type);
             if (entityTarget != null) {
                 return entityTarget;
             }
@@ -134,12 +134,12 @@ public final class CPCLootContext {
         }
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return this.type;
         }
 
         static {
-            CODEC = StringIdentifiable.createCodec(CPCLootContext.EntityTarget::values);
+            CODEC = StringRepresentable.fromEnum(CPCLootContext.EntityTarget::values);
         }
     }
 }

@@ -2,8 +2,8 @@ package com.provismet.CombatPlusCore.utility;
 
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.lilylib.container.DamageTypeContainer;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.Registerable;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.damagesource.DamageType;
 
 public abstract class CPCDamageTypes {
     public static final DamageTypeContainer POISON = new DamageTypeContainer(
@@ -11,7 +11,7 @@ public abstract class CPCDamageTypes {
         new DamageType("lethal_poison", 0.1f)
     );
 
-    public static void bootstrap (Registerable<DamageType> registerable) {
+    public static void bootstrap (BootstrapContext<DamageType> registerable) {
         registerable.register(POISON.getKey(), POISON.getDamageType());
     }
 }

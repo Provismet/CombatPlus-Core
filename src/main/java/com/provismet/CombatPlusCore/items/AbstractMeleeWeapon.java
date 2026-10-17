@@ -1,21 +1,21 @@
 package com.provismet.CombatPlusCore.items;
 
 import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AbstractMeleeWeapon extends Item implements MeleeWeapon {
-    protected AbstractMeleeWeapon (Settings settings) {
+    protected AbstractMeleeWeapon (Properties settings) {
         super(settings);
     }
 
     @Override
-    public boolean canMine (ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity user) {
-        if (user.isInCreativeMode()) return false;
-        return super.canMine(stack, state, world, pos, user);
+    public boolean canDestroyBlock (ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {
+        if (user.hasInfiniteMaterials()) return false;
+        return super.canDestroyBlock(stack, state, world, pos, user);
     }
 }
