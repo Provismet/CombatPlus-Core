@@ -2,7 +2,6 @@ package com.provismet.CombatPlusCore.loot.functions;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.registries.CPCLootFunctionTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
@@ -12,8 +11,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -33,8 +33,9 @@ public class EnchantRandomlyFromTagLootFunction extends AbstractEnchantmentLootF
     }
 
     @Override
-    public LootItemFunctionType<? extends LootItemConditionalFunction> getType () {
-        return CPCLootFunctionTypes.ENCHANT_FROM_TAG;
+    @NotNull
+    public MapCodec<? extends LootItemConditionalFunction> codec () {
+        return CODEC;
     }
 
     @Override

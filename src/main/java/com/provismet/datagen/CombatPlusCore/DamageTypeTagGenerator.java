@@ -3,14 +3,15 @@ package com.provismet.datagen.CombatPlusCore;
 import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCDamageTypeTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageTypes;
+
 import java.util.concurrent.CompletableFuture;
 
 public class DamageTypeTagGenerator extends LilyTagProviders.LilyDamageTypeTagProvider {
-    public DamageTypeTagGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public DamageTypeTagGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

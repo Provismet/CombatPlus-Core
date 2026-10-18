@@ -2,7 +2,6 @@ package com.provismet.CombatPlusCore.loot.functions;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.registries.CPCLootFunctionTypes;
 import com.provismet.lilylib.container.EnchantmentContainer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -13,8 +12,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,11 +31,12 @@ public class EnchantRandomlyFromKeyLootFunction extends AbstractEnchantmentLootF
     }
 
     @Override
-    public LootItemFunctionType<? extends LootItemConditionalFunction> getType () {
-        return CPCLootFunctionTypes.ENCHANT_FROM_KEY;
+    public MapCodec<? extends LootItemConditionalFunction> codec () {
+        return CODEC;
     }
 
     @Override
+    @NotNull
     protected ItemStack run (ItemStack itemStack, LootContext context) {
         if (this.keys.isEmpty()) return itemStack;
         Stream<Holder.Reference<Enchantment>> valid = this.keys

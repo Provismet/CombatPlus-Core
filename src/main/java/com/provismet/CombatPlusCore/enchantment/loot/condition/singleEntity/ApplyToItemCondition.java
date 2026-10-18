@@ -4,13 +4,13 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.ItemCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import java.util.Set;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Applies a condition to the item associated with this single entity condition (typically a held item).
@@ -21,17 +21,13 @@ public record ApplyToItemCondition(LootItemCondition condition) implements Singl
     public static final MapCodec<ApplyToItemCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootItemCondition.DIRECT_CODEC.fieldOf("applied_condition").forGetter(ApplyToItemCondition::condition)).apply(instance, ApplyToItemCondition::new));
 
     @Override
-    public LootItemConditionType getType () {
-        return SingleEntityLootConditionTypes.APPLY_TO_ITEM;
-    }
-
-    @Override
     public boolean test (LootContext lootContext) {
         if (lootContext.getOptionalParameter(LootContextParams.TOOL) == null) return false;
         return this.condition.test(lootContext);
     }
 
     @Override
+    @NotNull
     public Set<ContextKey<?>> getReferencedContextParams() {
         return SingleEntityCondition.getExtendedRequiredParameters();
     }
@@ -50,5 +46,11 @@ public record ApplyToItemCondition(LootItemCondition condition) implements Singl
 
     public static SingleEntityCondition.Builder builder (LootItemCondition.Builder condition) {
         return () -> new ApplyToItemCondition((condition.build()));
+    }
+
+    @Override
+    @NotNull
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 }

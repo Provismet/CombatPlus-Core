@@ -6,15 +6,16 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondi
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
-import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
-import java.util.Set;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Applies a single condition to both the attacker and the target.
@@ -27,6 +28,7 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
     }
 
     @Override
+    @NotNull
     public Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(
             LootContextParams.THIS_ENTITY,
@@ -38,16 +40,17 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
     }
 
     @Override
-    public LootItemConditionType getType () {
-        return DoubleEntityLootConditionTypes.APPLY_TO_BOTH;
+    @NotNull
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 
     @Override
     public boolean test (LootContext lootContext) {
         Entity attacker = lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY);
         Entity target = lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY);
-        Integer level = lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL);
-        ItemStack item = lootContext.getOptionalParameter(LootContextParams.TOOL);
+        int level = Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0);
+        ItemInstance item = lootContext.getOptionalParameter(LootContextParams.TOOL);
 
         LootContext attackerContext = CPCLootContext.createSingleEntity(lootContext.getLevel(), level, attacker, item);
         LootContext targetContext = CPCLootContext.createSingleEntity(lootContext.getLevel(), level, target, null);

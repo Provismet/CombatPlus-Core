@@ -4,11 +4,12 @@ import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
-import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * Applies a single condition to the attacker.
@@ -21,15 +22,10 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
     }
 
     @Override
-    public LootItemConditionType getType () {
-        return DoubleEntityLootConditionTypes.APPLY_TO_USER;
-    }
-
-    @Override
     public boolean test (LootContext lootContext) {
         LootContext userContext = CPCLootContext.createSingleEntity(
             lootContext.getLevel(),
-            lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL),
+            Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0),
             lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY),
             lootContext.getOptionalParameter(LootContextParams.TOOL)
         );
@@ -50,5 +46,11 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
 
     public static DoubleEntityCondition.Builder builder (LootItemCondition condition) {
         return () -> new ApplyToUserCondition(condition);
+    }
+
+    @Override
+    @NotNull
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 }

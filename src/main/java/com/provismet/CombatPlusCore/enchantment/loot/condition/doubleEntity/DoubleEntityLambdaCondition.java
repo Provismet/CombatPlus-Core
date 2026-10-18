@@ -4,16 +4,15 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextParameters;
-import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import java.util.Optional;
-import java.util.function.Predicate;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+
+import java.util.function.Predicate;
 
 /**
  * Executes a registered predicate against the pair of entities.
@@ -22,11 +21,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
  */
 public record DoubleEntityLambdaCondition (Identifier function) implements DoubleEntityCondition {
     public static final MapCodec<DoubleEntityLambdaCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(DoubleEntityLambdaCondition::function)).apply(instance, DoubleEntityLambdaCondition::new));
-
-    @Override
-    public LootItemConditionType getType () {
-        return DoubleEntityLootConditionTypes.LAMBDA;
-    }
 
     @Override
     public boolean test (LootContext lootContext) {
@@ -39,5 +33,10 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
 
     public static DoubleEntityCondition.Builder builder (Identifier function) {
         return () -> new DoubleEntityLambdaCondition(function);
+    }
+
+    @Override
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 }

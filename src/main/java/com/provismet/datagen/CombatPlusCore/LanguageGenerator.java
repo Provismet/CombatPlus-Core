@@ -7,12 +7,13 @@ import com.provismet.CombatPlusCore.utility.CPCGameRules;
 import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.datagen.provider.LilyLanguageProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
+
 import java.util.concurrent.CompletableFuture;
 
 public class LanguageGenerator extends LilyLanguageProvider {
-    protected LanguageGenerator (FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    protected LanguageGenerator (FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

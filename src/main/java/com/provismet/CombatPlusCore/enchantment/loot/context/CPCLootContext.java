@@ -1,5 +1,7 @@
 package com.provismet.CombatPlusCore.enchantment.loot.context;
 
+import net.minecraft.world.item.ItemInstance;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -18,7 +20,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
  * @see com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition
  */
 public final class CPCLootContext {
-    public static LootContext createDoubleEntity (ServerLevel world, int level, Entity attacker, Entity target, ItemStack heldItem) {
+    public static LootContext createDoubleEntity (ServerLevel world, Integer level, Entity attacker, Entity target, ItemInstance heldItem) {
         LootParams paramSet = new LootParams.Builder(world)
             .withParameter(LootContextParams.THIS_ENTITY, attacker)
             .withParameter(LootContextParams.ATTACKING_ENTITY, attacker)
@@ -31,7 +33,7 @@ public final class CPCLootContext {
         return new LootContext.Builder(paramSet).create(Optional.empty());
     }
 
-    public static LootContext createReversedDoubleEntity (ServerLevel world, int level, Entity target, Entity attacker, ItemStack heldItem) {
+    public static LootContext createReversedDoubleEntity (ServerLevel world, Integer level, Entity target, Entity attacker, ItemInstance heldItem) {
         LootParams paramSet = new LootParams.Builder(world)
             .withParameter(LootContextParams.THIS_ENTITY, target)
             .withParameter(LootContextParams.ATTACKING_ENTITY, attacker)
@@ -44,8 +46,10 @@ public final class CPCLootContext {
         return new LootContext.Builder(paramSet).create(Optional.empty());
     }
 
-    public static LootContext createSingleEntity (ServerLevel world, int level, Entity entity, @Nullable ItemStack heldItem) {
-        ItemStack weaponStack = heldItem == null ? entity.getWeaponItem() : heldItem;
+    public static LootContext createSingleEntity (ServerLevel world, Integer level, Entity entity, @Nullable ItemInstance heldItem) {
+        ItemInstance weaponStack = heldItem == null ? entity.getWeaponItem() : heldItem;
+        if (weaponStack == null) weaponStack = ItemStack.EMPTY;
+
         LootParams paramSet = new LootParams.Builder(world)
             .withParameter(LootContextParams.THIS_ENTITY, entity)
             .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
@@ -98,7 +102,8 @@ public final class CPCLootContext {
         public abstract boolean compare (float left, float right);
 
         @Override
-        public String getSerializedName() {
+        @NotNull
+        public String getSerializedName () {
             return this.type;
         }
 

@@ -1,7 +1,8 @@
 {
   "pack": {
-    "pack_format": 34,
-    "supported_formats": [34, 999],
+    "pack_format": 84,
+    "min_format": 84,
+    "max_format": 999,
     "description": {
       "translate": "resourcepack.combat-plus.enchanted_numerals.description"
     }

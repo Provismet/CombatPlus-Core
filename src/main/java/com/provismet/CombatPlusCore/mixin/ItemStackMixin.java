@@ -3,6 +3,14 @@ package com.provismet.CombatPlusCore.mixin;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.PatchedDataComponentMap;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,20 +20,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.component.PatchedDataComponentMap;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.ConditionalEffect;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.ItemLike;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
     @Shadow public abstract ItemEnchantments getEnchantments ();
 
-    @Inject(method = "<init>(Lnet/minecraft/world/level/ItemLike;ILnet/minecraft/core/component/PatchedDataComponentMap;)V", at = @At("TAIL"))
-    private void loadEnchantmentDataComponents (ItemLike item, int count, PatchedDataComponentMap components, CallbackInfo info) {
+    @Inject(method = "<init>(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/PatchedDataComponentMap;)V", at = @At("TAIL"))
+    private void loadEnchantmentDataComponents (Holder<Item> item, int count, PatchedDataComponentMap components, CallbackInfo info) {
         ItemStack thisItem = (ItemStack)(Object)this;
 
         CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {

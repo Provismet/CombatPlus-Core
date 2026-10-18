@@ -1,5 +1,6 @@
 package com.provismet.CombatPlusCore;
 
+import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.event.handler.ItemEvents;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentEffects;
@@ -13,20 +14,15 @@ import com.provismet.CombatPlusCore.registries.ItemConditionTypes;
 import com.provismet.CombatPlusCore.registries.LambdaRegistry;
 import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
+import com.provismet.CombatPlusCore.utility.CPCGameRules;
+import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
-import com.provismet.CombatPlusCore.utility.CPCGameRules;
-
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -34,6 +30,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CPCMain implements ModInitializer {
     public static final String MODID = "combat-plus";
@@ -47,11 +45,11 @@ public class CPCMain implements ModInitializer {
     public void onInitialize () {
         CPCEntityAttributes.init();
         CPCRegistries.init();
-        CPCLootFunctionTypes.init();
+        CPCLootFunctionTypes.register();
         CPCEnchantmentComponentTypes.init();
-        SingleEntityLootConditionTypes.init();
-        DoubleEntityLootConditionTypes.init();
-        ItemConditionTypes.init();
+        SingleEntityLootConditionTypes.register();
+        DoubleEntityLootConditionTypes.register();
+        ItemConditionTypes.register();
         DoubleEntityEffects.register();
         LambdaRegistry.register();
         CPCGameRules.init();
@@ -70,7 +68,7 @@ public class CPCMain implements ModInitializer {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
             CPCDebugItems.register();
-            ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(content -> {
+            CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(content -> {
                 CPCDebugItems.getOptionalDebugItem().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
                 CPCDebugItems.getOptionalDebugShield().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
             });

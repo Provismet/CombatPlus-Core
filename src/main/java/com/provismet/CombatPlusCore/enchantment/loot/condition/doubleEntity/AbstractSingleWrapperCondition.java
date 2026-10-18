@@ -3,8 +3,9 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.DoubleEntityCondition;
-import java.util.function.Function;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+
+import java.util.function.Function;
 
 public abstract class AbstractSingleWrapperCondition implements DoubleEntityCondition {
     protected final LootItemCondition condition;

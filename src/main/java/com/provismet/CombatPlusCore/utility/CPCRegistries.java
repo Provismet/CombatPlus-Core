@@ -6,12 +6,12 @@ import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffec
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
-import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.function.Predicate;
 
 public class CPCRegistries {
@@ -25,7 +25,7 @@ public class CPCRegistries {
     public static final Registry<MapCodec<? extends CPCDataComponentEntityEffect<?>>> ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE = create(CPCRegistryKeys.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE);
 
     private static <T> Registry<T> create (ResourceKey<Registry<T>> key) {
-        return FabricRegistryBuilder.createSimple(key).buildAndRegister();
+        return FabricRegistryBuilder.create(key).buildAndRegister();
     }
 
     public static void init () {}

@@ -2,15 +2,16 @@ package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEnchantmentTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantments;
+
 import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentTagGenerator extends LilyTagProviders.LilyEnchantmentTagProvider {
-    public EnchantmentTagGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+    public EnchantmentTagGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 

@@ -4,15 +4,15 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.CPCMain;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
-import java.util.Optional;
-import java.util.function.Predicate;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Predicate;
 
 /**
  * Executes a registered predicate against a single entity.
@@ -20,12 +20,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
  * @param function The identifier of the predicate.
  */
 public record SingleEntityLambdaCondition (Identifier function) implements SingleEntityCondition {
-    public static final MapCodec<SingleEntityLambdaCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Identifier.CODEC.fieldOf("function").forGetter(SingleEntityLambdaCondition::function)).apply(instance, SingleEntityLambdaCondition::new));
-
-    @Override
-    public LootItemConditionType getType () {
-        return SingleEntityLootConditionTypes.LAMBDA;
-    }
+    public static final MapCodec<SingleEntityLambdaCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        Identifier.CODEC.fieldOf("function").forGetter(SingleEntityLambdaCondition::function)
+    ).apply(instance, SingleEntityLambdaCondition::new));
 
     @Override
     public boolean test (LootContext lootContext) {
@@ -41,5 +38,11 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
 
     public static SingleEntityCondition.Builder builder (Identifier function) {
         return () -> new SingleEntityLambdaCondition(function);
+    }
+
+    @Override
+    @NotNull
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 }

@@ -22,14 +22,14 @@ public class CPCDebugItems {
 
     private static final ResourceKey<Item> DEBUG_SHIELD_KEY = ResourceKey.create(Registries.ITEM, CPCMain.identifier("debug_shield"));
     private static final Item DEBUG_SHIELD = new DebugShield(new Item.Properties().stacksTo(1).durability(500)
-        .component(
+        .delayedComponent(
             DataComponents.BLOCKS_ATTACKS,
-            new BlocksAttacks(
+            context -> new BlocksAttacks(
                 0.25f,
                 1f,
                 List.of(new BlocksAttacks.DamageReduction(90f, Optional.empty(), 0f, 1f)),
                 new BlocksAttacks.ItemDamageFunction(3f, 1f, 1f),
-                Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+                Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
                 Optional.of(SoundEvents.SHIELD_BLOCK),
                 Optional.of(SoundEvents.SHIELD_BREAK)
             )

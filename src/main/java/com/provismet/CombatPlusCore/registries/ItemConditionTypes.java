@@ -8,16 +8,15 @@ import com.provismet.CombatPlusCore.enchantment.loot.condition.item.IsMeleeWeapo
 import com.provismet.CombatPlusCore.enchantment.loot.condition.item.ItemLambdaCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public abstract class ItemConditionTypes {
-    public static final LootItemConditionType LAMBDA = register("code_execution_item_condition", ItemLambdaCondition.CODEC);
-    public static final LootItemConditionType IS_MELEE_WEAPON = register("is_melee_weapon", IsMeleeWeaponCondition.CODEC);
-    public static final LootItemConditionType IS_DUAL_WEAPON = register("is_dual_weapon", IsDualWeaponCondition.CODEC);
-
-    private static LootItemConditionType register (String name, MapCodec<? extends ItemCondition> codec) {
-        return Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), new LootItemConditionType(codec));
+    public static void register () {
+        register("code_execution_item_condition", ItemLambdaCondition.CODEC);
+        register("is_melee_weapon", IsMeleeWeaponCondition.CODEC);
+        register("is_dual_weapon", IsDualWeaponCondition.CODEC);
     }
 
-    public static void init () {}
+    private static void register (String name, MapCodec<? extends ItemCondition> codec) {
+        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), codec);
+    }
 }

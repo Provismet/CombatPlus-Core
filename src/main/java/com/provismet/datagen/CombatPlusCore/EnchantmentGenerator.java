@@ -7,7 +7,7 @@ import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
 import com.provismet.lilylib.datagen.condition.DevModeResourceCondition;
 import com.provismet.lilylib.datagen.provider.LilyEnchantmentProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.advancements.criterion.DamageSourcePredicate;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.EntityTypePredicate;
@@ -30,10 +30,11 @@ import net.minecraft.world.item.enchantment.effects.Ignite;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+
 import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentGenerator extends LilyEnchantmentProvider {
-    public EnchantmentGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public EnchantmentGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

@@ -2,8 +2,8 @@ package com.provismet.datagen.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.TagAppender;
@@ -18,8 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
-    public ItemTagGenerator (FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
+    public ItemTagGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 

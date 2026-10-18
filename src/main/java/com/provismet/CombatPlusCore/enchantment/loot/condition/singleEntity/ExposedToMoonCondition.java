@@ -2,17 +2,12 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
 
 public record ExposedToMoonCondition () implements SingleEntityCondition {
     public static final MapCodec<ExposedToMoonCondition> CODEC = MapCodec.unit(ExposedToMoonCondition::new);
-
-    @Override
-    public LootItemConditionType getType () {
-        return SingleEntityLootConditionTypes.EXPOSED_TO_MOON;
-    }
 
     @Override
     public boolean test (LootContext lootContext) {
@@ -21,5 +16,11 @@ public record ExposedToMoonCondition () implements SingleEntityCondition {
 
     public static SingleEntityCondition.Builder builder () {
         return ExposedToMoonCondition::new;
+    }
+
+    @Override
+    @NotNull
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 }

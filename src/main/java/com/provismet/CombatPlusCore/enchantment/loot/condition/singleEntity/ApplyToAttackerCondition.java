@@ -5,13 +5,13 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.SingleEntityCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
-import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import java.util.Set;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Modifies a loot context to change the ATTACKING_ENTITY to THIS_ENTITY.
@@ -24,16 +24,12 @@ public record ApplyToAttackerCondition(LootItemCondition condition) implements S
     public static final MapCodec<ApplyToAttackerCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(LootItemCondition.DIRECT_CODEC.fieldOf("applied_condition").forGetter(ApplyToAttackerCondition::condition)).apply(instance, ApplyToAttackerCondition::new));
 
     @Override
+    @NotNull
     public Set<ContextKey<?>> getReferencedContextParams () {
         return ImmutableSet.of(
             LootContextParams.ENCHANTMENT_LEVEL,
             LootContextParams.ATTACKING_ENTITY
         );
-    }
-
-    @Override
-    public LootItemConditionType getType () {
-        return SingleEntityLootConditionTypes.APPLY_TO_ATTACKER;
     }
 
     @Override
@@ -53,5 +49,11 @@ public record ApplyToAttackerCondition(LootItemCondition condition) implements S
 
     public static SingleEntityCondition.Builder builder (SingleEntityCondition.Builder condition) {
         return () -> new ApplyToAttackerCondition(condition.build());
+    }
+
+    @Override
+    @NotNull
+    public MapCodec<? extends LootItemCondition> codec () {
+        return CODEC;
     }
 }
