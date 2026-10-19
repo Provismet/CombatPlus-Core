@@ -19,7 +19,7 @@ public class LanguageGenerator extends LilyLanguageProvider {
 
     @Override
     public void generateTranslations (HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add("gamerule.category.combat-plus", "Combat+");
+        translationBuilder.add("gamerule.category.combat-plus.gamerule_category", "Combat+");
         translationBuilder.add(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT.getDescriptionId(), "Sweeping Requires Enchantment");
         translationBuilder.add(CPCGameRules.LOYALTY_STAYS_IN_HAND.getDescriptionId(), "Keep Loyalty Tridents");
         translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId(), "PvP Enchantment Modifier");

@@ -15,6 +15,10 @@
     {
       "id": "#combat-plus:enchantable/offhand",
       "required": false
+    },
+    {
+      "id": "#combat-plus:enchantable/shield",
+      "required": false
     }
   ]
 }

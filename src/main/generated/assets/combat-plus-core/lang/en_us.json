@@ -9,7 +9,7 @@
   "enchantment.combat-plus.shield_logger": "Example Shield Enchantment",
   "enchantment.combat-plus.shield_logger.desc": "Logs to the console when blocking an attack for debugging purposes.",
   "enchantment.combat-plus.shield_logger.description": "Logs to the console when blocking an attack for debugging purposes.",
-  "gamerule.category.combat-plus": "Combat+",
+  "gamerule.category.combat-plus.gamerule_category": "Combat+",
   "gamerule.combat-plus.keep_loyalty_tridents": "Keep Loyalty Tridents",
   "gamerule.combat-plus.lethal_poison": "Lethal Poison",
   "gamerule.combat-plus.pvp_enchantment_modifier": "PvP Enchantment Modifier",
