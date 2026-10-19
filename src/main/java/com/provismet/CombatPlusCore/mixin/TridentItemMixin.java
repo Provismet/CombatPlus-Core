@@ -1,5 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
+import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +28,7 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TridentItem.class)
-public abstract class TridentItemMixin extends Item {
+public abstract class TridentItemMixin extends Item implements MeleeWeapon {
     public TridentItemMixin (Properties settings) {
         super(settings);
     }
