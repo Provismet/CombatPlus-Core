@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.enchantment.effect.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.resources.Identifier;
@@ -28,7 +28,7 @@ public record CodeExecutionSingleEntityEffect (Identifier function) implements E
     public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity entity, Vec3 pos) {
         Lambda lambda = CPCRegistries.SINGLE_ENTITY_LAMBDA.getValue(this.function);
         if (lambda == null) {
-            CPCMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
+            CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return;
         }
         lambda.execute(world, level, context, entity, pos);

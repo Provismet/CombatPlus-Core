@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.component.BlocksAttacksComponentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.component.CooldownGroupComponentEntityEffect;
@@ -19,6 +19,6 @@ public abstract class CPCDataComponentEffects {
     }
 
     private static void register (String name, MapCodec<? extends CPCDataComponentEntityEffect<?>> codec) {
-        Registry.register(CPCRegistries.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE, CPCMain.identifier(name), codec);
+        Registry.register(CPCRegistries.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE, CombatPlusCoreMain.identifier(name), codec);
     }
 }

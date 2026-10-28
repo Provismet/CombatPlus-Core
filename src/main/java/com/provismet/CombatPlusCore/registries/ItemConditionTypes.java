@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.ItemCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.item.IsDualWeaponCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.item.IsMeleeWeaponCondition;
@@ -17,6 +17,6 @@ public abstract class ItemConditionTypes {
     }
 
     private static void register (String name, MapCodec<? extends ItemCondition> codec) {
-        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), codec);
+        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CombatPlusCoreMain.identifier(name), codec);
     }
 }

@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.utility.tag;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -68,6 +68,6 @@ public class CPCItemTags {
     public static final TagKey<Item> SHIELD_PRIMARY_ENCHANTABLE = createItemTag("enchantable/shield_primary");
 
     private static TagKey<Item> createItemTag (String path) {
-        return TagKey.create(Registries.ITEM, CPCMain.identifier(path));
+        return TagKey.create(Registries.ITEM, CombatPlusCoreMain.identifier(path));
     }
 }

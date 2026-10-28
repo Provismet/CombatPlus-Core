@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.ApplyVelocityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.DamageEquipmentEffect;
@@ -23,6 +23,6 @@ public class SingleEntityEffects {
     }
 
     private static void registerEntityEffect (String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
-        Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, CPCMain.identifier(name), codec);
+        Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, CombatPlusCoreMain.identifier(name), codec);
     }
 }

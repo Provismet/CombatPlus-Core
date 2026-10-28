@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.registries;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
@@ -20,14 +20,14 @@ public abstract class LambdaRegistry {
     }
 
     private static void registerSingles () {
-        register("log", (world, level, context, user, pos) -> CPCMain.LOGGER.info("Single Entity Component: {} triggered this log", user.getName().getString()));
+        register("log", (world, level, context, user, pos) -> CombatPlusCoreMain.LOGGER.info("Single Entity Component: {} triggered this log", user.getName().getString()));
     }
 
     private static void registerDoubles () {
-        register("log-charged", (world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} performed a charged attack on {}", user.getName().getString(), target.getName().getString()));
-        register("log-critical", (world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} performed a critical attack on {}", user.getName().getString(), target.getName().getString()));
-        register("log-kill", (world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} killed {}", user.getName().getString(), target.getName().getString()));
-        register("log-block", ((world, level, context, user, target, pos) -> CPCMain.LOGGER.info("Double Entity Component: {} blocked an attack from {}", user.getName().getString(), target.getName().getString())));
+        register("log-charged", (world, level, context, user, target, pos) -> CombatPlusCoreMain.LOGGER.info("Double Entity Component: {} performed a charged attack on {}", user.getName().getString(), target.getName().getString()));
+        register("log-critical", (world, level, context, user, target, pos) -> CombatPlusCoreMain.LOGGER.info("Double Entity Component: {} performed a critical attack on {}", user.getName().getString(), target.getName().getString()));
+        register("log-kill", (world, level, context, user, target, pos) -> CombatPlusCoreMain.LOGGER.info("Double Entity Component: {} killed {}", user.getName().getString(), target.getName().getString()));
+        register("log-block", ((world, level, context, user, target, pos) -> CombatPlusCoreMain.LOGGER.info("Double Entity Component: {} blocked an attack from {}", user.getName().getString(), target.getName().getString())));
     }
 
     private static void registerSingleConditions () {
@@ -46,22 +46,22 @@ public abstract class LambdaRegistry {
     }
 
     private static void register (String name, CodeExecutionSingleEntityEffect.Lambda lambda) {
-        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA, CPCMain.identifier(name), lambda);
+        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA, CombatPlusCoreMain.identifier(name), lambda);
     }
 
     private static void register (String name, CodeExecutionDoubleEntityEffect.Lambda lambda) {
-        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA, CPCMain.identifier(name), lambda);
+        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA, CombatPlusCoreMain.identifier(name), lambda);
     }
 
     private static void registerSingleCondition (String name, Predicate<Entity> predicate) {
-        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
+        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
     }
 
     private static void registerDoubleCondition (String name, Predicate<Tuple<Entity,Entity>> predicate) {
-        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
+        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
     }
 
     private static void registerItemCondition (String name, Predicate<ItemStack> predicate) {
-        Registry.register(CPCRegistries.ITEM_LAMBDA_CONDITION, CPCMain.identifier(name), predicate);
+        Registry.register(CPCRegistries.ITEM_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
     }
 }

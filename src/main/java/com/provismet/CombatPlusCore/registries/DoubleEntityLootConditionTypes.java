@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToBothCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToTargetCondition;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToUserCondition;
@@ -19,6 +19,6 @@ public abstract class DoubleEntityLootConditionTypes {
     }
 
     private static void register (String name, MapCodec<? extends LootItemCondition> codec) {
-        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CPCMain.identifier(name), codec);
+        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, CombatPlusCoreMain.identifier(name), codec);
     }
 }

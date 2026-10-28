@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.enchantment.loot.context;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import java.util.function.Consumer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKeySet;
@@ -28,7 +28,7 @@ public class CPCLootContextTypes {
         ContextKeySet.Builder builder = new ContextKeySet.Builder();
         type.accept(builder);
         ContextKeySet lootContextType = builder.build();
-        Identifier identifier = CPCMain.identifier(name);
+        Identifier identifier = CombatPlusCoreMain.identifier(name);
         ContextKeySet lootContextType2 = LootContextParamSets.REGISTRY.put(identifier, lootContextType);
         if (lootContextType2 != null) {
             throw new IllegalStateException("Loot table parameter set " + identifier + " is already registered");

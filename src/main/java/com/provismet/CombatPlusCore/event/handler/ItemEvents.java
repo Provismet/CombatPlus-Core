@@ -7,8 +7,8 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-public class ItemEvents {
-    public static void RegisterComponentPhase () {
+public interface ItemEvents {
+    static void register () {
         DefaultItemComponentEvents.MODIFY.register(ItemEvents::addMeleeWeaponComponent);
     }
 

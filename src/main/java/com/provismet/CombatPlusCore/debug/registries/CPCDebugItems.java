@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.debug.registries;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.debug.items.DebugShield;
 import com.provismet.CombatPlusCore.debug.items.DebuggerItem;
 import net.fabricmc.loader.api.FabricLoader;
@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class CPCDebugItems {
-    private static final ResourceKey<Item> DEBUGGER_KEY = ResourceKey.create(Registries.ITEM, CPCMain.identifier("debugger"));
+    private static final ResourceKey<Item> DEBUGGER_KEY = ResourceKey.create(Registries.ITEM, CombatPlusCoreMain.identifier("debugger"));
     private static final Item DEBUGGER = new DebuggerItem(new Item.Properties().stacksTo(1).enchantable(1).setId(DEBUGGER_KEY).attributes(DebuggerItem.createSimpleAttributes()));
 
-    private static final ResourceKey<Item> DEBUG_SHIELD_KEY = ResourceKey.create(Registries.ITEM, CPCMain.identifier("debug_shield"));
+    private static final ResourceKey<Item> DEBUG_SHIELD_KEY = ResourceKey.create(Registries.ITEM, CombatPlusCoreMain.identifier("debug_shield"));
     private static final Item DEBUG_SHIELD = new DebugShield(new Item.Properties().stacksTo(1).durability(500)
         .delayedComponent(
             DataComponents.BLOCKS_ATTACKS,

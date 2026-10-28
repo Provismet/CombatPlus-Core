@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.enchantment.loot.condition.item;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.loot.condition.ItemCondition;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.resources.Identifier;
@@ -22,7 +22,7 @@ public record ItemLambdaCondition (Identifier function) implements ItemCondition
     public boolean test (LootContext lootContext) {
         Predicate<ItemStack> predicate = CPCRegistries.ITEM_LAMBDA_CONDITION.getValue(this.function);
         if (predicate == null) {
-            CPCMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
+            CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return false;
         }
         ItemInstance instance = lootContext.getOptionalParameter(LootContextParams.TOOL);

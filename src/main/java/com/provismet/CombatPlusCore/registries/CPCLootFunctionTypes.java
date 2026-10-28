@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.loot.functions.EnchantRandomlyFromKeyLootFunction;
 import com.provismet.CombatPlusCore.loot.functions.EnchantRandomlyFromTagLootFunction;
 import net.minecraft.core.Registry;
@@ -15,6 +15,6 @@ public abstract class CPCLootFunctionTypes {
     }
 
     private static <T extends LootItemFunction> void register (String name, MapCodec<T> codec) {
-        Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, CPCMain.identifier(name), codec);
+        Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, CombatPlusCoreMain.identifier(name), codec);
     }
 }

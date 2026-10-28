@@ -2,6 +2,7 @@ package com.provismet.CombatPlusCore;
 
 import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
+import com.provismet.CombatPlusCore.event.handler.CombatEvents;
 import com.provismet.CombatPlusCore.event.handler.ItemEvents;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentEffects;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
@@ -14,26 +15,22 @@ import com.provismet.CombatPlusCore.registries.ItemConditionTypes;
 import com.provismet.CombatPlusCore.registries.LambdaRegistry;
 import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
 import com.provismet.CombatPlusCore.utility.CPCGameRules;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CPCMain implements ModInitializer {
+public class CombatPlusCoreMain implements ModInitializer {
     public static final String MODID = "combat-plus";
     public static final Logger LOGGER = LoggerFactory.getLogger("Combat+ Core");
 
@@ -56,7 +53,9 @@ public class CPCMain implements ModInitializer {
         SingleEntityEffects.register();
         CPCDataComponentEffects.register();
         CPCDataComponentTypes.init();
-        ItemEvents.RegisterComponentPhase();
+
+        ItemEvents.register();
+        CombatEvents.register();
 
         LilyResourceConditions.register();
 
@@ -73,12 +72,6 @@ public class CPCMain implements ModInitializer {
                 CPCDebugItems.getOptionalDebugShield().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
             });
         }
-
-        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, target, damageSource) -> {
-            if (entity instanceof LivingEntity user) {
-                CPCCallbackUtil.postKill(world, user.getMainHandItem(), EquipmentSlot.MAINHAND, user, target);
-            }
-        });
 
         FabricLoader.getInstance().getEntrypointContainers(MODID, CombatPlusEntrypoint.class).forEach(
             entrypoint -> {

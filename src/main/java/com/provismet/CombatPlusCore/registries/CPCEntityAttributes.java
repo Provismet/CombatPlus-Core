@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.registries;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,6 +15,6 @@ public abstract class CPCEntityAttributes {
     public static void init () {}
 
     private static Holder<Attribute> register (String name, Attribute attribute) {
-        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, CPCMain.identifier(name), attribute);
+        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, CombatPlusCoreMain.identifier(name), attribute);
     }
 }

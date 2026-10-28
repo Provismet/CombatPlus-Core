@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.utility.tag;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import net.minecraft.core.registries.Registries;
@@ -32,6 +32,6 @@ public class CPCEnchantmentTags {
     public static final TagKey<Enchantment> ALL = createTag("all_enchantments");
 
     private static TagKey<Enchantment> createTag(String path) {
-        return TagKey.create(Registries.ENCHANTMENT, CPCMain.identifier(path));
+        return TagKey.create(Registries.ENCHANTMENT, CombatPlusCoreMain.identifier(path));
     }
 }

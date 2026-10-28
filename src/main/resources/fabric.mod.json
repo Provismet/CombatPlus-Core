@@ -17,10 +17,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.provismet.CombatPlusCore.CPCMain"
+			"com.provismet.CombatPlusCore.CombatPlusCoreMain"
 		],
 		"fabric-datagen": [
-			"com.provismet.datagen.CombatPlusCore.CPCDatagen"
+			"com.provismet.CombatPlusCore.datagen.CombatPlusCoreDatagen"
 		]
 	},
 	"mixins": [

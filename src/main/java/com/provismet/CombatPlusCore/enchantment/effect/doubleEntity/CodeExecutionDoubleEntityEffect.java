@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.enchantment.effect.doubleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
@@ -28,7 +28,7 @@ public record CodeExecutionDoubleEntityEffect (Identifier function) implements C
     public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity attacker, Entity target) {
         Lambda lambda = CPCRegistries.DOUBLE_ENTITY_LAMBDA.getValue(this.function);
         if (lambda == null) {
-            CPCMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
+            CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return;
         }
         lambda.execute(world, level, context, attacker, target, attacker.position());

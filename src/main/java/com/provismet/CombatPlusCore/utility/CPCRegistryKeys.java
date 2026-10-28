@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.utility;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
@@ -23,6 +23,6 @@ public class CPCRegistryKeys {
     public static final ResourceKey<Registry<Predicate<ItemStack>>> ITEM_CONDITION = CPCRegistryKeys.of("item_condition");
 
     private static <T> ResourceKey<Registry<T>> of (String id) {
-        return ResourceKey.createRegistryKey(CPCMain.identifier(id));
+        return ResourceKey.createRegistryKey(CombatPlusCoreMain.identifier(id));
     }
 }

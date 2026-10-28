@@ -1,4 +1,4 @@
-package com.provismet.datagen.CombatPlusCore;
+package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;

@@ -1,4 +1,4 @@
-package com.provismet.datagen.CombatPlusCore;
+package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
 import com.provismet.CombatPlusCore.registries.CPCEntityAttributes;
@@ -13,7 +13,7 @@ import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 public class LanguageGenerator extends LilyLanguageProvider {
-    protected LanguageGenerator (FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public LanguageGenerator (FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

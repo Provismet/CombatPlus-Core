@@ -1,4 +1,4 @@
-package com.provismet.datagen.CombatPlusCore;
+package com.provismet.CombatPlusCore.datagen.generator;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -7,7 +7,7 @@ import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 public class NumberGenerator extends FabricLanguageProvider {
-    protected NumberGenerator (FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public NumberGenerator (FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

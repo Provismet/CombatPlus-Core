@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.registries;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.items.component.MeleeWeaponComponent;
 import java.util.function.UnaryOperator;
 import net.minecraft.core.Registry;
@@ -16,7 +16,7 @@ public abstract class CPCDataComponentTypes {
     public static final DataComponentType<MeleeWeaponComponent> MELEE_WEAPON = register("melee_weapon", builder -> builder.persistent(MeleeWeaponComponent.CODEC).networkSynchronized(MeleeWeaponComponent.PACKET_CODEC));
 
     private static <T> DataComponentType<T> register (String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
-        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, CPCMain.identifier(name), builderOperator.apply(builderOperator.apply(DataComponentType.builder())).build());
+        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, CombatPlusCoreMain.identifier(name), builderOperator.apply(builderOperator.apply(DataComponentType.builder())).build());
     }
 
     public static void init () {}

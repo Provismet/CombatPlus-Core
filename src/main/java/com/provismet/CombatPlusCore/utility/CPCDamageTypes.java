@@ -1,13 +1,13 @@
 package com.provismet.CombatPlusCore.utility;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.lilylib.container.DamageTypeContainer;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 
 public abstract class CPCDamageTypes {
     public static final DamageTypeContainer POISON = new DamageTypeContainer(
-        CPCMain.identifier("lethal_poison"),
+        CombatPlusCoreMain.identifier("lethal_poison"),
         new DamageType("lethal_poison", 0.1f)
     );
 

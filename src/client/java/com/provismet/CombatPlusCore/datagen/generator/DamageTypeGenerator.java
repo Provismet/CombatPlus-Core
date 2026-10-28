@@ -1,4 +1,4 @@
-package com.provismet.datagen.CombatPlusCore;
+package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
 import com.provismet.lilylib.datagen.provider.LilyDamageTypeProvider;
@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 public class DamageTypeGenerator extends LilyDamageTypeProvider {
-    protected DamageTypeGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public DamageTypeGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

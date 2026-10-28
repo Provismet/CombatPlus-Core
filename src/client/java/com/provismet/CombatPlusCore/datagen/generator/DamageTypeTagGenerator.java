@@ -1,4 +1,4 @@
-package com.provismet.datagen.CombatPlusCore;
+package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
 import com.provismet.CombatPlusCore.utility.tag.CPCDamageTypeTags;

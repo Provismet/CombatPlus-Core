@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.debug.items;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.items.AbstractShieldItem;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,6 +14,6 @@ public class DebugShield extends AbstractShieldItem {
     @Override
     public void postBlock (ItemStack itemStack, LivingEntity user, DamageSource source, float damageAmount) {
         super.postBlock(itemStack, user, source, damageAmount);
-        CPCMain.LOGGER.info("Item: {} blocked an attack from {}", user, source.getDirectEntity());
+        CombatPlusCoreMain.LOGGER.info("Item: {} blocked an attack from {}", user, source.getDirectEntity());
     }
 }

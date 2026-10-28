@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.debug.items;
 
-import com.provismet.CombatPlusCore.CPCMain;
+import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.interfaces.DualWeapon;
 import com.provismet.CombatPlusCore.items.AbstractMeleeWeapon;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -24,16 +24,16 @@ public class DebuggerItem extends AbstractMeleeWeapon implements DualWeapon {
 
     @Override
     public void postChargedHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
-        CPCMain.LOGGER.info("Item: {} performed a charged hit against {}", user, target);
+        CombatPlusCoreMain.LOGGER.info("Item: {} performed a charged hit against {}", user, target);
     }
 
     @Override
     public void postCriticalHit (ItemStack itemStack, LivingEntity user, LivingEntity target) {
-        CPCMain.LOGGER.info("Item: {} performed a critical hit against {}", user, target);
+        CombatPlusCoreMain.LOGGER.info("Item: {} performed a critical hit against {}", user, target);
     }
 
     @Override
     public void postKill (ItemStack itemStack, LivingEntity user, LivingEntity target) {
-        CPCMain.LOGGER.info("Item: {} has killed {}", user, target);
+        CombatPlusCoreMain.LOGGER.info("Item: {} has killed {}", user, target);
     }
 }
