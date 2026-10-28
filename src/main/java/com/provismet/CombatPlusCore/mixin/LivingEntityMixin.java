@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.registries.CombatPlusAttributes;
 import com.provismet.CombatPlusCore.utility.CombatPlusCallbackUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -39,6 +39,6 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "createLivingAttributes", at = @At("RETURN"))
     private static void addCPCAttributes (CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
         cir.getReturnValue()
-            .add(CombatPlusEntityAttributes.PROTECTION_EFFECTIVENESS, 1);
+            .add(CombatPlusAttributes.PROTECTION_EFFECTIVENESS, 1);
     }
 }

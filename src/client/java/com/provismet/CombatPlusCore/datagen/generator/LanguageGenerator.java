@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
-import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.registries.CombatPlusAttributes;
 import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
 import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
 import com.provismet.CombatPlusCore.api.tag.CombatPlusEnchantmentTags;
@@ -48,7 +48,7 @@ public class LanguageGenerator extends LilyLanguageProvider {
         translationBuilder.add("item.combat-plus.debugger", "Example Weapon");
         translationBuilder.add("item.combat-plus.debug_shield", "Example Shield");
 
-        translationBuilder.add(CombatPlusEntityAttributes.PROTECTION_EFFECTIVENESS, "Protection Effectiveness");
+        translationBuilder.add(CombatPlusAttributes.PROTECTION_EFFECTIVENESS, "Protection Effectiveness");
 
         CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Weapon Enchantment", "Logs attacks to the console for debugging purposes."));
         CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Shield Enchantment", "Logs to the console when blocking an attack for debugging purposes."));

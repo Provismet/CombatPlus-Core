@@ -7,7 +7,7 @@ import com.provismet.CombatPlusCore.event.handler.ItemEvents;
 import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentEffects;
 import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
 import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.registries.CombatPlusAttributes;
 import com.provismet.CombatPlusCore.registries.CombatPlusLootFunctionTypes;
 import com.provismet.CombatPlusCore.registries.DoubleEntityEffects;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
@@ -40,7 +40,7 @@ public class CombatPlusCoreMain implements ModInitializer {
 
     @Override
     public void onInitialize () {
-        CombatPlusEntityAttributes.init();
+        CombatPlusAttributes.init();
         CombatPlusRegistries.init();
         CombatPlusLootFunctionTypes.register();
         CombatPlusEnchantmentComponentTypes.init();

@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.registries.CombatPlusAttributes;
 import com.provismet.CombatPlusCore.utility.CombatPlusEnchantmentHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,6 +23,6 @@ public abstract class EnchantmentHelperMixin {
     @Inject(method = "getDamageProtection", at = @At("RETURN"), cancellable = true)
     private static void modifyProtection (ServerLevel world, LivingEntity user, DamageSource damageSource, CallbackInfoReturnable<Float> cir) {
         Float out = cir.getReturnValue();
-        cir.setReturnValue(out * (float)user.getAttributeValue(CombatPlusEntityAttributes.PROTECTION_EFFECTIVENESS));
+        cir.setReturnValue(out * (float)user.getAttributeValue(CombatPlusAttributes.PROTECTION_EFFECTIVENESS));
     }
 }
