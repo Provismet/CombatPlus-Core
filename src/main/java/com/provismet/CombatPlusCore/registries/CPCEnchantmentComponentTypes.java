@@ -2,9 +2,9 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.Codec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContextTypes;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.loot.context.CPCLootContextTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;

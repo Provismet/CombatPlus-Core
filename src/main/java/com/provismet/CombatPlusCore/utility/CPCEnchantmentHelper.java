@@ -1,8 +1,8 @@
 package com.provismet.CombatPlusCore.utility;
 
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.loot.context.CPCLootContext;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.loot.context.CPCLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import org.apache.commons.lang3.mutable.MutableFloat;
 

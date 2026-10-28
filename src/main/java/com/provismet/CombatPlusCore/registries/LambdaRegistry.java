@@ -1,8 +1,8 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import java.util.function.Predicate;
 import net.minecraft.core.Registry;

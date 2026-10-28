@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.event.handler;
 
-import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
-import com.provismet.CombatPlusCore.items.component.MeleeWeaponComponent;
+import com.provismet.CombatPlusCore.api.item.interfaces.MeleeWeapon;
+import com.provismet.CombatPlusCore.api.item.component.MeleeWeaponComponent;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.minecraft.core.component.DataComponents;

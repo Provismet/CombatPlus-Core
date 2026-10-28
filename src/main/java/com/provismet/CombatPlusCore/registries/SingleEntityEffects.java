@@ -2,12 +2,12 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.ApplyVelocityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.DamageEquipmentEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.FreezeEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.HealEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.SetCooldownEnchantmentEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.ApplyVelocityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.DamageEquipmentEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.FreezeEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.HealEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.SetCooldownEnchantmentEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;

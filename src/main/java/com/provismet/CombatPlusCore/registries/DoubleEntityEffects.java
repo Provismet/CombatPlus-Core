@@ -2,16 +2,16 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyKnockbackEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToBothEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToTargetEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.ApplyToUserEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.InvertedEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostChargedEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostCriticalEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.WeaponPostKillEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyKnockbackEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyToBothEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyToTargetEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyToUserEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.InvertedEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.WeaponPostChargedEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.WeaponPostCriticalEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.WeaponPostKillEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.core.Registry;
 

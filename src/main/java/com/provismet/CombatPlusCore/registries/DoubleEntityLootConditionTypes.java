@@ -2,10 +2,10 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToBothCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToTargetCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.ApplyToUserCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.doubleEntity.DoubleEntityLambdaCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.doubleEntity.ApplyToBothCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.doubleEntity.ApplyToTargetCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.doubleEntity.ApplyToUserCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.doubleEntity.DoubleEntityLambdaCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;

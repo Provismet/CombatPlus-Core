@@ -1,11 +1,11 @@
 package com.provismet.CombatPlusCore.utility.item;
 
-import com.provismet.CombatPlusCore.interfaces.DualWeapon;
-import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
+import com.provismet.CombatPlusCore.api.item.interfaces.DualWeapon;
+import com.provismet.CombatPlusCore.api.item.interfaces.MeleeWeapon;
 
-import com.provismet.CombatPlusCore.items.component.MeleeWeaponComponent;
+import com.provismet.CombatPlusCore.api.item.component.MeleeWeaponComponent;
 import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
-import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
 import net.minecraft.world.item.ItemStack;
 
 public class WeaponTypes {

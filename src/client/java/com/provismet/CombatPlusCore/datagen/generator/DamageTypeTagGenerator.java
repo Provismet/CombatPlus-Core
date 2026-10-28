@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
-import com.provismet.CombatPlusCore.utility.tag.CPCDamageTypeTags;
+import com.provismet.CombatPlusCore.api.tag.CPCDamageTypeTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;

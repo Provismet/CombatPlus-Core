@@ -2,8 +2,8 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.loot.functions.EnchantRandomlyFromKeyLootFunction;
-import com.provismet.CombatPlusCore.loot.functions.EnchantRandomlyFromTagLootFunction;
+import com.provismet.CombatPlusCore.api.loot.functions.EnchantRandomlyFromKeyLootFunction;
+import com.provismet.CombatPlusCore.api.loot.functions.EnchantRandomlyFromTagLootFunction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;

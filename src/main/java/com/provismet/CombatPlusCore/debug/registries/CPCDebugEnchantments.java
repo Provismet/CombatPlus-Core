@@ -1,9 +1,9 @@
 package com.provismet.CombatPlusCore.debug.registries;
 
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
 import com.provismet.lilylib.container.EnchantmentContainer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.EquipmentSlotGroup;

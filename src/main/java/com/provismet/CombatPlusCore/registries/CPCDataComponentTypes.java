@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.registries;
 
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.items.component.MeleeWeaponComponent;
+import com.provismet.CombatPlusCore.api.item.component.MeleeWeaponComponent;
 import java.util.function.UnaryOperator;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;

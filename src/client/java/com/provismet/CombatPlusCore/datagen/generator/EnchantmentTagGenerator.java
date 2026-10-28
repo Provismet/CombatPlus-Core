@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
-import com.provismet.CombatPlusCore.utility.tag.CPCEnchantmentTags;
+import com.provismet.CombatPlusCore.api.tag.CPCEnchantmentTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEnchantmentTags;

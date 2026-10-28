@@ -1,10 +1,10 @@
 package com.provismet.CombatPlusCore.utility;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;

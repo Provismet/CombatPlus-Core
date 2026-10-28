@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.utility;
 
-import com.provismet.CombatPlusCore.interfaces.BlockingItem;
-import com.provismet.CombatPlusCore.interfaces.MeleeWeapon;
+import com.provismet.CombatPlusCore.api.item.interfaces.BlockingItem;
+import com.provismet.CombatPlusCore.api.item.interfaces.MeleeWeapon;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;

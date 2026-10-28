@@ -2,10 +2,10 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.ItemCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.item.IsDualWeaponCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.item.IsMeleeWeaponCondition;
-import com.provismet.CombatPlusCore.enchantment.loot.condition.item.ItemLambdaCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.ItemCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.item.IsDualWeaponCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.item.IsMeleeWeaponCondition;
+import com.provismet.CombatPlusCore.api.loot.condition.item.ItemLambdaCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 

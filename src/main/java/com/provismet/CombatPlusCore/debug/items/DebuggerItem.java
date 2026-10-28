@@ -1,8 +1,8 @@
 package com.provismet.CombatPlusCore.debug.items;
 
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.interfaces.DualWeapon;
-import com.provismet.CombatPlusCore.items.AbstractMeleeWeapon;
+import com.provismet.CombatPlusCore.api.item.interfaces.DualWeapon;
+import com.provismet.CombatPlusCore.api.item.AbstractMeleeWeapon;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

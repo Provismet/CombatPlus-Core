@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
 import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
 import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
 import net.minecraft.core.Holder;

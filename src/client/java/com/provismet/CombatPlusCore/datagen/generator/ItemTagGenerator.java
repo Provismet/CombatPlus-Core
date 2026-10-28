@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
-import com.provismet.CombatPlusCore.utility.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;

@@ -2,11 +2,11 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.enchantment.effect.CPCDataComponentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.component.BlocksAttacksComponentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.component.CooldownGroupComponentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.component.MaxUseTimeComponentEntityEffect;
-import com.provismet.CombatPlusCore.enchantment.effect.component.UseCooldownComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.component.BlocksAttacksComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.component.CooldownGroupComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.component.MaxUseTimeComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.component.UseCooldownComponentEntityEffect;
 import com.provismet.CombatPlusCore.utility.CPCRegistries;
 import net.minecraft.core.Registry;
 
