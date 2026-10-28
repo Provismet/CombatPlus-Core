@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.event.handler;
 
-import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
+import com.provismet.CombatPlusCore.utility.CombatPlusCallbackUtil;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,7 +15,7 @@ public interface CombatEvents {
 
     private static void applyPostKill (ServerLevel level, Entity entity, LivingEntity killedEntity, DamageSource damageSource) {
         if (entity instanceof LivingEntity user) {
-            CPCCallbackUtil.postKill(level, user.getMainHandItem(), EquipmentSlot.MAINHAND, user, killedEntity);
+            CombatPlusCallbackUtil.postKill(level, user.getMainHandItem(), EquipmentSlot.MAINHAND, user, killedEntity);
         }
     }
 }

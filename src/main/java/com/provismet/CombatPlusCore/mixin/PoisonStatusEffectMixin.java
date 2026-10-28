@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
-import com.provismet.CombatPlusCore.utility.CPCGameRules;
+import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
+import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -20,8 +20,8 @@ public abstract class PoisonStatusEffectMixin extends MobEffect {
 
     @Inject(method = "applyEffectTick", at=@At("HEAD"))
     private void applyDamage (ServerLevel world, LivingEntity entity, int amplifier, CallbackInfoReturnable<Boolean> cir) {
-        if (entity.getHealth() <= 1 && world.getGameRules().get(CPCGameRules.LETHAL_POISON)) {
-            entity.hurtServer(world, CPCDamageTypes.POISON.createDamageSource(entity.damageSources()), 1);
+        if (entity.getHealth() <= 1 && world.getGameRules().get(CombatPlusGameRules.LETHAL_POISON)) {
+            entity.hurtServer(world, CombatPlusDamageTypes.POISON.createDamageSource(entity.damageSources()), 1);
         }
     }
 }

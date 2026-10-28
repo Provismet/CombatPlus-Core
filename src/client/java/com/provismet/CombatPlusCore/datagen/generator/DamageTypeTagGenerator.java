@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
-import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
-import com.provismet.CombatPlusCore.api.tag.CPCDamageTypeTags;
+import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
+import com.provismet.CombatPlusCore.api.tag.CombatPlusDamageTypeTags;
 import com.provismet.lilylib.datagen.tag.LilyTagProviders;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
@@ -17,12 +17,12 @@ public class DamageTypeTagGenerator extends LilyTagProviders.LilyDamageTypeTagPr
 
     @Override
     protected void addTags (HolderLookup.Provider wrapperLookup) {
-        this.builder(CPCDamageTypeTags.STANDARD_ATTACK)
+        this.builder(CombatPlusDamageTypeTags.IS_STANDARD)
             .addOptionalTag(DamageTypeTags.IS_PLAYER_ATTACK)
             .add(DamageTypes.MOB_ATTACK)
             .add(DamageTypes.MOB_ATTACK_NO_AGGRO);
 
         this.builder(DamageTypeTags.BYPASSES_ARMOR)
-            .add(CPCDamageTypes.POISON.getKey());
+            .add(CombatPlusDamageTypes.POISON.getKey());
     }
 }

@@ -3,8 +3,8 @@ package com.provismet.CombatPlusCore.datagen.generator;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
 import com.provismet.CombatPlusCore.api.enchantment.effect.component.CooldownGroupComponentEntityEffect;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.api.tag.CombatPlusItemTags;
 import com.provismet.lilylib.datagen.condition.DevModeResourceCondition;
 import com.provismet.lilylib.datagen.provider.LilyEnchantmentProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -48,7 +48,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             Enchantment.enchantment(
                 Enchantment.definition(
                     builder.getItemEntryList(ItemTags.SHARP_WEAPON_ENCHANTABLE),
-                    builder.getItemEntryList(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
                     10,
                     5,
                     Enchantment.dynamicCost(1, 11),
@@ -70,8 +70,8 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             Enchantments.SMITE,
             Enchantment.enchantment(
                 Enchantment.definition(
-                    builder.getItemEntryList(CPCItemTags.DAMAGE_ENCHANTABLE),
-                    builder.getItemEntryList(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.DAMAGE_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
                     5,
                     5,
                     Enchantment.dynamicCost(5, 8),
@@ -82,7 +82,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             ).exclusiveWith(
                 builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE)
             ).withEffect(
-                CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
+                CombatPlusEnchantmentComponentTypes.GAMERULE_DAMAGE,
                 new AddValue(LevelBasedValue.perLevel(2.5f)),
                 LootItemEntityPropertyCondition.hasProperties(
                     LootContext.EntityTarget.THIS,
@@ -95,8 +95,8 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             Enchantments.BANE_OF_ARTHROPODS,
             Enchantment.enchantment(
                 Enchantment.definition(
-                    builder.getItemEntryList(CPCItemTags.DAMAGE_ENCHANTABLE),
-                    builder.getItemEntryList(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.DAMAGE_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE),
                     5,
                     5,
                     Enchantment.dynamicCost(5, 8),
@@ -106,7 +106,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             ).exclusiveWith(
                 builder.getEnchantmentEntryList(EnchantmentTags.DAMAGE_EXCLUSIVE)
             ).withEffect(
-                CPCEnchantmentComponentTypes.GAMERULE_DAMAGE,
+                CombatPlusEnchantmentComponentTypes.GAMERULE_DAMAGE,
                 new AddValue(LevelBasedValue.perLevel(2.5f)),
                 LootItemEntityPropertyCondition.hasProperties(
                     LootContext.EntityTarget.THIS,
@@ -136,8 +136,8 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             Enchantments.FIRE_ASPECT,
             Enchantment.enchantment(
                 Enchantment.definition(
-                    builder.getItemEntryList(CPCItemTags.ASPECT_ENCHANTABLE),
-                    builder.getItemEntryList(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.ASPECT_ENCHANTABLE),
+                    builder.getItemEntryList(CombatPlusItemTags.ASPECT_PRIMARY_ENCHANTABLE),
                     2,
                     2,
                     Enchantment.dynamicCost(10, 20),
@@ -169,7 +169,7 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
             ).withEffect(
                 EnchantmentEffectComponents.TRIDENT_RETURN_ACCELERATION, new AddValue(LevelBasedValue.perLevel(1.0F))
             ).withEffect(
-                CPCEnchantmentComponentTypes.DATA_COMPONENT, new CooldownGroupComponentEntityEffect(CombatPlusCoreMain.identifier("loyalty_trident"))
+                CombatPlusEnchantmentComponentTypes.DATA_COMPONENT, new CooldownGroupComponentEntityEffect(CombatPlusCoreMain.identifier("loyalty_trident"))
             )
         );
     }

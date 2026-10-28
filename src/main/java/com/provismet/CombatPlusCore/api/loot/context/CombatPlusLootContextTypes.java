@@ -7,11 +7,14 @@ import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
-public class CPCLootContextTypes {
+/**
+ * Contains loot context types used by Combat+. Mostly used as conditions in enchantments.
+ */
+public class CombatPlusLootContextTypes {
     public static final ContextKeySet DOUBLE_ENTITY = register("double_entity", builder ->
         builder.required(LootContextParams.THIS_ENTITY)
-            .required(LootContextParams.ATTACKING_ENTITY) // In the context of Combat+, the above two are the same for callbacks.
-            .required(CPCLootContextParameters.TARGET_ENTITY)
+            .required(LootContextParams.ATTACKING_ENTITY) // In the context of Combat+, THIS_ENTITY and ATTACKING_ENTITY are the same for callbacks.
+            .required(CombatPlusLootContextParameters.TARGET_ENTITY)
             .required(LootContextParams.ENCHANTMENT_LEVEL)
             .required(LootContextParams.ORIGIN)
             .required(LootContextParams.TOOL)

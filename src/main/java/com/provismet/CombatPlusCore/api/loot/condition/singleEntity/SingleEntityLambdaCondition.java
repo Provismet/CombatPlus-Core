@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.api.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -26,7 +26,7 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
 
     @Override
     public boolean test (LootContext lootContext) {
-        Predicate<Entity> predicate = CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION.getValue((this.function));
+        Predicate<Entity> predicate = CombatPlusRegistries.SINGLE_ENTITY_LAMBDA_CONDITION.getValue((this.function));
         if (predicate == null) {
             CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return false;

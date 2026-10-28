@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.api.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.api.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContext;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContextParameters;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContext;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContextParameters;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemInstance;
@@ -32,7 +32,7 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
     public Set<ContextKey<?>> getReferencedContextParams() {
         return ImmutableSet.of(
             LootContextParams.THIS_ENTITY,
-            CPCLootContextParameters.TARGET_ENTITY,
+            CombatPlusLootContextParameters.TARGET_ENTITY,
             LootContextParams.ATTACKING_ENTITY,
             LootContextParams.ORIGIN,
             LootContextParams.ENCHANTMENT_LEVEL
@@ -48,12 +48,12 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
     @Override
     public boolean test (LootContext lootContext) {
         Entity attacker = lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY);
-        Entity target = lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY);
+        Entity target = lootContext.getOptionalParameter(CombatPlusLootContextParameters.TARGET_ENTITY);
         int level = Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0);
         ItemInstance item = lootContext.getOptionalParameter(LootContextParams.TOOL);
 
-        LootContext attackerContext = CPCLootContext.createSingleEntity(lootContext.getLevel(), level, attacker, item);
-        LootContext targetContext = CPCLootContext.createSingleEntity(lootContext.getLevel(), level, target, null);
+        LootContext attackerContext = CombatPlusLootContext.createSingleEntity(lootContext.getLevel(), level, attacker, item);
+        LootContext targetContext = CombatPlusLootContext.createSingleEntity(lootContext.getLevel(), level, target, null);
 
         return this.condition.test(attackerContext) && this.condition.test(targetContext);
     }

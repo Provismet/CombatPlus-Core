@@ -20,16 +20,16 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
  *
  * @see SingleEntityCondition
  */
-public final class CPCLootContext {
+public final class CombatPlusLootContext {
     public static LootContext createDoubleEntity (ServerLevel world, Integer level, Entity attacker, Entity target, ItemInstance heldItem) {
         LootParams paramSet = new LootParams.Builder(world)
             .withParameter(LootContextParams.THIS_ENTITY, attacker)
             .withParameter(LootContextParams.ATTACKING_ENTITY, attacker)
-            .withParameter(CPCLootContextParameters.TARGET_ENTITY, target)
+            .withParameter(CombatPlusLootContextParameters.TARGET_ENTITY, target)
             .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
             .withParameter(LootContextParams.TOOL, heldItem)
             .withParameter(LootContextParams.ORIGIN, attacker.position())
-            .create(CPCLootContextTypes.DOUBLE_ENTITY);
+            .create(CombatPlusLootContextTypes.DOUBLE_ENTITY);
 
         return new LootContext.Builder(paramSet).create(Optional.empty());
     }
@@ -38,11 +38,11 @@ public final class CPCLootContext {
         LootParams paramSet = new LootParams.Builder(world)
             .withParameter(LootContextParams.THIS_ENTITY, target)
             .withParameter(LootContextParams.ATTACKING_ENTITY, attacker)
-            .withParameter(CPCLootContextParameters.TARGET_ENTITY, target)
+            .withParameter(CombatPlusLootContextParameters.TARGET_ENTITY, target)
             .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
             .withParameter(LootContextParams.TOOL, heldItem)
             .withParameter(LootContextParams.ORIGIN, target.position())
-            .create(CPCLootContextTypes.DOUBLE_ENTITY);
+            .create(CombatPlusLootContextTypes.DOUBLE_ENTITY);
 
         return new LootContext.Builder(paramSet).create(Optional.empty());
     }
@@ -56,7 +56,7 @@ public final class CPCLootContext {
             .withParameter(LootContextParams.ENCHANTMENT_LEVEL, level)
             .withParameter(LootContextParams.ORIGIN, entity.position())
             .withParameter(LootContextParams.TOOL, weaponStack)
-            .create(CPCLootContextTypes.SINGLE_ENTITY);
+            .create(CombatPlusLootContextTypes.SINGLE_ENTITY);
 
         return new LootContext.Builder(paramSet).create(Optional.empty());
     }
@@ -93,7 +93,7 @@ public final class CPCLootContext {
             }
         };
 
-        public static final StringRepresentable.EnumCodec<CPCLootContext.Comparison> CODEC;
+        public static final StringRepresentable.EnumCodec<CombatPlusLootContext.Comparison> CODEC;
         private final String type;
 
         Comparison (String type) {
@@ -109,16 +109,16 @@ public final class CPCLootContext {
         }
 
         static {
-            CODEC = StringRepresentable.fromEnum(CPCLootContext.Comparison::values);
+            CODEC = StringRepresentable.fromEnum(CombatPlusLootContext.Comparison::values);
         }
     }
 
     public enum EntityTarget implements StringRepresentable {
         THIS("this", LootContextParams.THIS_ENTITY),
         ATTACKER("attacker", LootContextParams.ATTACKING_ENTITY),
-        TARGET("target_entity", CPCLootContextParameters.TARGET_ENTITY);
+        TARGET("target_entity", CombatPlusLootContextParameters.TARGET_ENTITY);
 
-        public static final StringRepresentable.EnumCodec<CPCLootContext.EntityTarget> CODEC;
+        public static final StringRepresentable.EnumCodec<CombatPlusLootContext.EntityTarget> CODEC;
         private final String type;
         private final ContextKey<? extends Entity> parameter;
 
@@ -131,8 +131,8 @@ public final class CPCLootContext {
             return this.parameter;
         }
 
-        public static CPCLootContext.EntityTarget fromString (String type) {
-            CPCLootContext.EntityTarget entityTarget = CODEC.byName(type);
+        public static CombatPlusLootContext.EntityTarget fromString (String type) {
+            CombatPlusLootContext.EntityTarget entityTarget = CODEC.byName(type);
             if (entityTarget != null) {
                 return entityTarget;
             }
@@ -145,7 +145,7 @@ public final class CPCLootContext {
         }
 
         static {
-            CODEC = StringRepresentable.fromEnum(CPCLootContext.EntityTarget::values);
+            CODEC = StringRepresentable.fromEnum(CombatPlusLootContext.EntityTarget::values);
         }
     }
 }

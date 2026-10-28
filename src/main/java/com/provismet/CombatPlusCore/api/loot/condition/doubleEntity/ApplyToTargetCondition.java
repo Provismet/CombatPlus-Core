@@ -3,8 +3,8 @@ package com.provismet.CombatPlusCore.api.loot.condition.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.api.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.api.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContext;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContextParameters;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContext;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContextParameters;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -24,10 +24,10 @@ public class ApplyToTargetCondition extends AbstractSingleWrapperCondition {
 
     @Override
     public boolean test (LootContext lootContext) {
-        LootContext targetContext = CPCLootContext.createSingleEntity(
+        LootContext targetContext = CombatPlusLootContext.createSingleEntity(
             lootContext.getLevel(),
             Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0),
-            lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY),
+            lootContext.getOptionalParameter(CombatPlusLootContextParameters.TARGET_ENTITY),
             null
         );
         return this.condition.test(targetContext);

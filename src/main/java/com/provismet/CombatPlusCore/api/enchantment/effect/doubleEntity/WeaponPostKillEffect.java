@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.api.item.interfaces.MeleeWeapon;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 /**
  * Triggers the attacker's on-kill effect against the attacker.
  */
-public record WeaponPostKillEffect () implements CPCEnchantmentEntityEffect {
+public record WeaponPostKillEffect () implements CombatPlusEnchantmentEntityEffect {
     public static final MapCodec<WeaponPostKillEffect> CODEC = MapCodec.unit(WeaponPostKillEffect::new);
 
     @Override
@@ -25,7 +25,7 @@ public record WeaponPostKillEffect () implements CPCEnchantmentEntityEffect {
     }
 
     @Override
-    public MapCodec<? extends CPCEnchantmentEntityEffect> getCodec () {
+    public MapCodec<? extends CombatPlusEnchantmentEntityEffect> getCodec () {
         return CODEC;
     }
 }

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.api.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContext;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContext;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -34,7 +34,7 @@ public record ApplyToAttackerCondition(LootItemCondition condition) implements S
 
     @Override
     public boolean test (LootContext lootContext) {
-        LootContext flippedContext = CPCLootContext.createSingleEntity(
+        LootContext flippedContext = CombatPlusLootContext.createSingleEntity(
             lootContext.getLevel(),
             lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL),
             lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY),

@@ -1,9 +1,9 @@
 package com.provismet.CombatPlusCore.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
-import com.provismet.CombatPlusCore.utility.CPCGameRules;
+import com.provismet.CombatPlusCore.utility.CombatPlusCallbackUtil;
+import com.provismet.CombatPlusCore.utility.CombatPlusEnchantmentHelper;
+import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -28,15 +28,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method="attack", at=@At(value="INVOKE", target="Lnet/minecraft/world/entity/player/Player;getKnockback(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)F", shift=At.Shift.AFTER))
     private void postApplyHitEffects (Entity entity, CallbackInfo info, @Local(ordinal=0) boolean charged, @Local(ordinal=2) boolean critical) {
         if (entity instanceof LivingEntity target && this.level() instanceof ServerLevel world) {
-            if (charged) CPCCallbackUtil.postChargedHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, target);
-            if (critical) CPCCallbackUtil.postCriticalHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, target);
+            if (charged) CombatPlusCallbackUtil.postChargedHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, target);
+            if (critical) CombatPlusCallbackUtil.postCriticalHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, target);
         }
     }
 
     @ModifyVariable(method="attack", at=@At(value="STORE"), ordinal=3)
     private boolean stopSweeping (boolean original) {
         if (this.level() instanceof ServerLevel world) {
-            if (world.getGameRules().get(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) <= 0) return false;
+            if (world.getGameRules().get(CombatPlusGameRules.SWEEPING_REQUIRES_ENCHANTMENT) && this.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) <= 0) return false;
         }
         return original;
     }
@@ -50,6 +50,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         )
     )
     private void sweepingAppliesChargedHit (Entity target, float damage, DamageSource damageSource, float cooldownProgress, CallbackInfo ci, @Local LivingEntity sweepTarget, @Local ServerLevel world) {
-        CPCEnchantmentHelper.postChargedHit(world, this, sweepTarget, EquipmentSlot.MAINHAND);
+        CombatPlusEnchantmentHelper.postChargedHit(world, this, sweepTarget, EquipmentSlot.MAINHAND);
     }
 }

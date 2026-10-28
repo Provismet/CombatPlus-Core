@@ -4,19 +4,19 @@ import com.provismet.CombatPlusCore.api.CombatPlusEntrypoint;
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.event.handler.CombatEvents;
 import com.provismet.CombatPlusCore.event.handler.ItemEvents;
-import com.provismet.CombatPlusCore.registries.CPCDataComponentEffects;
-import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.registries.CPCEntityAttributes;
-import com.provismet.CombatPlusCore.registries.CPCLootFunctionTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentEffects;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.registries.CombatPlusLootFunctionTypes;
 import com.provismet.CombatPlusCore.registries.DoubleEntityEffects;
 import com.provismet.CombatPlusCore.registries.DoubleEntityLootConditionTypes;
 import com.provismet.CombatPlusCore.registries.ItemConditionTypes;
 import com.provismet.CombatPlusCore.registries.LambdaRegistry;
 import com.provismet.CombatPlusCore.registries.SingleEntityEffects;
 import com.provismet.CombatPlusCore.registries.SingleEntityLootConditionTypes;
-import com.provismet.CombatPlusCore.utility.CPCGameRules;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import com.provismet.lilylib.datagen.condition.LilyResourceConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
@@ -40,19 +40,19 @@ public class CombatPlusCoreMain implements ModInitializer {
 
     @Override
     public void onInitialize () {
-        CPCEntityAttributes.init();
-        CPCRegistries.init();
-        CPCLootFunctionTypes.register();
-        CPCEnchantmentComponentTypes.init();
+        CombatPlusEntityAttributes.init();
+        CombatPlusRegistries.init();
+        CombatPlusLootFunctionTypes.register();
+        CombatPlusEnchantmentComponentTypes.init();
         SingleEntityLootConditionTypes.register();
         DoubleEntityLootConditionTypes.register();
         ItemConditionTypes.register();
         DoubleEntityEffects.register();
         LambdaRegistry.register();
-        CPCGameRules.init();
+        CombatPlusGameRules.init();
         SingleEntityEffects.register();
-        CPCDataComponentEffects.register();
-        CPCDataComponentTypes.init();
+        CombatPlusDataComponentEffects.register();
+        CombatPlusDataComponentTypes.init();
 
         ItemEvents.register();
         CombatEvents.register();

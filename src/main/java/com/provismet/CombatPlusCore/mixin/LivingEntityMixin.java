@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.registries.CPCEntityAttributes;
-import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
+import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.utility.CombatPlusCallbackUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,13 +32,13 @@ public abstract class LivingEntityMixin extends Entity {
     private void applyBlockerItemEffects (ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
         ItemStack blockingStack = this.getItemBlockingWith();
         if (blockingStack != null) {
-            CPCCallbackUtil.postBlock(world, this.getItemBlockingWith(), this.getUsedItemHand().asEquipmentSlot(), (LivingEntity)(Object)this, source, amount);
+            CombatPlusCallbackUtil.postBlock(world, this.getItemBlockingWith(), this.getUsedItemHand().asEquipmentSlot(), (LivingEntity)(Object)this, source, amount);
         }
     }
 
     @Inject(method = "createLivingAttributes", at = @At("RETURN"))
     private static void addCPCAttributes (CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
         cir.getReturnValue()
-            .add(CPCEntityAttributes.PROTECTION_EFFECTIVENESS, 1);
+            .add(CombatPlusEntityAttributes.PROTECTION_EFFECTIVENESS, 1);
     }
 }

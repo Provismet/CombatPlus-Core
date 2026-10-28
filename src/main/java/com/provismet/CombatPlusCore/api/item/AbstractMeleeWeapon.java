@@ -8,6 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+/**
+ * Convenience class for creating new melee weapons.
+ */
 public abstract class AbstractMeleeWeapon extends Item implements MeleeWeapon {
     protected AbstractMeleeWeapon (Properties settings) {
         super(settings);

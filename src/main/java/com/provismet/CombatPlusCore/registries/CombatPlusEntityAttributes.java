@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
-public abstract class CPCEntityAttributes {
+public abstract class CombatPlusEntityAttributes {
     public static final Holder<Attribute> PROTECTION_EFFECTIVENESS = register(
         "protection_effectiveness", new RangedAttribute("cpc.attribute.name.protection_effectiveness", 1, 0, 1)
     );

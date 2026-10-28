@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.registries;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import java.util.function.Predicate;
 import net.minecraft.core.Registry;
 import net.minecraft.util.Tuple;
@@ -46,22 +46,22 @@ public abstract class LambdaRegistry {
     }
 
     private static void register (String name, CodeExecutionSingleEntityEffect.Lambda lambda) {
-        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA, CombatPlusCoreMain.identifier(name), lambda);
+        Registry.register(CombatPlusRegistries.SINGLE_ENTITY_LAMBDA, CombatPlusCoreMain.identifier(name), lambda);
     }
 
     private static void register (String name, CodeExecutionDoubleEntityEffect.Lambda lambda) {
-        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA, CombatPlusCoreMain.identifier(name), lambda);
+        Registry.register(CombatPlusRegistries.DOUBLE_ENTITY_LAMBDA, CombatPlusCoreMain.identifier(name), lambda);
     }
 
     private static void registerSingleCondition (String name, Predicate<Entity> predicate) {
-        Registry.register(CPCRegistries.SINGLE_ENTITY_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
+        Registry.register(CombatPlusRegistries.SINGLE_ENTITY_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
     }
 
     private static void registerDoubleCondition (String name, Predicate<Tuple<Entity,Entity>> predicate) {
-        Registry.register(CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
+        Registry.register(CombatPlusRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
     }
 
     private static void registerItemCondition (String name, Predicate<ItemStack> predicate) {
-        Registry.register(CPCRegistries.ITEM_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
+        Registry.register(CombatPlusRegistries.ITEM_LAMBDA_CONDITION, CombatPlusCoreMain.identifier(name), predicate);
     }
 }

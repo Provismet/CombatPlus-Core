@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
  * @param strength The strength of the knockback.
  * @param respectAttribute Whether or not this should respect knockback resistance.
  */
-public record ApplyKnockbackEffect (LevelBasedValue strength, boolean respectAttribute) implements CPCEnchantmentEntityEffect {
+public record ApplyKnockbackEffect (LevelBasedValue strength, boolean respectAttribute) implements CombatPlusEnchantmentEntityEffect {
     public static final MapCodec<ApplyKnockbackEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(LevelBasedValue.CODEC.fieldOf("strength").forGetter(ApplyKnockbackEffect::strength),
             Codec.BOOL.fieldOf("respect_knockback_resistance").forGetter(ApplyKnockbackEffect::respectAttribute)
@@ -38,7 +38,7 @@ public record ApplyKnockbackEffect (LevelBasedValue strength, boolean respectAtt
     }
 
     @Override
-    public MapCodec<? extends CPCEnchantmentEntityEffect> getCodec () {
+    public MapCodec<? extends CombatPlusEnchantmentEntityEffect> getCodec () {
         return CODEC;
     }
 }

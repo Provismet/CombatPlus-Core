@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public abstract class CPCConfig {
+public abstract class CombatPlusConfig {
     @Deprecated
     public static final String FOLDER = "./config/combat-plus";
     public static final Path FOLDER_PATH = FabricLoader.getInstance().getConfigDir().resolve("combat-plus");

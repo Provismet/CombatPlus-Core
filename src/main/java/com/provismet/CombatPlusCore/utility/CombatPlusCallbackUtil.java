@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Basic utility class for triggering Combat+ callbacks between two entities.
  */
-public class CPCCallbackUtil {
+public class CombatPlusCallbackUtil {
     /**
      * Triggers both the item and enchantment callbacks for a charged attack.
      *
@@ -25,7 +25,7 @@ public class CPCCallbackUtil {
         if (itemStack.getItem() instanceof MeleeWeapon meleeWeapon) {
             meleeWeapon.postChargedHit(itemStack, user, target);
         }
-        CPCEnchantmentHelper.postChargedHit(world, user, target, slot);
+        CombatPlusEnchantmentHelper.postChargedHit(world, user, target, slot);
     }
 
     /**
@@ -41,7 +41,7 @@ public class CPCCallbackUtil {
         if (itemStack.getItem() instanceof MeleeWeapon meleeWeapon) {
             meleeWeapon.postCriticalHit(itemStack, user, target);
         }
-        CPCEnchantmentHelper.postCriticalHit(world, user, target, slot);
+        CombatPlusEnchantmentHelper.postCriticalHit(world, user, target, slot);
     }
 
     /**
@@ -57,7 +57,7 @@ public class CPCCallbackUtil {
         if (itemStack.getItem() instanceof MeleeWeapon meleeWeapon) {
             meleeWeapon.postKill(itemStack, user, target);
         }
-        CPCEnchantmentHelper.postKill(world, user, target, slot);
+        CombatPlusEnchantmentHelper.postKill(world, user, target, slot);
     }
 
     /**
@@ -74,6 +74,6 @@ public class CPCCallbackUtil {
         if (itemStack.getItem() instanceof BlockingItem block) {
             block.postBlock(itemStack, user, source, amount);
         }
-        CPCEnchantmentHelper.postBlock(world, user, source.getDirectEntity(), slot);
+        CombatPlusEnchantmentHelper.postBlock(world, user, source.getDirectEntity(), slot);
     }
 }

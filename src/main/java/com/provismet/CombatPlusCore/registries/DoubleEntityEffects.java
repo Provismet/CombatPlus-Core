@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyKnockbackEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyToBothEntityEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.ApplyToTargetEntityEffect;
@@ -12,7 +12,7 @@ import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.Inverted
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.WeaponPostChargedEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.WeaponPostCriticalEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.WeaponPostKillEffect;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import net.minecraft.core.Registry;
 
 public abstract class DoubleEntityEffects {
@@ -28,7 +28,7 @@ public abstract class DoubleEntityEffects {
         register("weapon_post_kill", WeaponPostKillEffect.CODEC);
     }
 
-    private static void register (String name, MapCodec<? extends CPCEnchantmentEntityEffect> codec) {
-        Registry.register(CPCRegistries.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE, CombatPlusCoreMain.identifier(name), codec);
+    private static void register (String name, MapCodec<? extends CombatPlusEnchantmentEntityEffect> codec) {
+        Registry.register(CombatPlusRegistries.ENCHANTMENT_DUAL_ENTITY_EFFECT_TYPE, CombatPlusCoreMain.identifier(name), codec);
     }
 }

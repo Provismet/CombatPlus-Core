@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.api.enchantment.effect.component;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusDataComponentEntityEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentType;
@@ -25,7 +25,7 @@ public record BlocksAttacksComponentEntityEffect (
     Optional<HolderSet<DamageType>> bypassedBy,
     Optional<Holder<SoundEvent>> blockSound,
     Optional<Holder<SoundEvent>> disableSound)
-    implements CPCDataComponentEntityEffect<BlocksAttacks>
+    implements CombatPlusDataComponentEntityEffect<BlocksAttacks>
 {
     public static final MapCodec<BlocksAttacksComponentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(

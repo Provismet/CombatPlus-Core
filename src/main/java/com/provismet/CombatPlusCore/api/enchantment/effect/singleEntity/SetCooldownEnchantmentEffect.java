@@ -2,8 +2,8 @@ package com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
+import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.utility.CombatPlusEnchantmentHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +23,7 @@ public record SetCooldownEnchantmentEffect (LevelBasedValue ticks) implements En
     public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos) {
         if (!(user instanceof Player player)) return;
 
-        int cooldown = (int)CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.MODIFY_COOLDOWN, world, context.itemStack(), user, this.ticks.calculate(level));
+        int cooldown = (int) CombatPlusEnchantmentHelper.modifyValue(CombatPlusEnchantmentComponentTypes.MODIFY_COOLDOWN, world, context.itemStack(), user, this.ticks.calculate(level));
         player.getCooldowns().addCooldown(context.itemStack(), cooldown);
     }
 

@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.api.item.interfaces;
 
 import com.provismet.CombatPlusCore.api.item.component.MeleeWeaponComponent;
-import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -11,6 +11,6 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface DualWeapon extends MeleeWeapon {
     default float getOffhandDamage (ItemStack itemStack) {
-        return itemStack.getOrDefault(CPCDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.DEFAULT).dualDamage();
+        return itemStack.getOrDefault(CombatPlusDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.DEFAULT).dualDamage();
     }
 }

@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemMixin {
     @Inject(method = "getUseDuration", at = @At("HEAD"), cancellable = true)
     private void componentUseTime (ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
-        Integer maxTicks = stack.get(CPCDataComponentTypes.MAX_USE_TIME);
+        Integer maxTicks = stack.get(CombatPlusDataComponentTypes.MAX_USE_TIME);
         if (maxTicks != null) cir.setReturnValue(maxTicks);
     }
 }

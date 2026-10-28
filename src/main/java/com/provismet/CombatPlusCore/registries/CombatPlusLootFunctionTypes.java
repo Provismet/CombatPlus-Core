@@ -8,7 +8,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 
-public abstract class CPCLootFunctionTypes {
+public abstract class CombatPlusLootFunctionTypes {
     public static void register () {
         register("enchant_from_tag", EnchantRandomlyFromTagLootFunction.CODEC);
         register("enchant_from_keys", EnchantRandomlyFromKeyLootFunction.CODEC);

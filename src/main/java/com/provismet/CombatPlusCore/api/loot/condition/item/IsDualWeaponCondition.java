@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.api.loot.condition.item;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.api.loot.condition.ItemCondition;
 import com.provismet.CombatPlusCore.api.item.interfaces.DualWeapon;
-import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.api.tag.CombatPlusItemTags;
 import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -18,7 +18,7 @@ public record IsDualWeaponCondition () implements ItemCondition {
     public boolean test (LootContext lootContext) {
         ItemInstance item = lootContext.getOptionalParameter(LootContextParams.TOOL);
         if (item == null) return false;
-        return item.is(CPCItemTags.DUAL_WEAPON) || (item instanceof ItemStack stack && stack.getItem() instanceof DualWeapon);
+        return item.is(CombatPlusItemTags.DUAL_WEAPON) || (item instanceof ItemStack stack && stack.getItem() instanceof DualWeapon);
     }
 
     public static ItemCondition.Builder builder () {

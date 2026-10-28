@@ -2,7 +2,7 @@ package com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.enchantment.EnchantedItemInUse;
@@ -14,7 +14,7 @@ import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
  * @see ApplyToTargetEntityEffect
  * @param effect The effect to apply.
  */
-public record ApplyToUserEntityEffect (EnchantmentEntityEffect effect) implements CPCEnchantmentEntityEffect {
+public record ApplyToUserEntityEffect (EnchantmentEntityEffect effect) implements CombatPlusEnchantmentEntityEffect {
     public static final MapCodec<ApplyToUserEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(
             EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(ApplyToUserEntityEffect::effect)
@@ -27,7 +27,7 @@ public record ApplyToUserEntityEffect (EnchantmentEntityEffect effect) implement
     }
 
     @Override
-    public MapCodec<? extends CPCEnchantmentEntityEffect> getCodec() {
+    public MapCodec<? extends CombatPlusEnchantmentEntityEffect> getCodec() {
         return CODEC;
     }
 }

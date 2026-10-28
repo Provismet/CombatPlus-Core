@@ -10,7 +10,7 @@ import com.provismet.CombatPlusCore.datagen.generator.LanguageGenerator;
 import com.provismet.CombatPlusCore.datagen.generator.ModelGenerator;
 import com.provismet.CombatPlusCore.datagen.generator.NumberGenerator;
 import com.provismet.CombatPlusCore.datagen.generator.NumeralGenerator;
-import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
+import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
@@ -37,6 +37,6 @@ public class CombatPlusCoreDatagen implements DataGeneratorEntrypoint {
 
     @Override
     public void buildRegistry (RegistrySetBuilder registryBuilder) {
-        registryBuilder.add(Registries.DAMAGE_TYPE, CPCDamageTypes::bootstrap);
+        registryBuilder.add(Registries.DAMAGE_TYPE, CombatPlusDamageTypes::bootstrap);
     }
 }

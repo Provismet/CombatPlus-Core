@@ -1,11 +1,11 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
-import com.provismet.CombatPlusCore.registries.CPCEntityAttributes;
-import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
-import com.provismet.CombatPlusCore.utility.CPCGameRules;
-import com.provismet.CombatPlusCore.api.tag.CPCEnchantmentTags;
-import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.registries.CombatPlusEntityAttributes;
+import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
+import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
+import com.provismet.CombatPlusCore.api.tag.CombatPlusEnchantmentTags;
+import com.provismet.CombatPlusCore.api.tag.CombatPlusItemTags;
 import com.provismet.lilylib.datagen.provider.LilyLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
@@ -20,35 +20,35 @@ public class LanguageGenerator extends LilyLanguageProvider {
     @Override
     public void generateTranslations (HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("gamerule.category.combat-plus.gamerule_category", "Combat+");
-        translationBuilder.add(CPCGameRules.SWEEPING_REQUIRES_ENCHANTMENT.getDescriptionId(), "Sweeping Requires Enchantment");
-        translationBuilder.add(CPCGameRules.LOYALTY_STAYS_IN_HAND.getDescriptionId(), "Keep Loyalty Tridents");
-        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId(), "PvP Enchantment Modifier");
-        translationBuilder.add(CPCGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId() + ".description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
-        translationBuilder.add(CPCGameRules.LETHAL_POISON.getDescriptionId(), "Lethal Poison");
+        translationBuilder.add(CombatPlusGameRules.SWEEPING_REQUIRES_ENCHANTMENT.getDescriptionId(), "Sweeping Requires Enchantment");
+        translationBuilder.add(CombatPlusGameRules.LOYALTY_STAYS_IN_HAND.getDescriptionId(), "Keep Loyalty Tridents");
+        translationBuilder.add(CombatPlusGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId(), "PvP Enchantment Modifier");
+        translationBuilder.add(CombatPlusGameRules.PVP_DAMAGE_MODIFIER.getDescriptionId() + ".description", "Modifies the effectiveness of certain damaging enchantments when used against players.");
+        translationBuilder.add(CombatPlusGameRules.LETHAL_POISON.getDescriptionId(), "Lethal Poison");
 
-        translationBuilder.add(CPCItemTags.MELEE_WEAPON, "Melee Weapons");
-        translationBuilder.add(CPCItemTags.DUAL_WEAPON, "Dual Weapons");
+        translationBuilder.add(CombatPlusItemTags.MELEE_WEAPON, "Melee Weapons");
+        translationBuilder.add(CombatPlusItemTags.DUAL_WEAPON, "Dual Weapons");
 
-        translationBuilder.add(CPCItemTags.ASPECT_ENCHANTABLE, "Aspect Enchantable");
-        translationBuilder.add(CPCItemTags.ASPECT_PRIMARY_ENCHANTABLE, "Primary Aspect Enchantable");
-        translationBuilder.add(CPCItemTags.DAMAGE_ENCHANTABLE, "Damage Enchantable");
-        translationBuilder.add(CPCItemTags.DAMAGE_PRIMARY_ENCHANTABLE, "Primary Damage Enchantable");
-        translationBuilder.add(CPCItemTags.WEAPON_UTILITY_ENCHANTABLE, "Weapon Utility Enchantable");
-        translationBuilder.add(CPCItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE, "Primary Weapon Utility Enchantable");
-        translationBuilder.add(CPCItemTags.OFFHAND_ENCHANTABLE, "Offhand Enchantable");
-        translationBuilder.add(CPCItemTags.OFFHAND_PRIMARY_ENCHANTABLE, "Primary Offhand Enchantable");
-        translationBuilder.add(CPCItemTags.SHIELD_ENCHANTABLE, "Shield Enchantable");
-        translationBuilder.add(CPCItemTags.SHIELD_PRIMARY_ENCHANTABLE, "Primary Shield Enchantable");
+        translationBuilder.add(CombatPlusItemTags.ASPECT_ENCHANTABLE, "Aspect Enchantable");
+        translationBuilder.add(CombatPlusItemTags.ASPECT_PRIMARY_ENCHANTABLE, "Primary Aspect Enchantable");
+        translationBuilder.add(CombatPlusItemTags.DAMAGE_ENCHANTABLE, "Damage Enchantable");
+        translationBuilder.add(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE, "Primary Damage Enchantable");
+        translationBuilder.add(CombatPlusItemTags.WEAPON_UTILITY_ENCHANTABLE, "Weapon Utility Enchantable");
+        translationBuilder.add(CombatPlusItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE, "Primary Weapon Utility Enchantable");
+        translationBuilder.add(CombatPlusItemTags.OFFHAND_ENCHANTABLE, "Offhand Enchantable");
+        translationBuilder.add(CombatPlusItemTags.OFFHAND_PRIMARY_ENCHANTABLE, "Primary Offhand Enchantable");
+        translationBuilder.add(CombatPlusItemTags.SHIELD_ENCHANTABLE, "Shield Enchantable");
+        translationBuilder.add(CombatPlusItemTags.SHIELD_PRIMARY_ENCHANTABLE, "Primary Shield Enchantable");
 
-        translationBuilder.add(CPCEnchantmentTags.ADDITIONAL_DAMAGE, "Additional Damage Enchantments");
-        translationBuilder.add(CPCEnchantmentTags.ASPECT, "Aspect Enchantments");
-        translationBuilder.add(CPCEnchantmentTags.WEAPON_UTILITY, "Weapon Utility Enchantments");
-        translationBuilder.add(CPCEnchantmentTags.OFFHAND, "Offhand Enchantments");
+        translationBuilder.add(CombatPlusEnchantmentTags.ADDITIONAL_DAMAGE, "Additional Damage Enchantments");
+        translationBuilder.add(CombatPlusEnchantmentTags.ASPECT, "Aspect Enchantments");
+        translationBuilder.add(CombatPlusEnchantmentTags.WEAPON_UTILITY, "Weapon Utility Enchantments");
+        translationBuilder.add(CombatPlusEnchantmentTags.OFFHAND, "Offhand Enchantments");
 
         translationBuilder.add("item.combat-plus.debugger", "Example Weapon");
         translationBuilder.add("item.combat-plus.debug_shield", "Example Shield");
 
-        translationBuilder.add(CPCEntityAttributes.PROTECTION_EFFECTIVENESS, "Protection Effectiveness");
+        translationBuilder.add(CombatPlusEntityAttributes.PROTECTION_EFFECTIVENESS, "Protection Effectiveness");
 
         CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Weapon Enchantment", "Logs attacks to the console for debugging purposes."));
         CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Shield Enchantment", "Logs to the console when blocking an attack for debugging purposes."));
@@ -58,7 +58,7 @@ public class LanguageGenerator extends LilyLanguageProvider {
         translationBuilder.add("resourcepack.combat-plus.enchanted_numbers", "Enchantment Numbers");
         translationBuilder.add("resourcepack.combat-plus.enchanted_numbers.description", "Numerals are now numbers");
 
-        addDeathMessage(translationBuilder, CPCDamageTypes.POISON,
+        addDeathMessage(translationBuilder, CombatPlusDamageTypes.POISON,
             "%1$s couldn't find an antidote",
             "%1$s succumbed to poison whilst fighting %2$s",
             "%1$s succumbed to poison whilst fighting %2$s using %3$s"

@@ -1,8 +1,8 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.utility.CPCEnchantmentHelper;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.utility.CombatPlusEnchantmentHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -29,9 +29,9 @@ public abstract class ItemStackMixin {
     private void loadEnchantmentDataComponents (Holder<Item> item, int count, PatchedDataComponentMap components, CallbackInfo info) {
         ItemStack thisItem = (ItemStack)(Object)this;
 
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            List<ConditionalEffect<CPCDataComponentEntityEffect<?>>> componentEffects = enchantment.value().getEffects(CPCEnchantmentComponentTypes.DATA_COMPONENT);
-            for (ConditionalEffect<CPCDataComponentEntityEffect<?>> effect : componentEffects) {
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            List<ConditionalEffect<CombatPlusDataComponentEntityEffect<?>>> componentEffects = enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.DATA_COMPONENT);
+            for (ConditionalEffect<CombatPlusDataComponentEntityEffect<?>> effect : componentEffects) {
                 effect.effect().apply(thisItem, level);
             }
         }, thisItem);
@@ -45,17 +45,17 @@ public abstract class ItemStackMixin {
         ItemStack thisItem = (ItemStack)(Object)this;
 
         // Remove the old components.
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
-            List<ConditionalEffect<CPCDataComponentEntityEffect<?>>> componentEffects = enchantment.value().getEffects(CPCEnchantmentComponentTypes.DATA_COMPONENT);
-            for (ConditionalEffect<CPCDataComponentEntityEffect<?>> effect : componentEffects) {
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            List<ConditionalEffect<CombatPlusDataComponentEntityEffect<?>>> componentEffects = enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.DATA_COMPONENT);
+            for (ConditionalEffect<CombatPlusDataComponentEntityEffect<?>> effect : componentEffects) {
                 effect.effect().remove(thisItem, level);
             }
         }, thisItem);
 
         // Add the new components.
         newComponent.entrySet().forEach(entry -> {
-            List<ConditionalEffect<CPCDataComponentEntityEffect<?>>> componentEffects = entry.getKey().value().getEffects(CPCEnchantmentComponentTypes.DATA_COMPONENT);
-            for (ConditionalEffect<CPCDataComponentEntityEffect<?>> effect : componentEffects) {
+            List<ConditionalEffect<CombatPlusDataComponentEntityEffect<?>>> componentEffects = entry.getKey().value().getEffects(CombatPlusEnchantmentComponentTypes.DATA_COMPONENT);
+            for (ConditionalEffect<CombatPlusDataComponentEntityEffect<?>> effect : componentEffects) {
                 effect.effect().apply(thisItem, entry.getIntValue());
             }
         });

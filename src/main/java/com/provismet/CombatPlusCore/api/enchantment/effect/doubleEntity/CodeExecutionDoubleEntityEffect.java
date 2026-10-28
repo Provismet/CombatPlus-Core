@@ -3,9 +3,9 @@ package com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.api.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
  * @see CodeExecutionSingleEntityEffect
  * @param function The identifier of the function.
  */
-public record CodeExecutionDoubleEntityEffect (Identifier function) implements CPCEnchantmentEntityEffect {
+public record CodeExecutionDoubleEntityEffect (Identifier function) implements CombatPlusEnchantmentEntityEffect {
     public static final MapCodec<CodeExecutionDoubleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(
             Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionDoubleEntityEffect::function)
@@ -26,7 +26,7 @@ public record CodeExecutionDoubleEntityEffect (Identifier function) implements C
 
     @Override
     public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity attacker, Entity target) {
-        Lambda lambda = CPCRegistries.DOUBLE_ENTITY_LAMBDA.getValue(this.function);
+        Lambda lambda = CombatPlusRegistries.DOUBLE_ENTITY_LAMBDA.getValue(this.function);
         if (lambda == null) {
             CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return;
@@ -35,7 +35,7 @@ public record CodeExecutionDoubleEntityEffect (Identifier function) implements C
     }
 
     @Override
-    public MapCodec<? extends CPCEnchantmentEntityEffect> getCodec() {
+    public MapCodec<? extends CombatPlusEnchantmentEntityEffect> getCodec() {
         return CODEC;
     }
 

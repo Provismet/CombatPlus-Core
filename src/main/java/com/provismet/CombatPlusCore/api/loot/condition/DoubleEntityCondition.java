@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.api.loot.condition;
 
 import com.google.common.collect.ImmutableSet;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContextParameters;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContextParameters;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -17,7 +17,7 @@ public interface DoubleEntityCondition extends LootItemCondition {
             LootContextParams.ORIGIN,
             LootContextParams.ENCHANTMENT_LEVEL,
             LootContextParams.THIS_ENTITY,
-            CPCLootContextParameters.TARGET_ENTITY,
+            CombatPlusLootContextParameters.TARGET_ENTITY,
             LootContextParams.TOOL
         );
     }

@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.mixin;
 
 import com.provismet.CombatPlusCore.api.item.component.MeleeWeaponComponent;
-import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
@@ -17,11 +17,11 @@ public abstract class ItemSettingsMixin {
 
     @Inject(method = "sword", at = @At("HEAD"))
     private void applyDualWeapon (ToolMaterial material, float attackDamage, float attackSpeed, CallbackInfoReturnable<Item.Properties> cir) {
-        this.component(CPCDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.createDual(attackDamage + material.attackDamageBonus()));
+        this.component(CombatPlusDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.createDual(attackDamage + material.attackDamageBonus()));
     }
 
     @Inject(method = "axe", at = @At("HEAD"))
     private void applyMeleeWeapon (ToolMaterial material, float attackDamage, float attackSpeed, CallbackInfoReturnable<Item.Properties> cir) {
-        this.component(CPCDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.createMelee(attackDamage + material.attackDamageBonus()));
+        this.component(CombatPlusDataComponentTypes.MELEE_WEAPON, MeleeWeaponComponent.createMelee(attackDamage + material.attackDamageBonus()));
     }
 }

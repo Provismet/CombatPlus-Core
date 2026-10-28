@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
-import com.provismet.CombatPlusCore.utility.CPCGameRules;
+import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -35,7 +35,7 @@ public abstract class TridentItemMixin extends Item implements MeleeWeapon {
     
     @Inject(method="releaseUsing", at=@At(value="INVOKE", target="Lnet/minecraft/world/item/ItemStack;hurtWithoutBreaking(ILnet/minecraft/world/entity/player/Player;)V"), cancellable=true)
     private void replaceTridentThrow (ItemStack itemStack, Level world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
-        if (world instanceof ServerLevel serverWorld && serverWorld.getGameRules().get(CPCGameRules.LOYALTY_STAYS_IN_HAND) && user instanceof Player player) {
+        if (world instanceof ServerLevel serverWorld && serverWorld.getGameRules().get(CombatPlusGameRules.LOYALTY_STAYS_IN_HAND) && user instanceof Player player) {
             int loyalty = EnchantmentHelper.getTridentReturnToOwnerAcceleration(serverWorld, itemStack, player);
 
             if (loyalty > 0) {

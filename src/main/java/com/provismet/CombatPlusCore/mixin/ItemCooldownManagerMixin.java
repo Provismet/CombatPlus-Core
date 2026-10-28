@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemCooldownManagerMixin {
     @Inject(method = "getCooldownGroup", at = @At("HEAD"), cancellable = true)
     private void useGroupComponent (ItemStack stack, CallbackInfoReturnable<Identifier> cir) {
-        Identifier group = stack.get(CPCDataComponentTypes.COOLDOWN_GROUP);
+        Identifier group = stack.get(CombatPlusDataComponentTypes.COOLDOWN_GROUP);
         if (group != null) {
             cir.setReturnValue(group);
         }

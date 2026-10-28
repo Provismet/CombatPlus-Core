@@ -2,9 +2,9 @@ package com.provismet.CombatPlusCore.registries;
 
 import com.mojang.serialization.Codec;
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContextTypes;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContextTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,15 +17,15 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public abstract class CPCEnchantmentComponentTypes {
-    public static final DataComponentType<List<ConditionalEffect<CPCEnchantmentEntityEffect>>> POST_CHARGED_ATTACK = register("post_charged_attack", builder -> builder.persistent(conditionalCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY)));
-    public static final DataComponentType<List<ConditionalEffect<CPCEnchantmentEntityEffect>>> POST_CRITICAL_ATTACK = register("post_critical_attack", builder -> builder.persistent(conditionalCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY)));
-    public static final DataComponentType<List<ConditionalEffect<CPCEnchantmentEntityEffect>>> POST_KILL = register("post_kill", builder -> builder.persistent(conditionalCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY)));
-    public static final DataComponentType<List<ConditionalEffect<CPCEnchantmentEntityEffect>>> POST_BLOCK = register("post_block", builder -> builder.persistent(conditionalCodec(CPCEnchantmentEntityEffect.CODEC, CPCLootContextTypes.DOUBLE_ENTITY)));
+public abstract class CombatPlusEnchantmentComponentTypes {
+    public static final DataComponentType<List<ConditionalEffect<CombatPlusEnchantmentEntityEffect>>> POST_CHARGED_ATTACK = register("post_charged_attack", builder -> builder.persistent(conditionalCodec(CombatPlusEnchantmentEntityEffect.CODEC, CombatPlusLootContextTypes.DOUBLE_ENTITY)));
+    public static final DataComponentType<List<ConditionalEffect<CombatPlusEnchantmentEntityEffect>>> POST_CRITICAL_ATTACK = register("post_critical_attack", builder -> builder.persistent(conditionalCodec(CombatPlusEnchantmentEntityEffect.CODEC, CombatPlusLootContextTypes.DOUBLE_ENTITY)));
+    public static final DataComponentType<List<ConditionalEffect<CombatPlusEnchantmentEntityEffect>>> POST_KILL = register("post_kill", builder -> builder.persistent(conditionalCodec(CombatPlusEnchantmentEntityEffect.CODEC, CombatPlusLootContextTypes.DOUBLE_ENTITY)));
+    public static final DataComponentType<List<ConditionalEffect<CombatPlusEnchantmentEntityEffect>>> POST_BLOCK = register("post_block", builder -> builder.persistent(conditionalCodec(CombatPlusEnchantmentEntityEffect.CODEC, CombatPlusLootContextTypes.DOUBLE_ENTITY)));
     public static final DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> BONUS_DAMAGE = register("bonus_damage", builder -> builder.persistent(conditionalCodec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE)));
     public static final DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> GAMERULE_DAMAGE = register("gamerule_damage", builder -> builder.persistent(conditionalCodec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE)));
     public static final DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> MODIFY_COOLDOWN = register("modify_cooldown", builder -> builder.persistent(conditionalCodec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_ENTITY)));
-    public static final DataComponentType<List<ConditionalEffect<CPCDataComponentEntityEffect<?>>>> DATA_COMPONENT = register("data_component", builder -> builder.persistent(conditionalCodec(CPCDataComponentEntityEffect.CODEC, LootContextParamSets.ENCHANTED_ITEM)));
+    public static final DataComponentType<List<ConditionalEffect<CombatPlusDataComponentEntityEffect<?>>>> DATA_COMPONENT = register("data_component", builder -> builder.persistent(conditionalCodec(CombatPlusDataComponentEntityEffect.CODEC, LootContextParamSets.ENCHANTED_ITEM)));
 
     public static void init () {}
 

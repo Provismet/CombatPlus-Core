@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 
-public class CPCGameRules {
+public class CombatPlusGameRules {
     public static final GameRuleCategory CATEGORY = new GameRuleCategory(CombatPlusCoreMain.identifier("gamerule_category"));
     public static final GameRule<Boolean> SWEEPING_REQUIRES_ENCHANTMENT = forBool("sweeping_requires_enchantment", false);
     public static final GameRule<Boolean> LOYALTY_STAYS_IN_HAND = forBool("keep_loyalty_tridents", false);

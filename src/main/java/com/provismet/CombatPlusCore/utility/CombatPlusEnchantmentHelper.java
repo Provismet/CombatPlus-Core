@@ -1,8 +1,8 @@
 package com.provismet.CombatPlusCore.utility;
 
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContext;
+import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContext;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
@@ -31,7 +31,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
  *
  * @see EnchantmentHelper
  */
-public class CPCEnchantmentHelper {
+public class CombatPlusEnchantmentHelper {
     /**
      * Replaces the original {@link EnchantmentHelper#modifyDamage} to provide gamerule compatible damage and multi-item damage bonuses.
      *
@@ -44,11 +44,11 @@ public class CPCEnchantmentHelper {
      */
     public static float getDamage (ServerLevel world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
         MutableFloat damage = new MutableFloat();
-        damage.add(CPCEnchantmentHelper.modifyValue(CPCEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, damageSource, 0));
-        if (target instanceof Player) damage.setValue(damage.floatValue() * world.getGameRules().get(CPCGameRules.PVP_DAMAGE_MODIFIER));
+        damage.add(CombatPlusEnchantmentHelper.modifyValue(CombatPlusEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, damageSource, 0));
+        if (target instanceof Player) damage.setValue(damage.floatValue() * world.getGameRules().get(CombatPlusGameRules.PVP_DAMAGE_MODIFIER));
         damage.add(baseDamage);
 
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
             enchantment.value().modifyDamage(world, level, itemStack, target, damageSource, damage);
         }, itemStack);
 
@@ -57,9 +57,9 @@ public class CPCEnchantmentHelper {
                 ItemStack equippedItem = attacker.getItemBySlot(slot);
                 if (equippedItem == null || equippedItem.isEmpty()) continue;
 
-                CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+                CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
                     if (enchantment.value().matchingSlot(slot))
-                        enchantment.value().modifyDamageFilteredValue(CPCEnchantmentComponentTypes.BONUS_DAMAGE, world, level, itemStack, attacker, damageSource, damage);
+                        enchantment.value().modifyDamageFilteredValue(CombatPlusEnchantmentComponentTypes.BONUS_DAMAGE, world, level, itemStack, attacker, damageSource, damage);
                 }, equippedItem);
             }
         }
@@ -76,9 +76,9 @@ public class CPCEnchantmentHelper {
      * @param slot The equipment slot to trigger callbacks for.
      */
     public static void postChargedHit (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
-            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK)) {
-                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_CHARGED_ATTACK)) {
+                LootContext conditional = CombatPlusLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
                 if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
             }
         }, user, slot);
@@ -93,9 +93,9 @@ public class CPCEnchantmentHelper {
      * @param slot The equipment slot to trigger callbacks for.
      */
     public static void postCriticalHit (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
-            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK)) {
-                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_CRITICAL_ATTACK)) {
+                LootContext conditional = CombatPlusLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
                 if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
             }
         }, user, slot);
@@ -110,18 +110,18 @@ public class CPCEnchantmentHelper {
      * @param slot The equipment slot to trigger callbacks for.
      */
     public static void postKill (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
-            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_KILL)) {
-                LootContext conditional = CPCLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_KILL)) {
+                LootContext conditional = CombatPlusLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
                 if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
             }
         }, user, slot);
     }
 
     public static void postBlock (ServerLevel world, LivingEntity user, Entity attacker, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
-            for (ConditionalEffect<CPCEnchantmentEntityEffect> effect : enchantment.value().getEffects(CPCEnchantmentComponentTypes.POST_BLOCK)) {
-                LootContext conditional = CPCLootContext.createReversedDoubleEntity(world, level, user, attacker, user.getItemBySlot(slot));
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_BLOCK)) {
+                LootContext conditional = CombatPlusLootContext.createReversedDoubleEntity(world, level, user, attacker, user.getItemBySlot(slot));
                 if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, attacker);
             }
         }, user, slot);
@@ -138,7 +138,7 @@ public class CPCEnchantmentHelper {
      */
     public static float modifyValue (DataComponentType<EnchantmentValueEffect> valueType, RandomSource random, ItemStack itemStack, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyUnfilteredValue(valueType, random, level, value), itemStack);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyUnfilteredValue(valueType, random, level, value), itemStack);
         return value.floatValue();
     }
 
@@ -153,7 +153,7 @@ public class CPCEnchantmentHelper {
      */
     public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyItemFilteredCount(valueType, world, level, itemStack, value), itemStack);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyItemFilteredCount(valueType, world, level, itemStack, value), itemStack);
         return value.floatValue();
     }
 
@@ -169,7 +169,7 @@ public class CPCEnchantmentHelper {
      */
     public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, Entity user, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyEntityFilteredValue(valueType, world, level, itemStack, user, value), itemStack);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyEntityFilteredValue(valueType, world, level, itemStack, user, value), itemStack);
         return value.floatValue();
     }
 
@@ -186,7 +186,7 @@ public class CPCEnchantmentHelper {
      */
     public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, Entity user, DamageSource damageSource, float base) {
         MutableFloat value = new MutableFloat(base);
-        CPCEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyDamageFilteredValue(valueType, world, level, itemStack, user, damageSource, value), itemStack);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyDamageFilteredValue(valueType, world, level, itemStack, user, damageSource, value), itemStack);
         return value.floatValue();
     }
 
@@ -205,7 +205,7 @@ public class CPCEnchantmentHelper {
      * @param slot The equipment slot the item is in.
      */
     public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot) {
-        CPCEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getItemBySlot(slot));
+        CombatPlusEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getItemBySlot(slot));
     }
 
     /**

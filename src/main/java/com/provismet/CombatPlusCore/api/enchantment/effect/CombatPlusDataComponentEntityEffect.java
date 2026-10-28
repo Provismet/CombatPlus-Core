@@ -2,13 +2,13 @@ package com.provismet.CombatPlusCore.api.enchantment.effect;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import java.util.function.Function;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
 
-public interface CPCDataComponentEntityEffect<T> {
-    Codec<CPCDataComponentEntityEffect<?>> CODEC = CPCRegistries.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE.byNameCodec().dispatch(CPCDataComponentEntityEffect::getCodec, Function.identity());
+public interface CombatPlusDataComponentEntityEffect<T> {
+    Codec<CombatPlusDataComponentEntityEffect<?>> CODEC = CombatPlusRegistries.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE.byNameCodec().dispatch(CombatPlusDataComponentEntityEffect::getCodec, Function.identity());
 
     default void apply (ItemStack stack, int level) {
         if (stack.get(this.getComponentType()) == null) {
@@ -25,5 +25,5 @@ public interface CPCDataComponentEntityEffect<T> {
 
     T getComponent (int level);
     DataComponentType<T> getComponentType ();
-    MapCodec<? extends CPCDataComponentEntityEffect<?>> getCodec ();
+    MapCodec<? extends CombatPlusDataComponentEntityEffect<?>> getCodec ();
 }

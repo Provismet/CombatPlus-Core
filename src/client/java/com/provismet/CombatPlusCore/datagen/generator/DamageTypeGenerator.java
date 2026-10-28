@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
-import com.provismet.CombatPlusCore.utility.CPCDamageTypes;
+import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
 import com.provismet.lilylib.datagen.provider.LilyDamageTypeProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
@@ -14,6 +14,6 @@ public class DamageTypeGenerator extends LilyDamageTypeProvider {
 
     @Override
     protected void generate (HolderLookup.Provider registries, DamageConsumer consumer) {
-        consumer.add(CPCDamageTypes.POISON);
+        consumer.add(CombatPlusDamageTypes.POISON);
     }
 }

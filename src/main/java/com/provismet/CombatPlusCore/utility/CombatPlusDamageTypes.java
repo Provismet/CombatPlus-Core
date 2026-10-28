@@ -5,7 +5,7 @@ import com.provismet.lilylib.container.DamageTypeContainer;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 
-public abstract class CPCDamageTypes {
+public abstract class CombatPlusDamageTypes {
     public static final DamageTypeContainer POISON = new DamageTypeContainer(
         CombatPlusCoreMain.identifier("lethal_poison"),
         new DamageType("lethal_poison", 0.1f)

@@ -1,6 +1,6 @@
 package com.provismet.CombatPlusCore.mixin;
 
-import com.provismet.CombatPlusCore.utility.CPCCallbackUtil;
+import com.provismet.CombatPlusCore.utility.CombatPlusCallbackUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +22,7 @@ public abstract class MobEntityMixin extends LivingEntity {
     @Inject(method="doHurtTarget", at=@At(value="INVOKE", target="Lnet/minecraft/world/entity/Mob;getKnockback(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;)F"))
     public void onHit (ServerLevel world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (target instanceof LivingEntity living) {
-            CPCCallbackUtil.postChargedHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, living);
+            CombatPlusCallbackUtil.postChargedHit(world, this.getMainHandItem(), EquipmentSlot.MAINHAND, this, living);
         }
     }
 }

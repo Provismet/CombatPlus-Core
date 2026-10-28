@@ -2,12 +2,12 @@ package com.provismet.CombatPlusCore.api.enchantment.effect.component;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCDataComponentEntityEffect;
-import com.provismet.CombatPlusCore.registries.CPCDataComponentTypes;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusDataComponentEntityEffect;
+import com.provismet.CombatPlusCore.registries.CombatPlusDataComponentTypes;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 
-public record MaxUseTimeComponentEntityEffect (LevelBasedValue ticks) implements CPCDataComponentEntityEffect<Integer> {
+public record MaxUseTimeComponentEntityEffect (LevelBasedValue ticks) implements CombatPlusDataComponentEntityEffect<Integer> {
     public static final MapCodec<MaxUseTimeComponentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             LevelBasedValue.CODEC.fieldOf("ticks").forGetter(MaxUseTimeComponentEntityEffect::ticks)
@@ -21,7 +21,7 @@ public record MaxUseTimeComponentEntityEffect (LevelBasedValue ticks) implements
 
     @Override
     public DataComponentType<Integer> getComponentType () {
-        return CPCDataComponentTypes.MAX_USE_TIME;
+        return CombatPlusDataComponentTypes.MAX_USE_TIME;
     }
 
     @Override

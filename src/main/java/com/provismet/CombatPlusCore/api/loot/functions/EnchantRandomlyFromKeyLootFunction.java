@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Loot function for allowing an item to be enchanted with a single random enchantment from a list.
+ */
 public class EnchantRandomlyFromKeyLootFunction extends AbstractEnchantmentLootFunction {
     public static final MapCodec<EnchantRandomlyFromKeyLootFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> EnchantRandomlyFromKeyLootFunction.createCodec(instance).and(ResourceKey.codec(Registries.ENCHANTMENT).listOf().fieldOf("enchantments").forGetter(function -> function.keys)).apply(instance, EnchantRandomlyFromKeyLootFunction::new));
 

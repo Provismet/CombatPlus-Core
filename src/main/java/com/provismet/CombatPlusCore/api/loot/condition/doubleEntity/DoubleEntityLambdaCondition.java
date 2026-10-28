@@ -3,8 +3,8 @@ package com.provismet.CombatPlusCore.api.loot.condition.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.provismet.CombatPlusCore.api.loot.condition.DoubleEntityCondition;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContextParameters;
-import com.provismet.CombatPlusCore.utility.CPCRegistries;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContextParameters;
+import com.provismet.CombatPlusCore.utility.CombatPlusRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
@@ -24,10 +24,10 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
 
     @Override
     public boolean test (LootContext lootContext) {
-        Predicate<Tuple<Entity,Entity>> predicate = CPCRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.getValue(function);
+        Predicate<Tuple<Entity,Entity>> predicate = CombatPlusRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.getValue(function);
         if (predicate == null) return false;
 
-        Tuple<Entity,Entity> pair = new Tuple<>(lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY), lootContext.getOptionalParameter(CPCLootContextParameters.TARGET_ENTITY));
+        Tuple<Entity,Entity> pair = new Tuple<>(lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY), lootContext.getOptionalParameter(CombatPlusLootContextParameters.TARGET_ENTITY));
         return predicate.test(pair);
     }
 

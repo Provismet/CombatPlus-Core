@@ -1,7 +1,7 @@
 package com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity;
 
 import com.mojang.serialization.MapCodec;
-import com.provismet.CombatPlusCore.api.enchantment.effect.CPCEnchantmentEntityEffect;
+import com.provismet.CombatPlusCore.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
 import com.provismet.CombatPlusCore.api.item.interfaces.MeleeWeapon;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 /**
  * Triggers the attacker's on-critical-hit effect against the target.
  */
-public record WeaponPostCriticalEffect () implements CPCEnchantmentEntityEffect {
+public record WeaponPostCriticalEffect () implements CombatPlusEnchantmentEntityEffect {
     public static final MapCodec<WeaponPostCriticalEffect> CODEC = MapCodec.unit(WeaponPostCriticalEffect::new);
 
     @Override
@@ -25,7 +25,7 @@ public record WeaponPostCriticalEffect () implements CPCEnchantmentEntityEffect 
     }
 
     @Override
-    public MapCodec<? extends CPCEnchantmentEntityEffect> getCodec () {
+    public MapCodec<? extends CombatPlusEnchantmentEntityEffect> getCodec () {
         return CODEC;
     }
 }

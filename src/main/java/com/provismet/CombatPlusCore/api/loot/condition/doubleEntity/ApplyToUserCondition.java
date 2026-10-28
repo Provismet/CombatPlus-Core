@@ -3,7 +3,7 @@ package com.provismet.CombatPlusCore.api.loot.condition.doubleEntity;
 import com.mojang.serialization.MapCodec;
 import com.provismet.CombatPlusCore.api.loot.condition.DoubleEntityCondition;
 import com.provismet.CombatPlusCore.api.loot.condition.SingleEntityCondition;
-import com.provismet.CombatPlusCore.api.loot.context.CPCLootContext;
+import com.provismet.CombatPlusCore.api.loot.context.CombatPlusLootContext;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -23,7 +23,7 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
 
     @Override
     public boolean test (LootContext lootContext) {
-        LootContext userContext = CPCLootContext.createSingleEntity(
+        LootContext userContext = CombatPlusLootContext.createSingleEntity(
             lootContext.getLevel(),
             Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0),
             lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY),

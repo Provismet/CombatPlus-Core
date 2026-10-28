@@ -2,8 +2,8 @@ package com.provismet.CombatPlusCore.debug.registries;
 
 import com.provismet.CombatPlusCore.CombatPlusCoreMain;
 import com.provismet.CombatPlusCore.api.enchantment.effect.doubleEntity.CodeExecutionDoubleEntityEffect;
-import com.provismet.CombatPlusCore.registries.CPCEnchantmentComponentTypes;
-import com.provismet.CombatPlusCore.api.tag.CPCItemTags;
+import com.provismet.CombatPlusCore.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.CombatPlusCore.api.tag.CombatPlusItemTags;
 import com.provismet.lilylib.container.EnchantmentContainer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -15,7 +15,7 @@ public class CPCDebugEnchantments {
         CombatPlusCoreMain.identifier("logger"),
         (itemLookup, enchantmentLookup, damageLookup, blockLookup, entityLookup) -> Enchantment.enchantment(
             Enchantment.definition(
-                itemLookup.getOrThrow(CPCItemTags.DAMAGE_ENCHANTABLE),
+                itemLookup.getOrThrow(CombatPlusItemTags.DAMAGE_ENCHANTABLE),
                 1,
                 1,
                 Enchantment.constantCost(1),
@@ -24,13 +24,13 @@ public class CPCDebugEnchantments {
                 EquipmentSlotGroup.MAINHAND
             )
         ).withEffect(
-            CPCEnchantmentComponentTypes.POST_CHARGED_ATTACK,
+            CombatPlusEnchantmentComponentTypes.POST_CHARGED_ATTACK,
             new CodeExecutionDoubleEntityEffect(CombatPlusCoreMain.identifier("log-charged"))
         ).withEffect(
-            CPCEnchantmentComponentTypes.POST_CRITICAL_ATTACK,
+            CombatPlusEnchantmentComponentTypes.POST_CRITICAL_ATTACK,
             new CodeExecutionDoubleEntityEffect(CombatPlusCoreMain.identifier("log-critical"))
         ).withEffect(
-            CPCEnchantmentComponentTypes.POST_KILL,
+            CombatPlusEnchantmentComponentTypes.POST_KILL,
             new CodeExecutionDoubleEntityEffect(CombatPlusCoreMain.identifier("log-kill"))
         )
     );
@@ -39,7 +39,7 @@ public class CPCDebugEnchantments {
         CombatPlusCoreMain.identifier("shield_logger"),
         (itemLookup, enchantmentLookup, damageLookup, blockLookup, entityLookup) -> Enchantment.enchantment(
             Enchantment.definition(
-                itemLookup.getOrThrow(CPCItemTags.SHIELD_ENCHANTABLE),
+                itemLookup.getOrThrow(CombatPlusItemTags.SHIELD_ENCHANTABLE),
                 1,
                 1,
                 Enchantment.constantCost(1),
@@ -48,7 +48,7 @@ public class CPCDebugEnchantments {
                 EquipmentSlotGroup.HAND
             )
         ).withEffect(
-            CPCEnchantmentComponentTypes.POST_BLOCK,
+            CombatPlusEnchantmentComponentTypes.POST_BLOCK,
             new CodeExecutionDoubleEntityEffect(CombatPlusCoreMain.identifier("log-block"))
         )
     );
