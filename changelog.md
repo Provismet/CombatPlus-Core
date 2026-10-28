@@ -1,4 +1,10 @@
-Hotfix update to address a crash found in 1.21.11 after further testing.
+Major update, mostly internal, to update to 26.x versions.
 
-## Bugfixes
-- [LilyLib] Fixed crash caused by rendering FlatParticles.
+## Additions
+- `combat-plus:magic_damage` entity attribute.
+- `combat-plus:projectile_damage` entity attribute.
+- `combat-plus:is_melee` damage type tag (absorbed from Extended Enchanting)
+- `combat-plus:is_magic` damage type tag (absorbed from Additional Armoury)
+
+## Changes
+- Damage-type tag renamed: `combat-plus:standard` -> `combat-plus:is_standard`
