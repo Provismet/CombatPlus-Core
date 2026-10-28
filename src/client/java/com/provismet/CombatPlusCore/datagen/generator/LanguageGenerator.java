@@ -1,6 +1,7 @@
 package com.provismet.CombatPlusCore.datagen.generator;
 
 import com.provismet.CombatPlusCore.debug.registries.CPCDebugEnchantments;
+import com.provismet.CombatPlusCore.debug.registries.CPCDebugItems;
 import com.provismet.CombatPlusCore.registries.CombatPlusAttributes;
 import com.provismet.CombatPlusCore.utility.CombatPlusDamageTypes;
 import com.provismet.CombatPlusCore.utility.CombatPlusGameRules;
@@ -44,11 +45,14 @@ public class LanguageGenerator extends LilyLanguageProvider {
         translationBuilder.add(CombatPlusEnchantmentTags.ASPECT, "Aspect Enchantments");
         translationBuilder.add(CombatPlusEnchantmentTags.WEAPON_UTILITY, "Weapon Utility Enchantments");
         translationBuilder.add(CombatPlusEnchantmentTags.OFFHAND, "Offhand Enchantments");
+        translationBuilder.add(CombatPlusEnchantmentTags.ALL, "All Enchantments");
 
-        translationBuilder.add("item.combat-plus.debugger", "Example Weapon");
-        translationBuilder.add("item.combat-plus.debug_shield", "Example Shield");
+        CPCDebugItems.getOptionalDebugItem().ifPresent(item -> translationBuilder.add(item, "Example Weapon"));
+        CPCDebugItems.getOptionalDebugShield().ifPresent(item -> translationBuilder.add(item, "Example Shield"));
 
         translationBuilder.add(CombatPlusAttributes.PROTECTION_EFFECTIVENESS, "Protection Effectiveness");
+        translationBuilder.add(CombatPlusAttributes.MAGIC_DAMAGE, "Magic Damage");
+        translationBuilder.add(CombatPlusAttributes.PROJECTILE_DAMAGE, "Projectile Damage");
 
         CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Weapon Enchantment", "Logs attacks to the console for debugging purposes."));
         CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Shield Enchantment", "Logs to the console when blocking an attack for debugging purposes."));

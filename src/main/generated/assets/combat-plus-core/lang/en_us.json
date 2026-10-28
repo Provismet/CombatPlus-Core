@@ -1,5 +1,7 @@
 {
-  "cpc.attribute.name.protection_effectiveness": "Protection Effectiveness",
+  "combat-plus.attribute.name.magic_damage": "Magic Damage",
+  "combat-plus.attribute.name.projectile_damage": "Projectile Damage",
+  "combat-plus.attribute.name.protection_effectiveness": "Protection Effectiveness",
   "death.attack.lethal_poison": "%1$s couldn't find an antidote",
   "death.attack.lethal_poison.item": "%1$s succumbed to poison whilst fighting %2$s using %3$s",
   "death.attack.lethal_poison.player": "%1$s succumbed to poison whilst fighting %2$s",
@@ -22,6 +24,7 @@
   "resourcepack.combat-plus.enchanted_numerals": "Enchantment Numerals",
   "resourcepack.combat-plus.enchanted_numerals.description": "Numerals go up to level 255",
   "tag.enchantment.combat-plus.additional_damage": "Additional Damage Enchantments",
+  "tag.enchantment.combat-plus.all_enchantments": "All Enchantments",
   "tag.enchantment.combat-plus.aspect": "Aspect Enchantments",
   "tag.enchantment.combat-plus.offhand": "Offhand Enchantments",
   "tag.enchantment.combat-plus.weapon_utility": "Weapon Utility Enchantments",

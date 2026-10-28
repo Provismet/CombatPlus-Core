@@ -22,6 +22,17 @@ public class DamageTypeTagGenerator extends LilyTagProviders.LilyDamageTypeTagPr
             .add(DamageTypes.MOB_ATTACK)
             .add(DamageTypes.MOB_ATTACK_NO_AGGRO);
 
+        this.builder(CombatPlusDamageTypeTags.IS_MELEE)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_STANDARD)
+            .addOptionalTag(DamageTypeTags.IS_MACE_SMASH)
+            .add(DamageTypes.MACE_SMASH)
+            .add(DamageTypes.SPEAR);
+
+        this.builder(CombatPlusDamageTypeTags.IS_MAGIC)
+            .add(DamageTypes.MAGIC)
+            .add(DamageTypes.INDIRECT_MAGIC)
+            .add(DamageTypes.WIND_CHARGE);
+
         this.builder(DamageTypeTags.BYPASSES_ARMOR)
             .add(CombatPlusDamageTypes.POISON.getKey());
     }

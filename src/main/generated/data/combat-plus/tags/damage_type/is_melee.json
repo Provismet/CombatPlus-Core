@@ -1,0 +1,14 @@
+{
+  "values": [
+    {
+      "id": "#combat-plus:is_standard",
+      "required": false
+    },
+    {
+      "id": "#minecraft:mace_smash",
+      "required": false
+    },
+    "minecraft:mace_smash",
+    "minecraft:spear"
+  ]
+}
