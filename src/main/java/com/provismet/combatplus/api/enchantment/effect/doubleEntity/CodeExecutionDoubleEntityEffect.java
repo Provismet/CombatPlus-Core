@@ -1,0 +1,46 @@
+package com.provismet.combatplus.api.enchantment.effect.doubleEntity;
+
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.provismet.combatplus.CombatPlusCoreMain;
+import com.provismet.combatplus.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
+import com.provismet.combatplus.api.enchantment.effect.singleEntity.CodeExecutionSingleEntityEffect;
+import com.provismet.combatplus.utility.CombatPlusRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * Executes a registered function against the pair of entities.
+ * @see CodeExecutionSingleEntityEffect
+ * @param function The identifier of the function.
+ */
+public record CodeExecutionDoubleEntityEffect (Identifier function) implements CombatPlusEnchantmentEntityEffect {
+    public static final MapCodec<CodeExecutionDoubleEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(
+            Identifier.CODEC.fieldOf("function").forGetter(CodeExecutionDoubleEntityEffect::function)
+        ).apply(instance, CodeExecutionDoubleEntityEffect::new)
+    );
+
+    @Override
+    public void apply (ServerLevel world, int level, EnchantedItemInUse context, Entity attacker, Entity target) {
+        Lambda lambda = CombatPlusRegistries.DOUBLE_ENTITY_LAMBDA.getValue(this.function);
+        if (lambda == null) {
+            CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
+            return;
+        }
+        lambda.execute(world, level, context, attacker, target, attacker.position());
+    }
+
+    @Override
+    public MapCodec<? extends CombatPlusEnchantmentEntityEffect> getCodec() {
+        return CODEC;
+    }
+
+    @FunctionalInterface
+    public interface Lambda {
+        void execute (ServerLevel world, int level, EnchantedItemInUse context, Entity user, Entity target, Vec3 pos);
+    }
+}

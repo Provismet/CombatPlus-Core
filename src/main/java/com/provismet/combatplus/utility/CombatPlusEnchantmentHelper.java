@@ -1,0 +1,240 @@
+package com.provismet.combatplus.utility;
+
+import com.provismet.combatplus.registries.CombatPlusEnchantmentComponentTypes;
+import com.provismet.combatplus.api.enchantment.effect.CombatPlusEnchantmentEntityEffect;
+import com.provismet.combatplus.api.loot.context.CombatPlusLootContext;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import org.apache.commons.lang3.mutable.MutableFloat;
+
+import java.util.List;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
+import net.minecraft.world.level.storage.loot.LootContext;
+
+/**
+ * Enchantment helper to apply hooks from Combat+ enchantment components.
+ *
+ * @see EnchantmentHelper
+ */
+public class CombatPlusEnchantmentHelper {
+    /**
+     * Replaces the original {@link EnchantmentHelper#modifyDamage} to provide gamerule compatible damage and multi-item damage bonuses.
+     *
+     * @param world The world.
+     * @param itemStack The enchanted item.
+     * @param target The entity that was attacked.
+     * @param damageSource The damage source of the attack.
+     * @param baseDamage The initial damage amount for the attack.
+     * @return The total damage dealt.
+     */
+    public static float getDamage (ServerLevel world, ItemStack itemStack, Entity target, DamageSource damageSource, float baseDamage) {
+        MutableFloat damage = new MutableFloat();
+        damage.add(CombatPlusEnchantmentHelper.modifyValue(CombatPlusEnchantmentComponentTypes.GAMERULE_DAMAGE, world, itemStack, target, damageSource, 0));
+        if (target instanceof Player) damage.setValue(damage.floatValue() * world.getGameRules().get(CombatPlusGameRules.PVP_DAMAGE_MODIFIER));
+        damage.add(baseDamage);
+
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+            enchantment.value().modifyDamage(world, level, itemStack, target, damageSource, damage);
+        }, itemStack);
+
+        if (damageSource.getEntity() instanceof LivingEntity attacker) {
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                ItemStack equippedItem = attacker.getItemBySlot(slot);
+                if (equippedItem == null || equippedItem.isEmpty()) continue;
+
+                CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> {
+                    if (enchantment.value().matchingSlot(slot))
+                        enchantment.value().modifyDamageFilteredValue(CombatPlusEnchantmentComponentTypes.BONUS_DAMAGE, world, level, itemStack, attacker, damageSource, damage);
+                }, equippedItem);
+            }
+        }
+
+        return damage.floatValue();
+    }
+
+    /**
+     * Calls enchantment callbacks for charged hits.
+     *
+     * @param world The world the effect should occur in.
+     * @param user The wielder of the item.
+     * @param target The entity that was struck.
+     * @param slot The equipment slot to trigger callbacks for.
+     */
+    public static void postChargedHit (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_CHARGED_ATTACK)) {
+                LootContext conditional = CombatPlusLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
+            }
+        }, user, slot);
+    }
+
+    /**
+     * Calls enchantment callbacks for critical hits.
+     *
+     * @param world The world the effect should occur in.
+     * @param user The wielder of the item.
+     * @param target The entity that was struck.
+     * @param slot The equipment slot to trigger callbacks for.
+     */
+    public static void postCriticalHit (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_CRITICAL_ATTACK)) {
+                LootContext conditional = CombatPlusLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
+            }
+        }, user, slot);
+    }
+
+    /**
+     * Calls enchantment callbacks for kills.
+     *
+     * @param world The world the effect should occur in.
+     * @param user The wielder of the item.
+     * @param target The entity that was struck.
+     * @param slot The equipment slot to trigger callbacks for.
+     */
+    public static void postKill (ServerLevel world, LivingEntity user, LivingEntity target, EquipmentSlot slot) {
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_KILL)) {
+                LootContext conditional = CombatPlusLootContext.createDoubleEntity(world, level, user, target, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, target);
+            }
+        }, user, slot);
+    }
+
+    public static void postBlock (ServerLevel world, LivingEntity user, Entity attacker, EquipmentSlot slot) {
+        CombatPlusEnchantmentHelper.forEachEnchantment((Holder<Enchantment> enchantment, int level, EnchantedItemInUse context) -> {
+            for (ConditionalEffect<CombatPlusEnchantmentEntityEffect> effect : enchantment.value().getEffects(CombatPlusEnchantmentComponentTypes.POST_BLOCK)) {
+                LootContext conditional = CombatPlusLootContext.createReversedDoubleEntity(world, level, user, attacker, user.getItemBySlot(slot));
+                if (effect.matches(conditional)) effect.effect().apply(world, level, context, user, attacker);
+            }
+        }, user, slot);
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param random Random source.
+     * @param itemStack The enchanted item.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (DataComponentType<EnchantmentValueEffect> valueType, RandomSource random, ItemStack itemStack, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyUnfilteredValue(valueType, random, level, value), itemStack);
+        return value.floatValue();
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param world The server-side world.
+     * @param itemStack The enchanted item.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyItemFilteredCount(valueType, world, level, itemStack, value), itemStack);
+        return value.floatValue();
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param world The server-side world.
+     * @param itemStack The enchanted item.
+     * @param user The owner of the item.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, Entity user, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyEntityFilteredValue(valueType, world, level, itemStack, user, value), itemStack);
+        return value.floatValue();
+    }
+
+    /**
+     * Modifies a value from a given enchantment component type.
+     *
+     * @param valueType The type of value to modify.
+     * @param world The server-side world.
+     * @param itemStack The enchanted itemStack.
+     * @param user The owner of the item.
+     * @param damageSource The associated damage source.
+     * @param base The original float value.
+     * @return The new float value.
+     */
+    public static float modifyValue (DataComponentType<List<ConditionalEffect<EnchantmentValueEffect>>> valueType, ServerLevel world, ItemStack itemStack, Entity user, DamageSource damageSource, float base) {
+        MutableFloat value = new MutableFloat(base);
+        CombatPlusEnchantmentHelper.forEachEnchantment((enchantment, level) -> enchantment.value().modifyDamageFilteredValue(valueType, world, level, itemStack, user, damageSource, value), itemStack);
+        return value.floatValue();
+    }
+
+    public static void forEachEnchantment (Consumer consumer, ItemStack item) {
+        ItemEnchantments itemEnchantmentsComponent = item.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemEnchantmentsComponent.entrySet()) {
+            consumer.accept(entry.getKey(), entry.getIntValue());
+        }
+    }
+
+    /**
+     * Iterates over all enchantments on an item, activating the consumer for each.
+     *
+     * @param consumer A consumer / lambda to be called.
+     * @param user The owner of the enchanted item.
+     * @param slot The equipment slot the item is in.
+     */
+    public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot) {
+        CombatPlusEnchantmentHelper.forEachEnchantment(consumer, user, slot, user.getItemBySlot(slot));
+    }
+
+    /**
+     * Iterates over all enchantments on an item, activating the consumer for each.
+     *
+     * @param consumer A consumer / lambda to be called.
+     * @param user The owner of the enchanted item.
+     * @param slot The equipment slot the item is in.
+     * @param itemStack The enchanted item.
+     */
+    public static void forEachEnchantment (ContextConsumer consumer, LivingEntity user, EquipmentSlot slot, ItemStack itemStack) {
+        if (itemStack.isEmpty()) return;
+
+        ItemEnchantments enchantments = itemStack.getEnchantments();
+        if (enchantments.isEmpty()) return;
+
+        EnchantedItemInUse context = new EnchantedItemInUse(itemStack, slot, user);
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
+            if (entry.getKey().value().matchingSlot(slot)) consumer.accept(entry.getKey(), entry.getIntValue(), context);
+        }
+    }
+
+    @FunctionalInterface
+    public interface Consumer {
+        void accept(Holder<Enchantment> enchantment, int level);
+    }
+
+    @FunctionalInterface
+    public interface ContextConsumer {
+        void accept(Holder<Enchantment> enchantment, int level, EnchantedItemInUse context);
+    }
+}

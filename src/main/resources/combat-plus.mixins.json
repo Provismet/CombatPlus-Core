@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "com.provismet.CombatPlusCore.mixin",
+    "package": "com.provismet.combatplus.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "AxeItemMixin",
