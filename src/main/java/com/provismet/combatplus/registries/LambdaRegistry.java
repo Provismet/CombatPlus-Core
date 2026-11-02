@@ -10,8 +10,8 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 
-public abstract class LambdaRegistry {
-    public static void register () {
+public interface LambdaRegistry {
+    static void register () {
         registerSingles();
         registerDoubles();
         registerSingleConditions();

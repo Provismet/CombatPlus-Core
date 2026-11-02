@@ -10,8 +10,8 @@ import com.provismet.combatplus.api.enchantment.effect.component.UseCooldownComp
 import com.provismet.combatplus.utility.CombatPlusRegistries;
 import net.minecraft.core.Registry;
 
-public abstract class CombatPlusDataComponentEffects {
-    public static void register () {
+public interface CombatPlusDataComponentEffects {
+    static void register () {
         register("blocks_attacks_component", BlocksAttacksComponentEntityEffect.CODEC);
         register("use_cooldown_component", UseCooldownComponentEntityEffect.CODEC);
         register("use_group_component", CooldownGroupComponentEntityEffect.CODEC);

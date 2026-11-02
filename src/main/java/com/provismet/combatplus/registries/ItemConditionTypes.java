@@ -9,8 +9,8 @@ import com.provismet.combatplus.api.loot.condition.item.ItemLambdaCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
-public abstract class ItemConditionTypes {
-    public static void register () {
+public interface ItemConditionTypes {
+    static void register () {
         register("code_execution_item_condition", ItemLambdaCondition.CODEC);
         register("is_melee_weapon", IsMeleeWeaponCondition.CODEC);
         register("is_dual_weapon", IsDualWeaponCondition.CODEC);

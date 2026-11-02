@@ -10,8 +10,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public abstract class DoubleEntityLootConditionTypes {
-    public static void register () {
+public interface DoubleEntityLootConditionTypes {
+    static void register () {
         register("code_execution_double_entity_condition", DoubleEntityLambdaCondition.CODEC);
         register("apply_to_both", ApplyToBothCondition.CODEC);
         register("apply_to_user", ApplyToUserCondition.CODEC);

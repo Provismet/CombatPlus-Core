@@ -16,8 +16,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public abstract class SingleEntityLootConditionTypes {
-    public static void register () {
+public interface SingleEntityLootConditionTypes {
+    static void register () {
         register("code_execution_single_entity_condition", SingleEntityLambdaCondition.CODEC);
         register("health", HealthCondition.CODEC);
         register("relative_health", RelativeHealthCondition.CODEC);

@@ -12,8 +12,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 
-public class SingleEntityEffects {
-    public static void register () {
+public interface SingleEntityEffects {
+    static void register () {
         registerEntityEffect("code_execution_single_entity", CodeExecutionSingleEntityEffect.CODEC);
         registerEntityEffect("freeze", FreezeEffect.CODEC);
         registerEntityEffect("apply_velocity", ApplyVelocityEffect.CODEC);

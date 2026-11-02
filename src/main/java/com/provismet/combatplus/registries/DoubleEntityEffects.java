@@ -15,8 +15,8 @@ import com.provismet.combatplus.api.enchantment.effect.doubleEntity.WeaponPostKi
 import com.provismet.combatplus.utility.CombatPlusRegistries;
 import net.minecraft.core.Registry;
 
-public abstract class DoubleEntityEffects {
-    public static void register () {
+public interface DoubleEntityEffects {
+    static void register () {
         register("code_execution_double_entity", CodeExecutionDoubleEntityEffect.CODEC);
         register("apply_to_owner", ApplyToUserEntityEffect.CODEC);
         register("apply_to_target", ApplyToTargetEntityEffect.CODEC);
