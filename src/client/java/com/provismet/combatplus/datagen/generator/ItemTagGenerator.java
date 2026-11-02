@@ -1,6 +1,6 @@
 package com.provismet.combatplus.datagen.generator;
 
-import com.provismet.combatplus.debug.registries.CPCDebugItems;
+import com.provismet.combatplus.debug.registries.CombatPlusDebugItems;
 import com.provismet.combatplus.api.tag.CombatPlusItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -27,7 +27,7 @@ public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
     protected void addTags (HolderLookup.Provider wrapperLookup) {
         this.valueLookupBuilder(CombatPlusItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.SWORDS)
-            .addOptional(CPCDebugItems.getOptionalDebugItem().get());
+            .addOptional(CombatPlusDebugItems.getOptionalDebugItem().get());
 
         this.valueLookupBuilder(CombatPlusItemTags.MELEE_WEAPON)
             .addOptionalTag(CombatPlusItemTags.DUAL_WEAPON)
@@ -44,11 +44,11 @@ public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
         this.valueLookupBuilder(CombatPlusItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
-            .addOptional(CPCDebugItems.getOptionalDebugItem().get());
+            .addOptional(CombatPlusDebugItems.getOptionalDebugItem().get());
 
         this.valueLookupBuilder(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.MELEE_WEAPON_ENCHANTABLE)
-            .addOptional(CPCDebugItems.getOptionalDebugItem().get());
+            .addOptional(CombatPlusDebugItems.getOptionalDebugItem().get());
 
         this.valueLookupBuilder(CombatPlusItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
@@ -87,7 +87,7 @@ public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
             .addOptionalTag(CombatPlusItemTags.SHIELD_ENCHANTABLE);
 
         this.valueLookupBuilder(ConventionalItemTags.SHIELD_TOOLS)
-            .addOptional(CPCDebugItems.getOptionalDebugShield().get());
+            .addOptional(CombatPlusDebugItems.getOptionalDebugShield().get());
     }
 
     @Override

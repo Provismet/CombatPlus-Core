@@ -16,7 +16,7 @@ import net.minecraft.world.item.component.BlocksAttacks;
 import java.util.List;
 import java.util.Optional;
 
-public class CPCDebugItems {
+public class CombatPlusDebugItems {
     private static final ResourceKey<Item> DEBUGGER_KEY = ResourceKey.create(Registries.ITEM, CombatPlusCoreMain.identifier("debugger"));
     private static final Item DEBUGGER = new DebuggerItem(new Item.Properties().stacksTo(1).enchantable(1).setId(DEBUGGER_KEY).attributes(DebuggerItem.createSimpleAttributes()));
 

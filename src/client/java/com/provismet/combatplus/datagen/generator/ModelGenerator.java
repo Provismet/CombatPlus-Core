@@ -1,6 +1,6 @@
 package com.provismet.combatplus.datagen.generator;
 
-import com.provismet.combatplus.debug.registries.CPCDebugItems;
+import com.provismet.combatplus.debug.registries.CombatPlusDebugItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -21,9 +21,9 @@ public class ModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateItemModels (ItemModelGenerators itemModelGenerator) {
-        CPCDebugItems.getOptionalDebugItem().ifPresent(item -> itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM));
+        CombatPlusDebugItems.getOptionalDebugItem().ifPresent(item -> itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM));
 
-        CPCDebugItems.getOptionalDebugShield().ifPresent(shield -> itemModelGenerator.generateBooleanDispatch(
+        CombatPlusDebugItems.getOptionalDebugShield().ifPresent(shield -> itemModelGenerator.generateBooleanDispatch(
             shield,
             ItemModelUtils.isUsingItem(),
             ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(shield, "_blocking")),

@@ -1,7 +1,7 @@
 package com.provismet.combatplus.datagen.generator;
 
-import com.provismet.combatplus.debug.registries.CPCDebugEnchantments;
-import com.provismet.combatplus.debug.registries.CPCDebugItems;
+import com.provismet.combatplus.debug.registries.CombatPlusDebugEnchantments;
+import com.provismet.combatplus.debug.registries.CombatPlusDebugItems;
 import com.provismet.combatplus.registries.CombatPlusAttributes;
 import com.provismet.combatplus.utility.CombatPlusDamageTypes;
 import com.provismet.combatplus.utility.CombatPlusGameRules;
@@ -47,15 +47,15 @@ public class LanguageGenerator extends LilyLanguageProvider {
         translationBuilder.add(CombatPlusEnchantmentTags.OFFHAND, "Offhand Enchantments");
         translationBuilder.add(CombatPlusEnchantmentTags.ALL, "All Enchantments");
 
-        CPCDebugItems.getOptionalDebugItem().ifPresent(item -> translationBuilder.add(item, "Example Weapon"));
-        CPCDebugItems.getOptionalDebugShield().ifPresent(item -> translationBuilder.add(item, "Example Shield"));
+        CombatPlusDebugItems.getOptionalDebugItem().ifPresent(item -> translationBuilder.add(item, "Example Weapon"));
+        CombatPlusDebugItems.getOptionalDebugShield().ifPresent(item -> translationBuilder.add(item, "Example Shield"));
 
         translationBuilder.add(CombatPlusAttributes.PROTECTION_EFFECTIVENESS, "Protection Effectiveness");
         translationBuilder.add(CombatPlusAttributes.MAGIC_DAMAGE, "Magic Damage");
         translationBuilder.add(CombatPlusAttributes.PROJECTILE_DAMAGE, "Projectile Damage");
 
-        CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Weapon Enchantment", "Logs attacks to the console for debugging purposes."));
-        CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Shield Enchantment", "Logs to the console when blocking an attack for debugging purposes."));
+        CombatPlusDebugEnchantments.getDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Weapon Enchantment", "Logs attacks to the console for debugging purposes."));
+        CombatPlusDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> this.addEnchantment(translationBuilder, enchantment, "Example Shield Enchantment", "Logs to the console when blocking an attack for debugging purposes."));
 
         translationBuilder.add("resourcepack.combat-plus.enchanted_numerals", "Enchantment Numerals");
         translationBuilder.add("resourcepack.combat-plus.enchanted_numerals.description", "Numerals go up to level 255");

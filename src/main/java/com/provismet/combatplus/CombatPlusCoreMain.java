@@ -1,7 +1,7 @@
 package com.provismet.combatplus;
 
 import com.provismet.combatplus.api.CombatPlusEntrypoint;
-import com.provismet.combatplus.debug.registries.CPCDebugItems;
+import com.provismet.combatplus.debug.registries.CombatPlusDebugItems;
 import com.provismet.combatplus.event.handler.CombatEvents;
 import com.provismet.combatplus.event.handler.ItemEvents;
 import com.provismet.combatplus.registries.CombatPlusDataComponentEffects;
@@ -66,10 +66,10 @@ public class CombatPlusCoreMain implements ModInitializer {
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             LOGGER.warn("Combat+ Core development code is running. If you see this, you should be in a development environment.");
-            CPCDebugItems.register();
+            CombatPlusDebugItems.register();
             CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(content -> {
-                CPCDebugItems.getOptionalDebugItem().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
-                CPCDebugItems.getOptionalDebugShield().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
+                CombatPlusDebugItems.getOptionalDebugItem().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
+                CombatPlusDebugItems.getOptionalDebugShield().ifPresent(item -> content.accept(item, CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY));
             });
         }
 

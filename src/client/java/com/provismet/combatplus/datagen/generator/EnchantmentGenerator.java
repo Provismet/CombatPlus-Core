@@ -1,7 +1,7 @@
 package com.provismet.combatplus.datagen.generator;
 
 import com.provismet.combatplus.CombatPlusCoreMain;
-import com.provismet.combatplus.debug.registries.CPCDebugEnchantments;
+import com.provismet.combatplus.debug.registries.CombatPlusDebugEnchantments;
 import com.provismet.combatplus.api.enchantment.effect.component.CooldownGroupComponentEntityEffect;
 import com.provismet.combatplus.registries.CombatPlusEnchantmentComponentTypes;
 import com.provismet.combatplus.api.tag.CombatPlusItemTags;
@@ -40,8 +40,8 @@ public class EnchantmentGenerator extends LilyEnchantmentProvider {
 
     @Override
     protected void generate (HolderLookup.Provider registries, EnchantmentBuilder builder) {
-        CPCDebugEnchantments.getDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
-        CPCDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
+        CombatPlusDebugEnchantments.getDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
+        CombatPlusDebugEnchantments.getShieldDebugContainer().ifPresent(enchantment -> builder.add(enchantment, new DevModeResourceCondition()));
 
         builder.add(
             Enchantments.SHARPNESS,

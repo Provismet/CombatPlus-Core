@@ -10,7 +10,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.Optional;
 
-public class CPCDebugEnchantments {
+public class CombatPlusDebugEnchantments {
     private static final EnchantmentContainer LOGGER = new EnchantmentContainer(
         CombatPlusCoreMain.identifier("logger"),
         (itemLookup, enchantmentLookup, damageLookup, blockLookup, entityLookup) -> Enchantment.enchantment(
