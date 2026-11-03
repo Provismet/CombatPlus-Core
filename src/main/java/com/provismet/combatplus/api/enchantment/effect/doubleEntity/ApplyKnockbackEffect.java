@@ -34,7 +34,7 @@ public record ApplyKnockbackEffect (LevelBasedValue strength, boolean respectAtt
         }
         Vec3 velocity = new Vec3(target.getX() - attacker.getX(), 0.0, target.getZ() - attacker.getZ()).normalize().scale(strengthValue).add(0.0, 0.1, 0.0);
         target.push(velocity);
-        target.needsSync = true;
+        target.hurtMarked = true;
     }
 
     @Override
