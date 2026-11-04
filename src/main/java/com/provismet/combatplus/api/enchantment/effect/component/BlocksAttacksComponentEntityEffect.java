@@ -17,6 +17,11 @@ import net.minecraft.world.item.enchantment.LevelBasedValue;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Enchantment data component that grants the {@link BlocksAttacks} item data component.
+ * <p>
+ * All parameters are passed as-is to the component's constructor.
+ */
 public record BlocksAttacksComponentEntityEffect (
     LevelBasedValue blockDelaySeconds,
     LevelBasedValue disableCooldownScale,

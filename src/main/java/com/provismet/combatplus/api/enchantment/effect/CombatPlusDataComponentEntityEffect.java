@@ -7,6 +7,9 @@ import java.util.function.Function;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * Enchantment data component that grants specific item data components to enchanted items.
+ */
 public interface CombatPlusDataComponentEntityEffect<T> {
     Codec<CombatPlusDataComponentEntityEffect<?>> CODEC = CombatPlusRegistries.ENCHANTMENT_DATA_COMPONENT_EFFECT_TYPE.byNameCodec().dispatch(CombatPlusDataComponentEntityEffect::getCodec, Function.identity());
 

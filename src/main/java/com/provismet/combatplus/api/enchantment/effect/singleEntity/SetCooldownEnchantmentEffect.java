@@ -12,6 +12,10 @@ import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Applies a cooldown to the enchanted item.
+ * @param ticks The number of ticks to set the cooldown for.
+ */
 public record SetCooldownEnchantmentEffect (LevelBasedValue ticks) implements EnchantmentEntityEffect {
     public static final MapCodec<SetCooldownEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(

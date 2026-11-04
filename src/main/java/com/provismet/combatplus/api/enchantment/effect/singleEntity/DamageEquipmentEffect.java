@@ -12,6 +12,11 @@ import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Damages a held/worn piece of equipment.
+ * @param slots The slots to apply damage to.
+ * @param value The amount to damage the item(s) by.
+ */
 public record DamageEquipmentEffect (List<EquipmentSlot> slots, LevelBasedValue value) implements EnchantmentEntityEffect {
     public static final MapCodec<DamageEquipmentEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(

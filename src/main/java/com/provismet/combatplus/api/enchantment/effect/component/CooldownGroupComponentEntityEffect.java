@@ -7,6 +7,14 @@ import com.provismet.combatplus.registries.CombatPlusDataComponentTypes;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.Identifier;
 
+/**
+ * Enchantment component that grants the {@link CombatPlusDataComponentTypes#COOLDOWN_GROUP} data component to an item.
+ * <p>
+ * This component alters the cooldown group used by the item. Items within the same cooldown group will share cooldowns with each other.
+ * An item's default group is its own item id.
+ *
+ * @param group The identifier of the cooldown group.
+ */
 public record CooldownGroupComponentEntityEffect (Identifier group) implements CombatPlusDataComponentEntityEffect<Identifier> {
     public static final MapCodec<CooldownGroupComponentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(

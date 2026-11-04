@@ -10,6 +10,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.component.UseCooldown;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 
+/**
+ * Grants the {@link DataComponents#USE_COOLDOWN} data component to the enchanted item.
+ * <p>
+ * Parameters are passed as-is to the constructor.
+ *
+ * @param seconds The number of seconds, not ticks, for the cooldown to last.
+ * @param cooldownGroup The cooldown group of the item.
+ */
 public record UseCooldownComponentEntityEffect (LevelBasedValue seconds, Optional<Identifier> cooldownGroup) implements CombatPlusDataComponentEntityEffect<UseCooldown> {
     public static final MapCodec<UseCooldownComponentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
