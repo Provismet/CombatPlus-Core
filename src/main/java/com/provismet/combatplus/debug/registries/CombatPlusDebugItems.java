@@ -1,26 +1,23 @@
 package com.provismet.combatplus.debug.registries;
 
-import com.provismet.combatplus.CombatPlusCoreMain;
 import com.provismet.combatplus.debug.items.DebugShield;
 import com.provismet.combatplus.debug.items.DebuggerItem;
+import com.provismet.combatplus.debug.references.CombatPlusDebugItemIds;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.BlocksAttacks;
+
 import java.util.List;
 import java.util.Optional;
 
 public class CombatPlusDebugItems {
-    private static final ResourceKey<Item> DEBUGGER_KEY = ResourceKey.create(Registries.ITEM, CombatPlusCoreMain.identifier("debugger"));
-    private static final Item DEBUGGER = new DebuggerItem(new Item.Properties().stacksTo(1).enchantable(1).setId(DEBUGGER_KEY).attributes(DebuggerItem.createSimpleAttributes()));
+    private static final Item DEBUG_SWORD = new DebuggerItem(new Item.Properties().stacksTo(1).enchantable(1).setId(CombatPlusDebugItemIds.DEBUG_SWORD).attributes(DebuggerItem.createSimpleAttributes()));
 
-    private static final ResourceKey<Item> DEBUG_SHIELD_KEY = ResourceKey.create(Registries.ITEM, CombatPlusCoreMain.identifier("debug_shield"));
     private static final Item DEBUG_SHIELD = new DebugShield(new Item.Properties().stacksTo(1).durability(500)
         .delayedComponent(
             DataComponents.BLOCKS_ATTACKS,
@@ -35,15 +32,15 @@ public class CombatPlusDebugItems {
             )
         )
         .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
-        .setId(DEBUG_SHIELD_KEY));
+        .setId(CombatPlusDebugItemIds.DEBUG_SHIELD));
 
     public static void register () {
-        Registry.register(BuiltInRegistries.ITEM, DEBUGGER_KEY, DEBUGGER);
-        Registry.register(BuiltInRegistries.ITEM, DEBUG_SHIELD_KEY, DEBUG_SHIELD);
+        Registry.register(BuiltInRegistries.ITEM, CombatPlusDebugItemIds.DEBUG_SWORD, DEBUG_SWORD);
+        Registry.register(BuiltInRegistries.ITEM, CombatPlusDebugItemIds.DEBUG_SHIELD, DEBUG_SHIELD);
     }
 
     public static Optional<Item> getOptionalDebugItem () {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return Optional.of(DEBUGGER);
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return Optional.of(DEBUG_SWORD);
         else return Optional.empty();
     }
 

@@ -1,22 +1,15 @@
 package com.provismet.combatplus.datagen.generator;
 
-import com.provismet.combatplus.debug.registries.CombatPlusDebugItems;
 import com.provismet.combatplus.api.tag.CombatPlusItemTags;
+import com.provismet.combatplus.debug.references.CombatPlusDebugItemIds;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.tags.TagAppender;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.references.ItemIds;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagBuilder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
     public ItemTagGenerator (FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
@@ -25,105 +18,70 @@ public class ItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags (HolderLookup.Provider wrapperLookup) {
-        this.valueLookupBuilder(CombatPlusItemTags.DUAL_WEAPON)
+        this.builder(CombatPlusItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.SWORDS)
-            .addOptional(CombatPlusDebugItems.getOptionalDebugItem().get());
+            .addOptional(CombatPlusDebugItemIds.DEBUG_SWORD);
 
-        this.valueLookupBuilder(CombatPlusItemTags.MELEE_WEAPON)
+        this.builder(CombatPlusItemTags.MELEE_WEAPON)
             .addOptionalTag(CombatPlusItemTags.DUAL_WEAPON)
             .addOptionalTag(ItemTags.AXES)
             .addOptionalTag(ItemTags.SPEARS)
-            .add(Items.MACE);
+            .add(ItemIds.MACE);
 
-        this.valueLookupBuilder(CombatPlusItemTags.ASPECT_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.ASPECT_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.ASPECT_PRIMARY_ENCHANTABLE);
 
-        this.valueLookupBuilder(CombatPlusItemTags.ASPECT_PRIMARY_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.ASPECT_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.FIRE_ASPECT_ENCHANTABLE);
 
-        this.valueLookupBuilder(CombatPlusItemTags.DAMAGE_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
-            .addOptional(CombatPlusDebugItems.getOptionalDebugItem().get());
+            .addOptional(CombatPlusDebugItemIds.DEBUG_SWORD);
 
-        this.valueLookupBuilder(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.DAMAGE_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.MELEE_WEAPON_ENCHANTABLE)
-            .addOptional(CombatPlusDebugItems.getOptionalDebugItem().get());
+            .addOptional(CombatPlusDebugItemIds.DEBUG_SWORD);
 
-        this.valueLookupBuilder(CombatPlusItemTags.WEAPON_UTILITY_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE);
 
-        this.valueLookupBuilder(CombatPlusItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.WEAPON_UTILITY_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ItemTags.SHARP_WEAPON_ENCHANTABLE);
 
-        this.valueLookupBuilder(CombatPlusItemTags.OFFHAND_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.OFFHAND_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.OFFHAND_PRIMARY_ENCHANTABLE);
 
-        this.valueLookupBuilder(CombatPlusItemTags.OFFHAND_PRIMARY_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.OFFHAND_PRIMARY_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.DUAL_WEAPON);
 
-        this.valueLookupBuilder(CombatPlusItemTags.SHIELD_ENCHANTABLE)
+        this.builder(CombatPlusItemTags.SHIELD_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.SHIELD_PRIMARY_ENCHANTABLE)
             .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS);
 
-        this.valueLookupBuilder(CombatPlusItemTags.SHIELD_PRIMARY_ENCHANTABLE)
-            .add(Items.SHIELD);
+        this.builder(CombatPlusItemTags.SHIELD_PRIMARY_ENCHANTABLE)
+            .add(ItemIds.SHIELD);
 
-        this.valueLookupBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
+        this.builder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
             .addOptionalTag(CombatPlusItemTags.MELEE_WEAPON);
 
-        this.valueLookupBuilder(ItemTags.WEAPON_ENCHANTABLE)
+        this.builder(ItemTags.WEAPON_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.MELEE_WEAPON);
 
-        this.valueLookupBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+        this.builder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.DAMAGE_ENCHANTABLE);
 
-        this.valueLookupBuilder(ConventionalItemTags.ENCHANTABLES)
+        this.builder(ConventionalItemTags.ENCHANTABLES)
             .addOptionalTag(CombatPlusItemTags.DAMAGE_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.WEAPON_UTILITY_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.ASPECT_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.OFFHAND_ENCHANTABLE)
             .addOptionalTag(CombatPlusItemTags.SHIELD_ENCHANTABLE);
 
-        this.valueLookupBuilder(ConventionalItemTags.SHIELD_TOOLS)
-            .addOptional(CombatPlusDebugItems.getOptionalDebugShield().get());
+        this.builder(ConventionalItemTags.SHIELD_TOOLS)
+            .addOptional(CombatPlusDebugItemIds.DEBUG_SHIELD);
     }
 
-    @Override
-    protected @NotNull TagAppender<Item, Item> valueLookupBuilder(@NotNull TagKey<Item> tag) {
-        TagBuilder tagBuilder = this.getOrCreateRawBuilder(tag);
-        TagAppender<ResourceKey<Item>, Item> builder = TagAppender.forBuilder(tagBuilder);
-        Function<Item, ResourceKey<Item>> mapper = item -> item.builtInRegistryHolder().key();
-        return fixMapped(mapper, builder);
-    }
 
-    // This only exists because the vanilla one is bugged and does not do optional entries! This can be safely removed when it's fixed in Minecraft.
-    public static TagAppender<Item, Item> fixMapped (Function<Item, ResourceKey<Item>> mapper, TagAppender<ResourceKey<Item>, Item> providedTagBuilder) {
-        return new TagAppender<> () {
-            @Override
-            public TagAppender<Item, Item> add(Item value) {
-                providedTagBuilder.add(mapper.apply(value));
-                return this;
-            }
-
-            @Override
-            public TagAppender<Item, Item> addOptional(Item value) {
-                providedTagBuilder.addOptional(mapper.apply(value));
-                return this;
-            }
-
-            @Override
-            public TagAppender<Item, Item> addTag(TagKey<Item> tag) {
-                providedTagBuilder.addTag(tag);
-                return this;
-            }
-
-            @Override
-            public TagAppender<Item, Item> addOptionalTag(TagKey<Item> tag) {
-                providedTagBuilder.addOptionalTag(tag);
-                return this;
-            }
-        };
-    }
 }
