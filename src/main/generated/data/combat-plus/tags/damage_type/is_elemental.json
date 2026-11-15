@@ -1,0 +1,56 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:is_fire",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_freezing",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_lightning",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_water",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_earth",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_wind",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_light",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_dark",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_life",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_death",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_spatial",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_temporal",
+      "required": false
+    },
+    {
+      "id": "#combat-plus:is_void",
+      "required": false
+    }
+  ]
+}
