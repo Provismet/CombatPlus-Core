@@ -10,6 +10,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 /**
  * Returns true is the entity's age, in ticks, is divisible by the provided value (rounded down).
  *
@@ -22,8 +24,10 @@ public record TickModuloCondition (LevelBasedValue interval) implements SingleEn
 
     @Override
     public boolean test (LootContext lootContext) {
-        Entity entity = lootContext.getParameter(LootContextParams.THIS_ENTITY);
-        int modulo = (int)this.interval.calculate(lootContext.getParameter(LootContextParams.ENCHANTMENT_LEVEL));
+        Entity entity = lootContext.getOptional(LootContextParams.THIS_ENTITY);
+        if (entity == null) return false;
+
+        int modulo = (int)this.interval.calculate(Objects.requireNonNullElse(lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL), 0));
         return entity.tickCount % modulo == 0;
     }
 

@@ -47,10 +47,10 @@ public class ApplyToBothCondition extends AbstractSingleWrapperCondition {
 
     @Override
     public boolean test (LootContext lootContext) {
-        Entity attacker = lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY);
-        Entity target = lootContext.getOptionalParameter(CombatPlusLootContextParameters.TARGET_ENTITY);
-        int level = Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0);
-        ItemInstance item = lootContext.getOptionalParameter(LootContextParams.TOOL);
+        Entity attacker = lootContext.getOptional(LootContextParams.ATTACKING_ENTITY);
+        Entity target = lootContext.getOptional(CombatPlusLootContextParameters.TARGET_ENTITY);
+        int level = Objects.requireNonNullElse(lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL), 0);
+        ItemInstance item = lootContext.getOptional(LootContextParams.TOOL);
 
         LootContext attackerContext = CombatPlusLootContext.createSingleEntity(lootContext.getLevel(), level, attacker, item);
         LootContext targetContext = CombatPlusLootContext.createSingleEntity(lootContext.getLevel(), level, target, null);

@@ -6,7 +6,6 @@ import com.provismet.combatplus.api.enchantment.effect.CombatPlusDataComponentEn
 import com.provismet.combatplus.registries.CombatPlusDataComponentTypes;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 /**
  * Enchantment data component that modifies the maximum use time of an item by granting the {@link CombatPlusDataComponentTypes#MAX_USE_TIME} item component.

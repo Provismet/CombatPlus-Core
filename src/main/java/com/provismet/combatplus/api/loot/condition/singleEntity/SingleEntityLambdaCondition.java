@@ -32,7 +32,7 @@ public record SingleEntityLambdaCondition (Identifier function) implements Singl
             return false;
         }
 
-        Entity entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
+        Entity entity = lootContext.getOptional(LootContextParams.THIS_ENTITY);
         return predicate.test(entity);
     }
 

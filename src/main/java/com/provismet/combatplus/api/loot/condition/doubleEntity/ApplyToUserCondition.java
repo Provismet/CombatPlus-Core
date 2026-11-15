@@ -25,9 +25,9 @@ public class ApplyToUserCondition extends AbstractSingleWrapperCondition {
     public boolean test (LootContext lootContext) {
         LootContext userContext = CombatPlusLootContext.createSingleEntity(
             lootContext.getLevel(),
-            Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0),
-            lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY),
-            lootContext.getOptionalParameter(LootContextParams.TOOL)
+            Objects.requireNonNullElse(lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL), 0),
+            lootContext.getOptional(LootContextParams.THIS_ENTITY),
+            lootContext.getOptional(LootContextParams.TOOL)
         );
         return this.condition.test(userContext);
     }

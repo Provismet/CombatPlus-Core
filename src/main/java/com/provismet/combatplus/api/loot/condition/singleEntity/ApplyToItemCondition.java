@@ -22,7 +22,7 @@ public record ApplyToItemCondition(LootItemCondition condition) implements Singl
 
     @Override
     public boolean test (LootContext lootContext) {
-        if (lootContext.getOptionalParameter(LootContextParams.TOOL) == null) return false;
+        if (lootContext.getOptional(LootContextParams.TOOL) == null) return false;
         return this.condition.test(lootContext);
     }
 

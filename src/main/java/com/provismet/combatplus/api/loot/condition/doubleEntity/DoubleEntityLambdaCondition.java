@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiPredicate;
 
@@ -26,7 +27,7 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
         BiPredicate<Entity,Entity> predicate = CombatPlusRegistries.DOUBLE_ENTITY_LAMBDA_CONDITION.getValue(function);
         if (predicate == null) return false;
 
-        return predicate.test(lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY), lootContext.getOptionalParameter(CombatPlusLootContextParameters.TARGET_ENTITY));
+        return predicate.test(lootContext.getOptional(LootContextParams.THIS_ENTITY), lootContext.getOptional(CombatPlusLootContextParameters.TARGET_ENTITY));
     }
 
     public static DoubleEntityCondition.Builder builder (Identifier function) {
@@ -34,6 +35,7 @@ public record DoubleEntityLambdaCondition (Identifier function) implements Doubl
     }
 
     @Override
+    @NotNull
     public MapCodec<? extends LootItemCondition> codec () {
         return CODEC;
     }

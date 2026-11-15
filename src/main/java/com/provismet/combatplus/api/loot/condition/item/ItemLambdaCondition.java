@@ -25,7 +25,7 @@ public record ItemLambdaCondition (Identifier function) implements ItemCondition
             CombatPlusCoreMain.LOGGER.warn("Enchantment attempted to execute unregistered lambda function: {}", this.function.toString());
             return false;
         }
-        ItemInstance instance = lootContext.getOptionalParameter(LootContextParams.TOOL);
+        ItemInstance instance = lootContext.getOptional(LootContextParams.TOOL);
         if (instance instanceof ItemStack stack) return predicate.test(stack);
         return false;
     }

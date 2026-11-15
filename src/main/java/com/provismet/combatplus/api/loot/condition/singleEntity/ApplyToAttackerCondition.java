@@ -36,8 +36,8 @@ public record ApplyToAttackerCondition(LootItemCondition condition) implements S
     public boolean test (LootContext lootContext) {
         LootContext flippedContext = CombatPlusLootContext.createSingleEntity(
             lootContext.getLevel(),
-            lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL),
-            lootContext.getOptionalParameter(LootContextParams.ATTACKING_ENTITY),
+            lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL),
+            lootContext.getOptional(LootContextParams.ATTACKING_ENTITY),
             null
         );
         return this.condition.test(flippedContext);

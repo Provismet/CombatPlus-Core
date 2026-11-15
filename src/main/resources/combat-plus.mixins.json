@@ -3,7 +3,6 @@
     "package": "com.provismet.combatplus.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "AxeItemMixin",
         "EnchantmentHelperMixin",
         "ItemCooldownManagerMixin",
         "ItemMixin",

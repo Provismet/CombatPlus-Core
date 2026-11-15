@@ -20,7 +20,7 @@ public record ExposedToSkyCondition () implements SingleEntityCondition {
 
     public static boolean isSkyVisible (LootContext lootContext) {
         ServerLevel world = lootContext.getLevel();
-        Vec3 position = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
+        Vec3 position = lootContext.getOptional(LootContextParams.ORIGIN);
         if (position == null) return false;
         return world.canSeeSky(new BlockPos((int)position.x, (int)position.y, (int)position.z));
     }

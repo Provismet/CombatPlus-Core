@@ -8,7 +8,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.HolderSetCodec;
+import net.minecraft.core.registries.codec.HolderSetCodec;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.component.BlocksAttacks;

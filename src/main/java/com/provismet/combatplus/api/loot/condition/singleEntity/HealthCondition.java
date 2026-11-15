@@ -24,8 +24,8 @@ public record HealthCondition (CombatPlusLootContext.Comparison comparison, Leve
 
     @Override
     public boolean test (LootContext lootContext) {
-        if (lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity living) {
-            int enchantmentLevel = Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0);
+        if (lootContext.getOptional(LootContextParams.THIS_ENTITY) instanceof LivingEntity living) {
+            int enchantmentLevel = Objects.requireNonNullElse(lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL), 0);
             return this.comparison.compare(living.getHealth(), value.calculate(enchantmentLevel));
         }
         return false;

@@ -16,7 +16,7 @@ public record IsDualWeaponCondition () implements ItemCondition {
 
     @Override
     public boolean test (LootContext lootContext) {
-        ItemInstance item = lootContext.getOptionalParameter(LootContextParams.TOOL);
+        ItemInstance item = lootContext.getOptional(LootContextParams.TOOL);
         if (item == null) return false;
         return item.is(CombatPlusItemTags.DUAL_WEAPON) || (item instanceof ItemStack stack && stack.getItem() instanceof DualWeapon);
     }

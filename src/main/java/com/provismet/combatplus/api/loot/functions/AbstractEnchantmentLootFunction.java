@@ -4,6 +4,8 @@ import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
+import java.util.Optional;
+
 import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -16,12 +18,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 public abstract class AbstractEnchantmentLootFunction extends LootItemConditionalFunction {
     protected final boolean onlyCompatibleItems;
 
-    protected AbstractEnchantmentLootFunction (List<LootItemCondition> conditions, boolean onlyCompatibleItems) {
-        super(conditions);
+    protected AbstractEnchantmentLootFunction (Optional<Holder<LootItemCondition>> condition, boolean onlyCompatibleItems) {
+        super(condition);
         this.onlyCompatibleItems = onlyCompatibleItems;
     }
 
-    protected static <T extends AbstractEnchantmentLootFunction> Products.P2<RecordCodecBuilder.Mu<T>, List<LootItemCondition>, Boolean> createCodec (RecordCodecBuilder.Instance<T> instance) {
+    protected static <T extends AbstractEnchantmentLootFunction> Products.P2<RecordCodecBuilder.Mu<T>, Optional<Holder<LootItemCondition>>, Boolean> createCodec (RecordCodecBuilder.Instance<T> instance) {
         return AbstractEnchantmentLootFunction.commonFields(instance)
             .and(Codec.BOOL
                 .optionalFieldOf("only_compatible", true)

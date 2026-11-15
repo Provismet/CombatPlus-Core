@@ -27,9 +27,9 @@ public record RelativeHealthCondition (CombatPlusLootContext.Comparison comparis
 
     @Override
     public boolean test (LootContext lootContext) {
-        if (lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity) {
+        if (lootContext.getOptional(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity) {
             float percentage = livingEntity.getHealth() / livingEntity.getMaxHealth();
-            float compareTo = this.value.calculate(Objects.requireNonNullElse(lootContext.getParameter(LootContextParams.ENCHANTMENT_LEVEL), 0));
+            float compareTo = this.value.calculate(Objects.requireNonNullElse(lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL), 0));
             return this.comparison.compare(percentage, compareTo);
         }
         return false;

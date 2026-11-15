@@ -26,8 +26,8 @@ public class ApplyToTargetCondition extends AbstractSingleWrapperCondition {
     public boolean test (LootContext lootContext) {
         LootContext targetContext = CombatPlusLootContext.createSingleEntity(
             lootContext.getLevel(),
-            Objects.requireNonNullElse(lootContext.getOptionalParameter(LootContextParams.ENCHANTMENT_LEVEL), 0),
-            lootContext.getOptionalParameter(CombatPlusLootContextParameters.TARGET_ENTITY),
+            Objects.requireNonNullElse(lootContext.getOptional(LootContextParams.ENCHANTMENT_LEVEL), 0),
+            lootContext.getOptional(CombatPlusLootContextParameters.TARGET_ENTITY),
             null
         );
         return this.condition.test(targetContext);
