@@ -33,6 +33,36 @@ public class DamageTypeTagGenerator extends LilyTagProviders.LilyDamageTypeTagPr
             .add(DamageTypes.INDIRECT_MAGIC)
             .add(DamageTypes.WIND_CHARGE);
 
+        this.builder(CombatPlusDamageTypeTags.IS_WATER);
+        this.builder(CombatPlusDamageTypeTags.IS_EARTH);
+        this.builder(CombatPlusDamageTypeTags.IS_WIND)
+            .add(DamageTypes.WIND_CHARGE)
+            .add(DamageTypes.SONIC_BOOM);
+        this.builder(CombatPlusDamageTypeTags.IS_LIGHT);
+        this.builder(CombatPlusDamageTypeTags.IS_DARK);
+        this.builder(CombatPlusDamageTypeTags.IS_LIFE);
+        this.builder(CombatPlusDamageTypeTags.IS_DEATH)
+            .add(DamageTypes.WITHER)
+            .add(DamageTypes.WITHER_SKULL);
+        this.builder(CombatPlusDamageTypeTags.IS_SPATIAL);
+        this.builder(CombatPlusDamageTypeTags.IS_TEMPORAL);
+        this.builder(CombatPlusDamageTypeTags.IS_VOID);
+
+        this.builder(CombatPlusDamageTypeTags.IS_ELEMENTAL)
+            .addOptionalTag(DamageTypeTags.IS_FIRE)
+            .addOptionalTag(DamageTypeTags.IS_FREEZING)
+            .addOptionalTag(DamageTypeTags.IS_LIGHTNING)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_WATER)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_EARTH)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_WIND)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_LIGHT)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_DARK)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_LIFE)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_DEATH)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_SPATIAL)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_TEMPORAL)
+            .addOptionalTag(CombatPlusDamageTypeTags.IS_VOID);
+
         this.builder(DamageTypeTags.BYPASSES_ARMOR)
             .add(CombatPlusDamageTypes.POISON.getKey());
     }
