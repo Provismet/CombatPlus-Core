@@ -5,7 +5,7 @@
       "required": false
     },
     {
-      "id": "combat-plus:debugger",
+      "id": "combat-plus:debug_sword",
       "required": false
     }
   ]

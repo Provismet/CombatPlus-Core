@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "combat-plus:item/debugger"
+    "model": "combat-plus:item/debug_sword"
   }
 }

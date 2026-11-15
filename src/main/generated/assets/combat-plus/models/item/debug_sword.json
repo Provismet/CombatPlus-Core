@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "combat-plus:item/debugger"
+    "layer0": "combat-plus:item/debug_sword"
   }
 }
